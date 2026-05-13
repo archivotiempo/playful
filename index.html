@@ -594,10 +594,6 @@
       margin-top: 6px;
     }
 
-    #viz .section-title {
-      margin-bottom: 28px;
-    }
-
     #viz .viz-grid > .card {
       display: flex;
       flex-direction: column;
@@ -837,15 +833,32 @@
 
     .timeline {
       display: grid;
-      gap: 12px;
-      grid-template-columns: repeat(auto-fill, minmax(min(100%, 148px), 1fr));
+      gap: clamp(10px, 2vw, 18px);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-auto-rows: 1fr;
       margin-top: var(--gap-lg);
       padding-bottom: 4px;
     }
 
-    @media (min-width: 1100px) {
+    @media (min-width: 600px) {
       .timeline {
-        grid-template-columns: repeat(8, minmax(0, 1fr));
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 599px) {
+      .era {
+        min-height: 118px;
+        padding: 12px 10px;
+      }
+
+      .era .icon {
+        font-size: 26px;
+        margin-bottom: 8px;
+      }
+
+      .era span {
+        font-size: 12px;
       }
     }
 
@@ -1327,12 +1340,33 @@
 
     .viz-sigma-host {
       width: 100%;
-      height: min(400px, 52dvh);
-      min-height: 280px;
-      border-radius: 18px;
-      background: rgba(255,250,241,.55);
-      border: 1px solid rgba(74,45,23,.12);
+      height: min(460px, 58dvh);
+      min-height: 320px;
+      border-radius: 24px;
       position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse 78% 72% at 50% 45%, rgba(255,250,241,.98) 0%, rgba(241,223,189,.42) 52%, rgba(199,150,61,.12) 100%),
+        linear-gradient(165deg, rgba(255,250,241,.55), rgba(232,214,180,.28));
+      border: 1px solid rgba(74,45,23,.14);
+      box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,.45),
+        0 14px 36px rgba(74,45,23,.1);
+    }
+
+    .viz-sigma-host::after {
+      content: "";
+      position: absolute;
+      inset: 12%;
+      border-radius: 50%;
+      border: 1px dashed rgba(122,76,37,.14);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .viz-sigma-host canvas {
+      position: relative;
+      z-index: 1;
     }
 
     .viz-refs a {
@@ -1438,8 +1472,8 @@
         justify-content: center;
       }
       .viz-sigma-host {
-        height: min(320px, 46dvh);
-        min-height: 220px;
+        height: min(380px, 52dvh);
+        min-height: 280px;
       }
 
       #viz .viz-chart-slot:not(.viz-chart-slot--plot) #cy-galp {
@@ -1662,14 +1696,7 @@
       </div>
     </section>
 
-    <section class="wrap section" id="viz" aria-labelledby="viz-title">
-      <div class="section-title">
-        <div>
-          <h2 id="viz-title">Visualización del diseño</h2>
-          <p class="section-kicker">Gráficos y diagramas que apoyan el diseño: flujo de sesión, progresión por era, carga cognitiva, vínculos GALP con la dinámica y facetas STEAM.</p>
-        </div>
-      </div>
-
+    <section class="wrap section" id="viz" aria-label="Gráficos y diagramas del diseño">
       <div class="viz-grid">
         <article class="card">
           <h3>Flujo narrativo y de sesión</h3>
@@ -2288,21 +2315,36 @@ gantt
       if (!Sigma) throw new Error('Sigma export no encontrado');
 
       var labels = ['Dinos', 'Prehist.', 'Antigua', 'Media', 'Moderna', 'Contemp.', 'Digital', 'Futuro'];
+      var nodeColors = [
+        '#f2e2c4',
+        '#f5d9b8',
+        '#ead8b8',
+        '#e2d2ea',
+        '#c8e0ed',
+        '#cfe8d8',
+        '#c9d8f2',
+        '#efd6cc'
+      ];
       var graph = new Graph({ type: 'undirected' });
       var n = labels.length;
-      var R = 2.3;
+      var R = 3.85;
+      var nodeSize = 26;
       for (var i = 0; i < n; i++) {
         var ang = (2 * Math.PI * i) / n - Math.PI / 2;
         graph.addNode(String(i), {
           label: labels[i],
           x: Math.cos(ang) * R,
           y: Math.sin(ang) * R,
-          size: 18,
-          color: '#ead8b8'
+          size: nodeSize,
+          color: nodeColors[i]
         });
       }
       for (var j = 0; j < n; j++) {
-        graph.addEdge(String(j), String((j + 1) % n), { size: 2.5, color: '#7a4c25' });
+        var t = j / n;
+        graph.addEdge(String(j), String((j + 1) % n), {
+          size: 3.2 + (j % 2) * 0.35,
+          color: 'rgba(122,76,37,' + String(0.32 + t * 0.18) + ')'
+        });
       }
 
       function lockSigmaZoom(s) {
@@ -2311,7 +2353,20 @@ gantt
         s.setSetting('maxCameraRatio', r);
       }
 
-      var renderer = new Sigma(graph, host);
+      var renderer = new Sigma(graph, host, {
+        renderLabels: true,
+        labelSize: 14,
+        labelWeight: '800',
+        labelColor: '#2b2118',
+        stagePadding: 44,
+        labelDensity: 0.06,
+        labelGridCellSize: 72,
+        labelRenderedSizeThreshold: 0,
+        defaultEdgeColor: 'rgba(122,76,37,.4)',
+        zIndex: true,
+        hideEdgesOnMove: false,
+        hideLabelsOnMove: false
+      });
       requestAnimationFrame(function () {
         lockSigmaZoom(renderer);
       });
