@@ -1174,6 +1174,52 @@
       background: linear-gradient(180deg, rgba(255, 251, 235, 0.5) 0%, rgba(248, 250, 252, 0.95) 100%);
     }
 
+    #viz .mermaid-wrap--gantt svg {
+      font-family: Inter, system-ui, -apple-system, sans-serif;
+    }
+
+    #viz .viz-sigma-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    #viz .viz-era-chips {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 4px 2px;
+      margin: 0;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(255, 251, 235, 0.65);
+      border: 1px dashed rgba(180, 83, 9, 0.22);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+      line-height: 1.45;
+    }
+
+    #viz .viz-era-chips__item {
+      display: inline-block;
+      padding: 2px 4px;
+      border-radius: 6px;
+    }
+
+    #viz .viz-era-chips__item--start {
+      color: var(--amber-accent);
+      font-weight: 800;
+      background: rgba(255, 255, 255, 0.65);
+      box-shadow: 0 0 0 1px rgba(253, 230, 138, 0.9);
+    }
+
+    #viz .viz-era-chips .viz-era-sep {
+      color: rgba(180, 83, 9, 0.45);
+      font-weight: 600;
+      padding: 0 2px;
+    }
+
     #viz .viz-sigma-host {
       border-radius: 18px;
       border-style: dashed;
@@ -2409,7 +2455,7 @@ flowchart LR
               <p class="xr-card-lede"><strong>Gantt</strong> solo como idea de tiempos: entrada corta, bloque largo de juego y cierre. Las fechas son <strong>ejemplo</strong> para separar el eje; lo importante son las proporciones entre fases.</p>
               <div class="mermaid-wrap mermaid-wrap--gantt">
                 <pre class="mermaid">
-%%{init: {'gantt': {'barHeight': 28, 'barGap': 12, 'topPadding': 56, 'leftPadding': 24, 'gridLineStartPadding': 320, 'fontSize': 13, 'sectionFontSize': 13, 'numberSectionStyles': 3}}}%%
+%%{init: {'gantt': {'titleTopMargin': 26, 'barHeight': 26, 'barGap': 12, 'topPadding': 72, 'rightPadding': 28, 'leftPadding': 148, 'gridLineStartPadding': 52, 'fontSize': 12, 'sectionFontSize': 12, 'numberSectionStyles': 3, 'topAxis': false}}}%%
 gantt
     title Idea de tiempos en una sesión
     dateFormat YYYY-MM-DD
@@ -2432,6 +2478,7 @@ gantt
 
         <article class="card">
           <h3>Progresión competencial por era</h3>
+          <p class="viz-journey-step" aria-hidden="true"><i class="fa-solid fa-chart-pie"></i> Datos</p>
           <p class="xr-card-lede">Radar ilustrativo de intensidad didáctica estimada por módulo (valores orientativos para diseño).</p>
           <div class="viz-chart-slot">
             <div id="chart-eras" role="img" aria-label="Gráfico radar de progresión por era histórica"></div>
@@ -2440,6 +2487,7 @@ gantt
 
         <article class="card">
           <h3>Curva de carga cognitiva por fase</h3>
+          <p class="viz-journey-step" aria-hidden="true"><i class="fa-solid fa-wave-square"></i> Ritmo atencional</p>
           <p class="xr-card-lede">Línea de tendencia para equilibrar picos de atención con pausas y refuerzo positivo.</p>
           <div class="viz-chart-slot">
             <canvas id="chart-steam" aria-label="Gráfico de líneas de carga cognitiva por era"></canvas>
@@ -2448,7 +2496,8 @@ gantt
 
         <article class="card">
           <h3>Mapa conceptual GALP ↔ dinámica</h3>
-          <p class="xr-card-lede">Red de apoyos entre principios centrales y elementos jugables de la maleta.</p>
+          <p class="viz-journey-step" aria-hidden="true"><i class="fa-solid fa-sitemap"></i> Mapa</p>
+          <p class="xr-card-lede">Red de apoyos entre principios centrales y elementos jugables de la maleta. Lectura sugerida: de abajo hacia arriba, la <strong>maleta</strong> integra propósito, inclusión y cooperación; <strong>autonomía</strong> y <strong>feedback</strong> alimentan pasaporte y validación.</p>
           <div class="viz-chart-slot">
             <div id="cy-galp" role="application" aria-label="Grafo interactivo GALP y mecánicas"></div>
           </div>
@@ -2456,6 +2505,7 @@ gantt
 
         <article class="card viz-span-2">
           <h3>Facetas STEAM por era</h3>
+          <p class="viz-journey-step" aria-hidden="true"><i class="fa-solid fa-flask"></i> STEAM</p>
           <!-- <p class="xr-card-lede">Barras declarativas con una gramática de gráficos orientada a datos; útil para iterar valores reales de evaluación.</p> -->
           <div class="viz-chart-slot viz-chart-slot--plot">
             <div id="plot-steam" role="img" aria-label="Gráfico de barras STEAM por era"></div>
@@ -2464,8 +2514,14 @@ gantt
 
         <article class="card viz-span-2">
           <h3>Red circular de eras</h3>
-          <!-- <p class="xr-card-lede">Visualización WebGL adecuada para <strong>grafos grandes</strong>. Complementa el mapa conceptual: allí predominan las relaciones pedagógicas abstractas; aquí se ve la <strong>topología del recorrido temporal</strong> (anillo de eras conectadas).</p> -->
-          <div id="sigma-eras" class="viz-sigma-host" role="application" aria-label="Grafo circular de eras del pasaporte"></div>
+          <p class="viz-journey-step" aria-hidden="true"><i class="fa-solid fa-route"></i> Topología</p>
+          <p class="xr-card-lede">Misma secuencia que el pasaporte en <strong>sentido horario</strong>. La primera arista (Dinos → Prehist.) marca el arranque del recorrido; la unión Futuro–Dinos es solo cierre del anillo, no un “salto” didáctico.</p>
+          <div class="viz-sigma-wrap">
+            <div id="sigma-eras" class="viz-sigma-host" role="application" aria-label="Grafo circular de eras del pasaporte"></div>
+            <p class="viz-era-chips" aria-label="Orden del anillo en sentido horario: Dinos, Prehistoria, Antigua, Media, Moderna, Contemporánea, Digital, Futuro">
+              <span class="viz-era-chips__item viz-era-chips__item--start">Dinos</span><span class="viz-era-sep" aria-hidden="true">→</span><span class="viz-era-chips__item">Prehist.</span><span class="viz-era-sep" aria-hidden="true">→</span><span class="viz-era-chips__item">Antigua</span><span class="viz-era-sep" aria-hidden="true">→</span><span class="viz-era-chips__item">Media</span><span class="viz-era-sep" aria-hidden="true">→</span><span class="viz-era-chips__item">Moderna</span><span class="viz-era-sep" aria-hidden="true">→</span><span class="viz-era-chips__item">Contemp.</span><span class="viz-era-sep" aria-hidden="true">→</span><span class="viz-era-chips__item">Digital</span><span class="viz-era-sep" aria-hidden="true">→</span><span class="viz-era-chips__item">Futuro</span>
+            </p>
+          </div>
         </article>
       </div>
 
@@ -2709,14 +2765,17 @@ gantt
           curve: 'basis'
         },
         gantt: {
+          titleTopMargin: 26,
           barHeight: 26,
-          barGap: 10,
-          topPadding: 50,
-          leftPadding: 20,
-          gridLineStartPadding: 280,
-          fontSize: 13,
-          sectionFontSize: 13,
-          numberSectionStyles: 3
+          barGap: 12,
+          topPadding: 72,
+          rightPadding: 28,
+          leftPadding: 148,
+          gridLineStartPadding: 52,
+          fontSize: 12,
+          sectionFontSize: 12,
+          numberSectionStyles: 3,
+          topAxis: false
         },
         themeVariables: {
           primaryColor: '#fffbeb',
@@ -2731,7 +2790,15 @@ gantt
           clusterBkg: '#fffbeb',
           titleColor: '#0f172a',
           edgeLabelBackground: '#ffffff',
-          fontSize: '14px'
+          fontSize: '14px',
+          gridColor: 'rgba(148, 163, 184, 0.35)',
+          sectionBkgColor: '#f8fafc',
+          taskBkgColor: '#fffbeb',
+          taskBorderColor: '#f59e0b',
+          taskTextColor: '#0f172a',
+          taskTextLightColor: '#0f172a',
+          activeTaskBkgColor: '#fef3c7',
+          doneTaskBkgColor: '#e2e8f0'
         }
       });
     }
@@ -2776,12 +2843,12 @@ gantt
           datasets: [{
             label: 'Carga cognitiva estimada (ejemplo)',
             data: [28, 35, 44, 48, 52, 58, 62, 55],
-            borderColor: '#2563eb',
-            backgroundColor: 'rgba(37, 99, 235, 0.12)',
+            borderColor: '#b45309',
+            backgroundColor: 'rgba(217, 119, 6, 0.14)',
             tension: 0.35,
             fill: true,
             pointRadius: 4,
-            pointBackgroundColor: '#b45309'
+            pointBackgroundColor: '#92400e'
           }]
         },
         options: {
@@ -2800,13 +2867,13 @@ gantt
       var cy = window.cytoscape({
         container: document.getElementById('cy-galp'),
         elements: [
-          { data: { id: 'maleta', label: 'Maleta' } },
-          { data: { id: 'pasaporte', label: 'Pasaporte' } },
-          { data: { id: 'p1', label: 'Propósito' } },
-          { data: { id: 'p2', label: 'Autonomía' } },
-          { data: { id: 'p3', label: 'Feedback' } },
-          { data: { id: 'p4', label: 'Inclusión' } },
-          { data: { id: 'p5', label: 'Cooperación' } },
+          { data: { id: 'maleta', label: 'Maleta', kind: 'anchor' }, position: { x: 260, y: 240 } },
+          { data: { id: 'pasaporte', label: 'Pasaporte', kind: 'artifact' }, position: { x: 430, y: 118 } },
+          { data: { id: 'p1', label: 'Propósito', kind: 'principle' }, position: { x: 120, y: 340 } },
+          { data: { id: 'p2', label: 'Autonomía', kind: 'principle' }, position: { x: 268, y: 72 } },
+          { data: { id: 'p3', label: 'Feedback', kind: 'principle' }, position: { x: 360, y: 168 } },
+          { data: { id: 'p4', label: 'Inclusión', kind: 'principle' }, position: { x: 200, y: 392 } },
+          { data: { id: 'p5', label: 'Cooperación', kind: 'principle' }, position: { x: 72, y: 168 } },
           { data: { source: 'p1', target: 'maleta' } },
           { data: { source: 'p2', target: 'maleta' } },
           { data: { source: 'p3', target: 'pasaporte' } },
@@ -2818,52 +2885,81 @@ gantt
         style: [
           { selector: 'node', style: {
             'label': 'data(label)',
-            'font-size': '13px',
+            'font-family': 'Inter, system-ui, sans-serif',
+            'font-size': '12px',
             'font-weight': '700',
             'text-wrap': 'wrap',
-            'text-max-width': '110px',
+            'text-max-width': '120px',
             'text-valign': 'center',
             'text-halign': 'center',
-            'background-color': '#fef3c7',
-            'border-width': 2,
-            'border-color': '#b45309',
             'color': '#0f172a',
-            'width': 'label',
-            'height': 'label',
-            'padding': '14px',
-            'shape': 'roundrectangle'
+            'border-width': 2
+          }},
+          { selector: 'node[kind = "anchor"]', style: {
+            'shape': 'roundrectangle',
+            'width': 132,
+            'height': 52,
+            'font-size': '14px',
+            'background-color': '#fffbeb',
+            'border-color': '#d97706',
+            'border-width': 3
+          }},
+          { selector: 'node[kind = "artifact"]', style: {
+            'shape': 'roundrectangle',
+            'width': 118,
+            'height': 46,
+            'font-size': '13px',
+            'background-color': '#eff6ff',
+            'border-color': '#3b82f6',
+            'border-width': 2
+          }},
+          { selector: 'node[kind = "principle"]', style: {
+            'shape': 'ellipse',
+            'width': 108,
+            'height': 44,
+            'font-size': '11px',
+            'font-weight': '600',
+            'background-color': '#fffbeb',
+            'border-color': 'rgba(180, 83, 9, 0.55)',
+            'border-width': 1.5
           }},
           { selector: 'edge', style: {
             'width': 2,
-            'line-color': '#b45309',
-            'target-arrow-color': '#b45309',
+            'line-color': 'rgba(180, 83, 9, 0.55)',
+            'target-arrow-color': 'rgba(180, 83, 9, 0.55)',
             'target-arrow-shape': 'triangle',
-            'curve-style': 'bezier',
-            'opacity': 0.75
+            'curve-style': 'taxi',
+            'taxi-direction': 'auto',
+            'taxi-turn': 24,
+            'taxi-gap': 8,
+            'arrow-scale': 1.1,
+            'opacity': 0.92
+          }},
+          { selector: 'edge[source = "p2"][target = "pasaporte"]', style: {
+            'line-color': 'rgba(37, 99, 235, 0.45)',
+            'target-arrow-color': 'rgba(37, 99, 235, 0.45)'
+          }},
+          { selector: 'edge[source = "p3"][target = "pasaporte"]', style: {
+            'line-color': 'rgba(37, 99, 235, 0.45)',
+            'target-arrow-color': 'rgba(37, 99, 235, 0.45)'
           }}
         ],
         layout: {
-          name: 'cose',
-          animate: !reduceMotion,
-          randomize: false,
-          padding: 48,
-          componentSpacing: 100,
-          nodeOverlap: 4,
-          idealEdgeLength: 140,
-          nodeRepulsion: 14000,
-          gravity: 0.22,
-          numIter: 4000
+          name: 'preset',
+          animate: !reduceMotion
         },
-        userZoomingEnabled: false
+        userZoomingEnabled: false,
+        userPanningEnabled: false,
+        boxSelectionEnabled: false
       });
       setTimeout(function () {
         cy.resize();
-        cy.fit(undefined, 36);
+        cy.fit(undefined, 40);
       }, 120);
       if (window.ResizeObserver) {
         new ResizeObserver(function () {
           cy.resize();
-          cy.fit(undefined, 36);
+          cy.fit(undefined, 40);
         }).observe(document.getElementById('cy-galp'));
       }
     }
@@ -3003,18 +3099,18 @@ gantt
       var labels = ['Dinos', 'Prehist.', 'Antigua', 'Media', 'Moderna', 'Contemp.', 'Digital', 'Futuro'];
       var nodeColors = [
         '#fffbeb',
+        '#fef9c3',
         '#fef3c7',
+        '#ffedd5',
         '#fde68a',
-        '#e2e8f0',
-        '#cbd5e1',
-        '#94a3b8',
-        '#64748b',
-        '#475569'
+        '#fcd34d',
+        '#fbbf24',
+        '#f59e0b'
       ];
       var graph = new Graph({ type: 'undirected' });
       var n = labels.length;
-      var R = 3.85;
-      var nodeSize = 26;
+      var R = 4.05;
+      var nodeSize = 24;
       for (var i = 0; i < n; i++) {
         var ang = (2 * Math.PI * i) / n - Math.PI / 2;
         graph.addNode(String(i), {
@@ -3026,10 +3122,14 @@ gantt
         });
       }
       for (var j = 0; j < n; j++) {
-        var t = j / n;
-        graph.addEdge(String(j), String((j + 1) % n), {
-          size: 3.2 + (j % 2) * 0.35,
-          color: 'rgba(180, 83, 9,' + String(0.28 + t * 0.22) + ')'
+        var next = (j + 1) % n;
+        var isClosing = j === n - 1;
+        var isStart = j === 0;
+        graph.addEdge(String(j), String(next), {
+          size: isClosing ? 1.35 : (isStart ? 3.6 : 2.6),
+          color: isClosing
+            ? 'rgba(148, 163, 184, 0.28)'
+            : (isStart ? 'rgba(217, 119, 6, 0.52)' : 'rgba(180, 83, 9, 0.32)')
         });
       }
 
@@ -3041,12 +3141,14 @@ gantt
 
       var renderer = new Sigma(graph, host, {
         renderLabels: true,
-        labelSize: 14,
-        labelWeight: '800',
-        labelColor: '#0f172a',
-        stagePadding: 44,
-        labelDensity: 0.06,
-        labelGridCellSize: 72,
+        labelFont: 'Inter, system-ui, sans-serif',
+        labelSize: 13,
+        labelWeight: '700',
+        labelColor: { color: '#0f172a' },
+        defaultNodeColor: '#fffbeb',
+        stagePadding: 52,
+        labelDensity: 1,
+        labelGridCellSize: 64,
         labelRenderedSizeThreshold: 0,
         defaultEdgeColor: 'rgba(180, 83, 9, 0.38)',
         zIndex: true,
