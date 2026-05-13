@@ -1,0 +1,1900 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sprint 1 · Playful Learning · La Maleta del Tiempo</title>
+  <meta name="description" content="Sprint 1 de Playful Learning: La Maleta del Tiempo, una experiencia lúdica e inmersiva para desarrollar competencias STEAM desde un enfoque inclusivo." />
+  <meta name="author" content="Raquel Cuesta Barberá" />
+  <meta name="theme-color" content="#7a4c25" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f7efe2;
+      --paper: #fffaf1;
+      --ink: #2b2118;
+      --muted: #6f5f4b;
+      --brown: #7a4c25;
+      --brown-dark: #4a2d17;
+      --gold: #c7963d;
+      --sand: #ead8b8;
+      --green: #6f8f54;
+      --blue: #3f6f85;
+      --red: #a14e3d;
+      --shadow: 0 18px 50px rgba(74,45,23,.16);
+      --radius: 28px;
+      --gap: 18px;
+      --gap-lg: 24px;
+      --wrap-inline: clamp(16px, 4vw, 32px);
+      --bp-md: 720px;
+      --bp-lg: 1040px;
+      --bp-xl: 1200px;
+      --viz-chart-h: clamp(220px, 42vmin, 340px);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .btn { transition: none; }
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 12px;
+      z-index: 100;
+      padding: 12px 18px;
+      border-radius: 14px;
+      background: var(--brown-dark);
+      color: #fff8ea;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .skip-link:focus {
+      left: 16px;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(199,150,61,.18), transparent 26%),
+        radial-gradient(circle at 90% 4%, rgba(63,111,133,.14), transparent 24%),
+        linear-gradient(180deg, #f9f0df 0%, #f3e6cf 50%, #efe0c5 100%);
+      color: var(--ink);
+      line-height: 1.65;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .26;
+      background-image:
+        linear-gradient(rgba(74,45,23,.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(74,45,23,.08) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, black, transparent 80%);
+    }
+
+    a { color: inherit; }
+
+    .wrap {
+      width: min(1120px, calc(100% - 2 * var(--wrap-inline)));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      background: rgba(247, 239, 226, .78);
+      border-bottom: 1px solid rgba(74,45,23,.12);
+    }
+
+    header .wrap {
+      display: block;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 12px var(--gap);
+      padding: 14px 0 10px;
+      min-width: 0;
+    }
+
+    #nav-desktop {
+      margin-left: auto;
+      min-width: 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      color: var(--brown-dark);
+      min-width: 0;
+    }
+
+    .brand span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--brown), var(--gold));
+      color: #fff7e8;
+      box-shadow: 0 10px 24px rgba(122,76,37,.22);
+      font-size: 20px;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px 12px;
+      align-items: center;
+      font-size: 13px;
+      color: var(--muted);
+      min-width: 0;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover { color: var(--brown-dark); }
+
+    .nav-more {
+      display: none;
+      margin: 0;
+      margin-left: auto;
+      position: relative;
+      max-width: 100%;
+    }
+
+    .nav-more summary {
+      cursor: pointer;
+      font-weight: 800;
+      color: var(--brown-dark);
+      list-style: none;
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(74,45,23,.18);
+      background: rgba(255,250,241,.85);
+      text-align: center;
+    }
+
+    .nav-more summary:focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 2px;
+    }
+
+    .nav-more summary::-webkit-details-marker { display: none; }
+
+    .nav-more .nav-links {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 18px;
+      background: rgba(255,250,241,.92);
+      border: 1px solid rgba(74,45,23,.12);
+      gap: 4px;
+      max-width: min(360px, calc(100vw - 2 * var(--wrap-inline)));
+      box-sizing: border-box;
+    }
+
+    .nav-more .nav-links a {
+      white-space: normal;
+      padding: 10px 12px;
+      border-radius: 12px;
+    }
+
+    .nav-more .nav-links a:hover {
+      background: rgba(122,76,37,.08);
+    }
+
+    .hero {
+      padding: 86px 0 54px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+      gap: clamp(var(--gap), 4vw, 42px);
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(122,76,37,.22);
+      background: rgba(255,250,241,.68);
+      color: var(--brown-dark);
+      padding: 8px 13px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    h1, h2, h3 {
+      font-family: Fraunces, Georgia, serif;
+      line-height: 1.06;
+      color: var(--brown-dark);
+      margin: 0;
+    }
+
+    h1 {
+      margin-top: 24px;
+      font-size: clamp(44px, 7vw, 82px);
+      letter-spacing: -.055em;
+    }
+
+    .subtitle {
+      max-width: min(680px, 100%);
+      margin: 22px 0 0;
+      font-size: clamp(17px, 2.2vw, 23px);
+      color: #4f4032;
+      overflow-wrap: anywhere;
+      hyphens: auto;
+    }
+
+    .hero > div:first-child {
+      min-width: 0;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 32px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(74,45,23,.18);
+      text-decoration: none;
+      font-weight: 800;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn.primary {
+      color: #fff8ea;
+      background: linear-gradient(135deg, var(--brown-dark), var(--brown));
+      box-shadow: 0 14px 30px rgba(74,45,23,.24);
+    }
+
+    .btn.secondary {
+      background: rgba(255,250,241,.72);
+      color: var(--brown-dark);
+    }
+
+    .suitcase-card {
+      position: relative;
+      min-height: 520px;
+      border-radius: 38px;
+      background:
+        linear-gradient(145deg, rgba(255,250,241,.88), rgba(232,209,166,.78)),
+        repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(122,76,37,.06) 10px, rgba(122,76,37,.06) 12px);
+      border: 1px solid rgba(122,76,37,.22);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      padding: 32px;
+    }
+
+    #three-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.4;
+    }
+
+    .suitcase-card .era-badge { z-index: 2; }
+    .suitcase-card .suitcase { z-index: 1; }
+    .suitcase-card .lock { z-index: 3; }
+
+    .suitcase {
+      position: absolute;
+      left: 50%;
+      top: 52%;
+      transform: translate(-50%, -50%);
+      width: min(78%, 360px);
+      aspect-ratio: 1.15 / .82;
+      border-radius: 26px;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.18), transparent 30%, rgba(0,0,0,.06)),
+        #7b4b2b;
+      border: 10px solid #4c2c18;
+      box-shadow: inset 0 0 0 3px rgba(255,255,255,.16), 0 24px 50px rgba(43,33,24,.26);
+    }
+
+    .suitcase::before {
+      content: "";
+      position: absolute;
+      width: 40%;
+      height: 30%;
+      border: 9px solid #4c2c18;
+      border-bottom: none;
+      border-radius: 24px 24px 0 0;
+      left: 50%;
+      top: -32%;
+      transform: translateX(-50%);
+    }
+
+    .suitcase::after {
+      content: "";
+      position: absolute;
+      inset: 46% 0 auto 0;
+      height: 10px;
+      background: #4c2c18;
+    }
+
+    .lock {
+      position: absolute;
+      width: 54px;
+      height: 44px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #d5a94d, #a87224);
+      border: 4px solid #4c2c18;
+      left: 50%;
+      top: 41%;
+      transform: translateX(-50%);
+      z-index: 2;
+    }
+
+    .era-badge {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      width: 72px;
+      height: 72px;
+      border-radius: 24px;
+      background: rgba(255,250,241,.86);
+      border: 1px solid rgba(74,45,23,.15);
+      box-shadow: 0 12px 24px rgba(43,33,24,.12);
+      font-size: 31px;
+    }
+
+    .era-badge:nth-of-type(1) { right: 26px; top: 34px; }
+    .era-badge:nth-of-type(2) { left: 24px; top: 120px; }
+    .era-badge:nth-of-type(3) { right: 44px; bottom: 102px; }
+    .era-badge:nth-of-type(4) { left: 54px; bottom: 42px; }
+
+    .section {
+      padding: 54px 0;
+    }
+
+    .section-title {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      align-items: start;
+      gap: 10px;
+      margin-bottom: var(--gap-lg);
+    }
+
+    h2 {
+      font-size: clamp(32px, 4.5vw, 52px);
+      letter-spacing: -.035em;
+    }
+
+    .section-kicker {
+      margin: 8px 0 0;
+      max-width: min(680px, 100%);
+      color: var(--muted);
+      font-size: clamp(15px, 2.8vw, 17px);
+      line-height: 1.5;
+    }
+
+    .grid {
+      display: grid;
+      gap: var(--gap);
+    }
+
+    .grid.two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid.two > *,
+    .grid.three > *,
+    .grid.four > * {
+      min-width: 0;
+    }
+
+    .grid.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid.four {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .card {
+      background: rgba(255,250,241,.82);
+      border: 1px solid rgba(74,45,23,.14);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: 0 12px 30px rgba(74,45,23,.08);
+    }
+
+    .card h3 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      letter-spacing: -.02em;
+    }
+
+    .card p, .card li {
+      color: #514235;
+    }
+
+    .card code {
+      font-size: 0.88em;
+      word-break: break-word;
+      background: rgba(122,76,37,.1);
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .tag {
+      padding: 8px 11px;
+      background: #f1dfbd;
+      border: 1px solid rgba(74,45,23,.12);
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 13px;
+      color: var(--brown-dark);
+    }
+
+    .persona {
+      display: grid;
+      grid-template-columns: minmax(0, 280px) minmax(0, 1fr);
+      gap: var(--gap-lg);
+      align-items: stretch;
+    }
+
+    .persona .callout {
+      grid-column: 1 / -1;
+    }
+
+    .persona .grid.two {
+      align-content: start;
+    }
+
+    .persona-profile {
+      background: linear-gradient(145deg, #7a4c25, #4a2d17);
+      color: #fff8ea;
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .persona-profile::after {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: rgba(199,150,61,.22);
+      right: -60px;
+      bottom: -70px;
+    }
+
+    .avatar {
+      width: 108px;
+      height: 108px;
+      border-radius: 34px;
+      display: grid;
+      place-items: center;
+      background: rgba(255,250,241,.16);
+      border: 1px solid rgba(255,250,241,.22);
+      font-size: 54px;
+      margin-bottom: 18px;
+    }
+
+    .persona-profile h3 { color: #fff8ea; font-size: 32px; }
+    .persona-profile p { color: rgba(255,248,234,.82); margin: 8px 0 0; }
+
+    .timeline {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 148px), 1fr));
+      margin-top: var(--gap-lg);
+      padding-bottom: 4px;
+    }
+
+    @media (min-width: 1100px) {
+      .timeline {
+        grid-template-columns: repeat(8, minmax(0, 1fr));
+      }
+    }
+
+    .era {
+      min-height: 132px;
+      padding: 16px;
+      border-radius: 24px;
+      background: rgba(255,250,241,.86);
+      border: 1px solid rgba(74,45,23,.14);
+      box-shadow: 0 10px 22px rgba(74,45,23,.08);
+    }
+
+    .era .icon { font-size: 32px; margin-bottom: 12px; }
+    .era strong { display: block; color: var(--brown-dark); line-height: 1.2; }
+    .era span { display: block; margin-top: 8px; color: var(--muted); font-size: 13px; }
+
+    .galp-grid {
+      display: grid;
+      gap: var(--gap);
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+    }
+
+    @media (min-width: 1000px) {
+      .galp-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    .principle {
+      border-radius: 24px;
+      padding: 20px;
+      background: rgba(255,250,241,.82);
+      border: 1px solid rgba(74,45,23,.14);
+      min-height: 186px;
+    }
+
+    .number {
+      width: 38px;
+      height: 38px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      color: #fff8ea;
+      background: var(--brown);
+      font-weight: 900;
+      margin-bottom: 14px;
+    }
+
+    .principle h3 { font-size: 20px; }
+    .principle p { margin-bottom: 0; color: var(--muted); font-size: 15px; }
+
+    .game-board {
+      display: grid;
+      gap: var(--gap);
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+    }
+
+    @media (min-width: 900px) {
+      .game-board {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .feature {
+      display: flex;
+      gap: 15px;
+      align-items: flex-start;
+    }
+
+    .feature-icon {
+      width: 46px;
+      height: 46px;
+      flex: 0 0 46px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      background: #f0dfbd;
+      border: 1px solid rgba(74,45,23,.12);
+      font-size: 22px;
+    }
+
+    .feature h3 { font-size: 22px; margin-bottom: 4px; }
+    .feature p { margin: 0; color: var(--muted); }
+
+    .quote {
+      padding: 34px;
+      border-radius: 34px;
+      background: linear-gradient(135deg, rgba(74,45,23,.96), rgba(122,76,37,.92));
+      color: #fff8ea;
+      box-shadow: var(--shadow);
+    }
+
+    .quote p {
+      font-family: Fraunces, Georgia, serif;
+      font-size: clamp(24px, 3vw, 38px);
+      line-height: 1.16;
+      margin: 0;
+    }
+
+    .quote small {
+      display: block;
+      margin-top: 18px;
+      color: rgba(255,248,234,.72);
+      font-weight: 700;
+    }
+
+    .sources {
+      display: grid;
+      gap: 12px;
+    }
+
+    .source-link {
+      display: block;
+      text-decoration: none;
+      padding: 18px 20px;
+      border-radius: 20px;
+      background: rgba(255,250,241,.82);
+      border: 1px solid rgba(74,45,23,.14);
+      color: var(--brown-dark);
+      font-weight: 800;
+    }
+
+    .source-link small {
+      display: block;
+      margin-top: 6px;
+      font-weight: 600;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .callout {
+      border-radius: var(--radius);
+      padding: 22px 24px;
+      background: linear-gradient(135deg, rgba(63,111,133,.12), rgba(111,143,84,.1));
+      border: 1px solid rgba(63,111,133,.22);
+      margin-top: 18px;
+    }
+
+    .callout p { margin: 0; color: #3d342a; font-size: 15px; }
+
+    .callout strong { color: var(--brown-dark); }
+
+    .xr-intro {
+      margin-bottom: var(--gap-lg);
+    }
+
+    .xr-card-lede {
+      margin: 0;
+      color: #514235;
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .xr-grid {
+      display: grid;
+      gap: var(--gap-lg);
+      grid-template-columns: 1fr;
+      align-items: stretch;
+    }
+
+    @media (min-width: 680px) {
+      .xr-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .xr-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .xr-card {
+      border-radius: var(--radius);
+      padding: 22px;
+      background: rgba(255,250,241,.9);
+      border: 1px solid rgba(74,45,23,.14);
+      box-shadow: 0 12px 28px rgba(74,45,23,.07);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-height: 100%;
+    }
+
+    .xr-card header {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .xr-card h3 {
+      font-size: 20px;
+      margin: 0;
+      letter-spacing: -.02em;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pill {
+      font-size: 12px;
+      font-weight: 800;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(74,45,23,.12);
+      background: #f1dfbd;
+      color: var(--brown-dark);
+    }
+
+    .pill.ok { background: rgba(111,143,84,.18); border-color: rgba(111,143,84,.35); }
+    .pill.warn { background: rgba(161,78,61,.12); border-color: rgba(161,78,61,.28); }
+
+    .xr-card dl {
+      margin: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .xr-card dt {
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--brown);
+    }
+
+    .xr-card dd {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .synthesis {
+      margin-top: 22px;
+      padding: 24px;
+      border-radius: 30px;
+      background: rgba(74,45,23,.06);
+      border: 1px dashed rgba(74,45,23,.22);
+    }
+
+    .synthesis h3 { font-size: 22px; margin-bottom: 10px; }
+
+    .synthesis > p {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .objectives-grid {
+      display: grid;
+      gap: var(--gap);
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 560px) {
+      .objectives-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 1040px) {
+      .objectives-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 720px) {
+      .sources {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .matrix-wrap {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-top: 0;
+      border-radius: 18px;
+      border: 1px solid rgba(74,45,23,.14);
+      background: rgba(255,250,241,.4);
+    }
+
+    .matrix {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin: 0;
+      min-width: 640px;
+      border-radius: 0;
+      overflow: hidden;
+      border: none;
+    }
+
+    .matrix th,
+    .matrix td {
+      padding: 14px 16px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid rgba(74,45,23,.1);
+    }
+
+    .matrix th {
+      background: rgba(122,76,37,.12);
+      color: var(--brown-dark);
+      font-family: Fraunces, Georgia, serif;
+      font-size: 15px;
+    }
+
+    .matrix tr:last-child td { border-bottom: none; }
+
+    .matrix td { color: #514235; background: rgba(255,250,241,.65); }
+
+    .viz-grid {
+      display: grid;
+      gap: var(--gap-lg);
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      align-items: stretch;
+    }
+
+    .viz-grid > * {
+      grid-column: 1 / -1;
+      min-width: 0;
+    }
+
+    @media (min-width: 720px) {
+      .viz-grid > *:not(.viz-span-2) {
+        grid-column: span 6;
+      }
+
+      .viz-grid > .viz-span-2 {
+        grid-column: 1 / -1;
+      }
+    }
+
+    #viz .viz-grid > .card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .viz-mermaid-stack {
+      margin-top: 12px;
+    }
+
+    .viz-chart-slot {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      min-height: var(--viz-chart-h);
+      height: var(--viz-chart-h);
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .viz-chart-slot--plot {
+      height: auto;
+      min-height: max(280px, var(--viz-chart-h));
+    }
+
+    .viz-chart-slot > * {
+      flex: 1;
+      min-height: 0;
+      min-width: 0;
+    }
+
+    .viz-chart-slot--plot > #plot-steam {
+      flex: 1 1 auto;
+      min-height: 280px;
+    }
+
+    .viz-chart-slot canvas {
+      display: block;
+      width: 100% !important;
+      height: 100% !important;
+      max-height: min(360px, 48vh);
+    }
+
+    .mermaid-wrap {
+      overflow-x: auto;
+      border-radius: 18px;
+      background: rgba(255,250,241,.5);
+      padding: 12px;
+      min-height: 200px;
+    }
+
+    .mermaid-wrap .mermaid {
+      display: flex;
+      justify-content: center;
+    }
+
+    .mermaid-wrap svg {
+      max-width: 100%;
+      height: auto;
+    }
+
+    #viz .viz-chart-slot #chart-eras,
+    #viz .viz-chart-slot #chart-steam {
+      width: 100%;
+      flex: 1 1 auto;
+      min-height: 0;
+    }
+
+    #cy-galp {
+      border-radius: 18px;
+      background: rgba(255,250,241,.5);
+      border: 1px solid rgba(74,45,23,.12);
+    }
+
+    #viz .viz-chart-slot:not(.viz-chart-slot--plot) #cy-galp {
+      height: clamp(240px, 52dvh, 380px);
+      width: 100%;
+      flex: 1 1 auto;
+      min-height: 220px;
+    }
+
+    #plot-steam {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    #plot-steam svg {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .viz-sigma-host {
+      width: 100%;
+      height: min(400px, 52dvh);
+      min-height: 280px;
+      border-radius: 18px;
+      background: rgba(255,250,241,.55);
+      border: 1px solid rgba(74,45,23,.12);
+      position: relative;
+    }
+
+    .viz-refs a {
+      color: var(--brown);
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .viz-refs a:hover {
+      color: var(--brown-dark);
+    }
+
+    .viz-refs {
+      margin-top: var(--gap-lg);
+    }
+
+    .viz-refs ul {
+      margin: 0;
+      padding-left: 1.2rem;
+      color: #514235;
+    }
+
+    .viz-refs li { margin-bottom: 8px; }
+
+    footer {
+      padding: 44px 0 60px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 1039px) {
+      header .wrap > nav .nav-links#nav-desktop {
+        display: none;
+      }
+
+      .nav-more {
+        display: block;
+      }
+
+      nav {
+        padding-bottom: 6px;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 52px;
+        padding-bottom: 40px;
+      }
+
+      .hero .suitcase-card {
+        max-width: 520px;
+        margin-inline: auto;
+        width: 100%;
+      }
+
+      .persona {
+        grid-template-columns: 1fr;
+      }
+
+      .persona-profile {
+        max-width: 100%;
+      }
+
+      .grid.two,
+      .grid.four {
+        grid-template-columns: 1fr;
+      }
+
+      .suitcase-card { min-height: 400px; }
+    }
+
+    @media (max-width: 719px) {
+      .section { padding: 40px 0; }
+      .card,
+      .xr-card,
+      .principle,
+      .quote { padding: 20px; }
+      .hero { padding-top: 44px; }
+      .suitcase-card { min-height: 340px; padding: 22px; }
+      .era-badge { width: 56px; height: 56px; border-radius: 18px; font-size: 24px; }
+      .matrix { font-size: 13px; min-width: 580px; }
+      .matrix th,
+      .matrix td { padding: 12px 14px; }
+      .viz-chart-slot:not(.viz-chart-slot--plot) {
+        min-height: clamp(200px, 46vmin, 300px);
+        height: clamp(200px, 46vmin, 300px);
+      }
+      .viz-chart-slot--plot {
+        min-height: 260px;
+      }
+      .hero-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+        width: 100%;
+      }
+      .hero-actions .btn {
+        width: 100%;
+        justify-content: center;
+      }
+      .viz-sigma-host {
+        height: min(320px, 46dvh);
+        min-height: 220px;
+      }
+    }
+
+    @media print {
+      header, .hero-actions, .nav-more, .skip-link { display: none; }
+      #three-canvas { display: none !important; }
+      #sigma-eras { display: none !important; }
+      body { background: white; }
+      body::before { display: none; }
+      .section, .hero { padding: 22px 0; }
+      .card, .principle, .era, .quote, .persona-profile, .suitcase-card, .xr-card, .callout, .synthesis { box-shadow: none; break-inside: avoid; }
+      .xr-grid { grid-template-columns: 1fr; }
+      .viz-grid > * { grid-column: 1 / -1; }
+      .timeline {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+      .matrix-wrap { overflow: visible; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#competencia">Ir al contenido</a>
+  <header>
+    <div class="wrap">
+      <nav aria-label="Navegación principal">
+        <div class="brand">
+          <div class="brand-mark">✦</div>
+          <span title="Playful Learning · Sprint 1">Playful Learning · Sprint 1</span>
+        </div>
+        <details class="nav-more">
+          <summary>Menú</summary>
+          <div class="nav-links" aria-label="Navegación móvil">
+            <a href="#competencia">Competencia</a>
+            <a href="#objetivos">Objetivos</a>
+            <a href="#persona">Learner persona</a>
+            <a href="#experiencia">Experiencia</a>
+            <a href="#viz">Visualización</a>
+            <a href="#xr">XR y serious games</a>
+            <a href="#galp">GALP</a>
+            <a href="#boceto">Boceto</a>
+            <a href="#fundamentacion">Fundamentos</a>
+            <a href="#conclusion">Conclusión</a>
+            <a href="#fuentes">Referencias</a>
+          </div>
+        </details>
+        <div class="nav-links" id="nav-desktop">
+          <a href="#competencia">Competencia</a>
+          <a href="#objetivos">Objetivos</a>
+          <a href="#persona">Learner persona</a>
+          <a href="#experiencia">Experiencia</a>
+          <a href="#viz">Visualización</a>
+          <a href="#xr">XR y serious games</a>
+          <a href="#galp">GALP</a>
+          <a href="#boceto">Boceto</a>
+          <a href="#fundamentacion">Fundamentos</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="wrap hero">
+      <div>
+        <span class="eyebrow">Asignatura · Playful Learning</span>
+        <h1>La Maleta del Tiempo</h1>
+        <p class="subtitle">Versión divulgativa del diseño del TFM <em>Aprender haciendo: escape rooms para STEAM en alumnado con discapacidad intelectual</em> (propuesta <strong>«El archivo de la historia: un viaje a través del tiempo»</strong>): una experiencia híbrida que combina manipulación física, narrativa histórica y capas digitales accesibles para aprender en serio jugando.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#xr">Análisis XR</a>
+          <a class="btn secondary" href="#boceto">Ver boceto</a>
+          <a class="btn secondary" href="javascript:window.print()">Imprimir / PDF</a>
+        </div>
+      </div>
+      <div class="suitcase-card" aria-label="Ilustración conceptual de una maleta del tiempo">
+        <canvas id="three-canvas" width="600" height="520" aria-hidden="true"></canvas>
+        <div class="era-badge">🦖</div>
+        <div class="era-badge">🏺</div>
+        <div class="era-badge">⚙️</div>
+        <div class="era-badge">🤖</div>
+        <div class="suitcase"><div class="lock"></div></div>
+      </div>
+    </section>
+
+    <section class="wrap section" id="competencia">
+      <div class="section-title">
+        <div>
+          <h2>1. Competencia o habilidad a desarrollar</h2>
+          <p class="section-kicker">La propuesta trabaja competencias reales a través de un entorno de juego situado, cooperativo y accesible.</p>
+        </div>
+      </div>
+      <div class="card">
+        <p>La experiencia se centra en el desarrollo de competencias STEAM mediante escape rooms educativos inclusivos, alineados con el marco competencial de la LOMLOE y con el <abbr title="Diseño Universal para el Aprendizaje">DUA</abbr> como criterio de diseño. Complementariamente, se trabajan habilidades transversales con transferencia a la vida cotidiana y a itinerarios de autonomía: resolución de problemas, pensamiento crítico, creatividad, comunicación, trabajo en equipo, toma de decisiones, atención sostenida, memoria de trabajo, autonomía personal y competencia digital responsable.</p>
+        <p>La propuesta está calibrada para personas jóvenes con discapacidad intelectual en contextos de transición educativa y sociolaboral, aunque su arquitectura modular permite extenderla a aulas inclusivas de distintas etapas.</p>
+        <div class="tag-list">
+          <span class="tag">STEAM</span>
+          <span class="tag">Resolución de problemas</span>
+          <span class="tag">Trabajo en equipo</span>
+          <span class="tag">Autonomía</span>
+          <span class="tag">Accesibilidad cognitiva</span>
+          <span class="tag">Pensamiento crítico</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap section" id="objetivos">
+      <div class="section-title">
+        <div>
+          <h2>2. Objetivos del juego</h2>
+          <p class="section-kicker">El objetivo pedagógico se traduce en una misión narrativa: recuperar los fragmentos perdidos de la Historia.</p>
+        </div>
+      </div>
+      <div class="objectives-grid">
+        <article class="card">
+          <h3>Objetivo pedagógico general</h3>
+          <p>Diseñar una experiencia gamificada e inmersiva en la que el alumnado recorra distintas etapas de la Historia para resolver retos y enigmas, desarrollando competencias STEAM y habilidades cognitivas y sociales en un contexto accesible, motivador y significativo.</p>
+        </article>
+        <article class="card">
+          <h3>Objetivos específicos</h3>
+          <ul>
+            <li>Identificar acontecimientos, inventos y personajes relevantes.</li>
+            <li>Resolver retos de lógica, observación y deducción.</li>
+            <li>Aplicar estrategias de colaboración y comunicación.</li>
+            <li>Manipular materiales físicos y digitales.</li>
+            <li>Mejorar la autonomía y la confianza.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Objetivo narrativo</h3>
+          <p>Recuperar los fragmentos perdidos de la Historia, desbloqueando cada era y restaurando el equilibrio temporal antes de que el conocimiento desaparezca para siempre.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="wrap section" id="persona">
+      <div class="section-title">
+        <div>
+          <h2>3. Learner persona</h2>
+          <p class="section-kicker">La experiencia se diseña a partir de una persona-aprendiz concreta para asegurar que las decisiones lúdicas respondan a necesidades reales.</p>
+        </div>
+      </div>
+      <div class="persona">
+        <aside class="persona-profile">
+          <div class="avatar">🧭</div>
+          <h3>Alex</h3>
+          <p>El Explorador del Tiempo</p>
+          <p><strong>Edad:</strong> 18-28 años</p>
+          <p>Persona joven con discapacidad intelectual leve o moderada, en itinerario formativo o de habilitación en un centro especializado o en aulas inclusivas con apoyos intensivos.</p>
+        </aside>
+        <div class="grid two">
+          <article class="card">
+            <h3>Características</h3>
+            <ul>
+              <li>Aprende mejor mediante experiencias prácticas, manipulativas y contextualizadas en tareas con sentido inmediato.</li>
+              <li>Responde con alta motivación a narrativas claras, metas visibles y micro-recompensas que reconocen el esfuerzo.</li>
+              <li>Requiere instrucciones explícitas, secuenciadas y redundancia útil (visual + verbal + gestual cuando proceda).</li>
+              <li>Se beneficia de pictogramas contextualizados, lectura fácil, tiempo extra estructurado y feedback inmediato y no punitivo.</li>
+              <li>Consolida aprendizajes en entornos cooperativos pequeños con roles funcionales y apoyo del facilitador.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Motivaciones y necesidades</h3>
+            <p><strong>Motivaciones:</strong> explorar la maleta, descubrir compartimentos, resolver enigmas con ayuda progresiva, completar el pasaporte con sellos, vivir la historia como protagonista y percibirse competente ante retos reales.</p>
+            <p><strong>Necesidades:</strong> accesibilidad cognitiva y sensorial, materiales táctiles, adaptaciones multinivel, sistema de pistas graduadas, rutinas de seguridad emocional y refuerzo positivo sistemático.</p>
+          </article>
+        </div>
+        <div class="callout">
+          <p><strong>Coherencia con el TFM:</strong> esta persona-aprendiz resume el perfil objetivo del trabajo de investigación-acción (heterogeneidad funcional, foco en autonomía y participación). Las decisiones de diseño del sprint se anclan en ese perfil para que la gamificación no sea cosmética, sino una respuesta pedagógica argumentada.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap section" id="experiencia">
+      <div class="section-title">
+        <div>
+          <h2>4. Descripción de la experiencia</h2>
+          <p class="section-kicker">Una maleta transportable convierte el aula en un laboratorio de exploración temporal.</p>
+        </div>
+      </div>
+      <div class="card">
+        <p>La Maleta del Tiempo es un escape room educativo transportable. En su interior se encuentran compartimentos, cofres, tarjetas, pistas y materiales que representan diferentes eras históricas. Cada etapa incluye retos físicos y visuales basados en lógica, observación, clasificación, relación de elementos y descifrado de códigos.</p>
+        <p>Al superar una prueba, el alumnado obtiene un sello en su Pasaporte del Explorador y accede a la siguiente época. La experiencia combina materiales impresos, piezas de madera, elementos fabricados con impresión 3D y herramientas digitales accesibles (por ejemplo, validación mediante <abbr title="Near Field Communication">NFC</abbr> o alternativas táctiles equivalentes), generando inmersión situada sin sustituir el valor del gesto corporal y la cooperación cara a cara.</p>
+      </div>
+      <div class="timeline" aria-label="Línea temporal de eras históricas">
+        <div class="era"><div class="icon">🦖</div><strong>Era de los Dinosaurios</strong><span>Observación y clasificación</span></div>
+        <div class="era"><div class="icon">🔥</div><strong>Prehistoria</strong><span>Secuencias y herramientas</span></div>
+        <div class="era"><div class="icon">🏺</div><strong>Edad Antigua</strong><span>Códigos y símbolos</span></div>
+        <div class="era"><div class="icon">🏰</div><strong>Edad Media</strong><span>Lógica y cooperación</span></div>
+        <div class="era"><div class="icon">🎨</div><strong>Edad Moderna</strong><span>Inventos y creatividad</span></div>
+        <div class="era"><div class="icon">⚙️</div><strong>Edad Contemporánea</strong><span>Procesos y conexiones</span></div>
+        <div class="era"><div class="icon">💻</div><strong>Era Digital</strong><span>Competencia digital</span></div>
+        <div class="era"><div class="icon">🤖</div><strong>Futuro</strong><span>Transferencia e innovación</span></div>
+      </div>
+    </section>
+
+    <section class="wrap section" id="viz" aria-labelledby="viz-title">
+      <div class="section-title">
+        <div>
+          <h2 id="viz-title">Visualización del diseño</h2>
+          <p class="section-kicker">Stack integrado: <strong>ApexCharts</strong> (métricas / radar), <strong>Chart.js</strong> (series ligeras), <strong>Observable Plot</strong> (facetas), <strong>Cytoscape.js</strong> (mapa conceptual), <strong>Sigma.js</strong> (red exploratoria), <strong>Mermaid</strong> (flujos, Gantt y organigrama), <strong>Three.js</strong> (escena 3D en el hero) y <strong>GSAP</strong> (animación con respeto al movimiento reducido). <strong>Nivo</strong> se documenta como opción React.</p>
+        </div>
+      </div>
+
+      <div class="viz-grid">
+        <article class="card">
+          <h3>Flujo narrativo y de sesión (Mermaid)</h3>
+          <p class="xr-card-lede">Diagrama de decisión alineado con pistas graduadas y validación visible del progreso.</p>
+          <div class="mermaid-wrap">
+            <pre class="mermaid">
+flowchart TD
+  start([Inicio de sesión]) --> maleta[Explorar maleta]
+  maleta --> era[Era activa]
+  era --> reto[Reto STEAM / lógica]
+  reto --> val{Supera el reto?}
+  val -->|Sí| sello[Sello en pasaporte]
+  val -->|No| pista[Pistas graduadas]
+  pista --> reto
+  sello --> next{Quedan eras?}
+  next -->|Sí| era
+  next -->|No| fin([Misión cumplida])
+            </pre>
+          </div>
+          <div class="mermaid-wrap viz-mermaid-stack">
+            <pre class="mermaid">
+flowchart LR
+  A[Dinosaurios] --> B[Prehistoria]
+  B --> C[Antigua]
+  C --> D[Media]
+  D --> E[Moderna]
+  E --> F[Contemporánea]
+  F --> G[Digital]
+  G --> H[Futuro]
+            </pre>
+          </div>
+          <p class="xr-card-lede viz-mermaid-stack">Cronograma tipo <strong>Gantt</strong> (planificación orientativa del ciclo de diseño).</p>
+          <div class="mermaid-wrap">
+            <pre class="mermaid">
+gantt
+    title Fases orientativas (ejemplo)
+    dateFormat  YYYY-MM-DD
+    section Análisis
+    Competencias y persona     :a1, 2026-05-01, 3d
+    section Diseño
+    Mecánicas y materiales       :a2, after a1, 5d
+    section Cierre
+    Evaluación y mejora        :a3, after a2, 2d
+            </pre>
+          </div>
+          <p class="xr-card-lede viz-mermaid-stack">Organigrama de roles en sesión (apoyos y mediación).</p>
+          <div class="mermaid-wrap">
+            <pre class="mermaid">
+flowchart TB
+  coord[Coordinación pedagógica]
+  fac[Facilitador del escape]
+  ap[Apoyos visuales / SAAC]
+  grp[Grupo de exploradores]
+  coord --> fac
+  coord --> ap
+  fac --> grp
+  ap -.-> grp
+            </pre>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Progresión competencial por era (ApexCharts)</h3>
+          <p class="xr-card-lede">Radar ilustrativo de intensidad didáctica estimada por módulo (valores orientativos para diseño).</p>
+          <div class="viz-chart-slot">
+            <div id="chart-eras" role="img" aria-label="Gráfico radar de progresión por era histórica"></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Curva de carga cognitiva por fase (Chart.js)</h3>
+          <p class="xr-card-lede">Línea de tendencia para equilibrar picos de atención con pausas y refuerzo positivo.</p>
+          <div class="viz-chart-slot">
+            <canvas id="chart-steam" aria-label="Gráfico de líneas de carga cognitiva por era"></canvas>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Mapa conceptual GALP ↔ dinámica (Cytoscape.js)</h3>
+          <p class="xr-card-lede">Red de apoyos entre principios centrales y elementos jugables de la maleta.</p>
+          <div class="viz-chart-slot">
+            <div id="cy-galp" role="application" aria-label="Grafo interactivo GALP y mecánicas"></div>
+          </div>
+        </article>
+
+        <article class="card viz-span-2">
+          <h3>Facetas STEAM por era (Observable Plot)</h3>
+          <p class="xr-card-lede">Barras declarativas con la gramática de gráficos de Observable; útil para iterar datos reales de evaluación.</p>
+          <div class="viz-chart-slot viz-chart-slot--plot">
+            <div id="plot-steam" role="img" aria-label="Gráfico de barras STEAM por era"></div>
+          </div>
+        </article>
+
+        <article class="card viz-span-2">
+          <h3>Red circular de eras (Sigma.js)</h3>
+          <p class="xr-card-lede">Visualización WebGL ideal para <strong>grafos grandes</strong> y exploración fluida. Aquí complementa a Cytoscape: mientras aquel modela relaciones pedagógicas abstractas, Sigma muestra la <strong>topología del recorrido temporal</strong> (anillo de eras conectadas).</p>
+          <div id="sigma-eras" class="viz-sigma-host" role="application" aria-label="Grafo circular de eras con Sigma.js"></div>
+        </article>
+      </div>
+
+      <article class="card viz-refs">
+        <h3>Guía rápida del stack (esta página)</h3>
+        <ul>
+          <li><strong>ApexCharts</strong> · Progresión y métricas (radar por era).</li>
+          <li><strong>Chart.js</strong> · Curvas y series con muy poco código.</li>
+          <li><strong>Observable Plot</strong> · Barras y facetas declarativas (<code>+esm</code>).</li>
+          <li><strong>Cytoscape.js</strong> · Mapas conceptuales y relaciones complejas (GALP ↔ mecánicas).</li>
+          <li><strong>Sigma.js</strong> · Redes y grafos a escala, interacción pan/zoom.</li>
+          <li><strong>Mermaid</strong> · Flujos narrativos, <strong>Gantt</strong> y <strong>organigramas</strong>.</li>
+          <li><strong>Three.js</strong> · Escena 3D inmersiva en la maleta del hero.</li>
+          <li><strong>GSAP</strong> · Animaciones de entrada y al scroll (ScrollTrigger).</li>
+          <li><strong>Nivo</strong> · Librería <strong>React</strong> para dashboards muy pulidos; no está embebida en este HTML estático. Referencia: <a href="https://nivo.rocks/" target="_blank" rel="noopener">nivo.rocks</a>.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="wrap section" id="xr" aria-labelledby="xr-title">
+      <div class="section-title">
+        <div>
+          <h2 id="xr-title">5. Referentes XR y serious games: análisis comparativo</h2>
+          <p class="section-kicker">Criterio de diseño: extraer buenas prácticas de la inmersión digital sin copiar sus riesgos, para decidir qué queda en la maleta física y qué se apoya en capas digitales accesibles.</p>
+        </div>
+      </div>
+      <div class="card xr-intro">
+        <p>El tercer objetivo docente del sprint pide desarrollar criterio al comparar ejemplos reales. A continuación se sintetizan tres familias de productos frecuentes en educación y patrimonio, con lectura honesta de fortalezas y límites. La conclusión operativa no es “añadir VR a cualquier precio”, sino <strong>traducir</strong> lo que esas experiencias hacen bien (presencia, narrativa, feedback) a un <strong>ecosistema híbrido</strong> que preserve la cooperación presencial y la manipulación, especialmente crítica para el perfil de Alex.</p>
+      </div>
+
+      <div class="xr-grid">
+        <article class="xr-card">
+          <header>
+            <div class="pill-row" aria-hidden="true">
+              <span class="pill">VR / simulación</span>
+              <span class="pill ok">Feedback inmediato</span>
+              <span class="pill warn">Carga cognitiva</span>
+            </div>
+            <h3>Entornos de simulación inmersiva</h3>
+          </header>
+          <p class="xr-card-lede">Ejemplos paradigmáticos: simuladores clínicos en realidad virtual (formación sanitaria), entrenamiento industrial con procedimientos en 3D o escenarios de seguridad. Comparten una lógica de <strong>ensayo-error seguro</strong> y alta presencia espacial.</p>
+          <dl>
+            <dt>Fortalezas pedagógicas</dt>
+            <dd>Retroalimentación multisensorial, repetición controlada, modelado de situaciones difíciles de reproducir en el aula y motivación inicial muy alta.</dd>
+            <dt>Riesgos y exclusiones</dt>
+            <dd>Hardware costoso, sesiones cortas por fatiga visual o malestar (incluida la cinetosis digital), curvas de aprendizaje de la interfaz y riesgo de aislamiento del compañero si el diseño no fuerza roles cooperativos.</dd>
+            <dt>Transferencia a la maleta</dt>
+            <dd>Se adopta el <strong>ritmo micro-objetivo → validación visible</strong> (candado, sello, NFC o alternativa táctil), no el casco como requisito indispensable.</dd>
+          </dl>
+        </article>
+
+        <article class="xr-card">
+          <header>
+            <div class="pill-row" aria-hidden="true">
+              <span class="pill">Serious game 3D</span>
+              <span class="pill ok">Contexto histórico</span>
+              <span class="pill warn">Pasividad</span>
+            </div>
+            <h3>Modos didácticos narrativos en mundo abierto</h3>
+          </header>
+          <p class="xr-card-lede">Referencias públicas como los <em>Discovery Tour</em> de la saga <em>Assassin’s Creed</em> demuestran que un entorno 3D puede funcionar como <strong>museo explorable</strong> con documentación curada y rutas guiadas.</p>
+          <dl>
+            <dt>Fortalezas pedagógicas</dt>
+            <dd>Reconstrucción ambiental rica, motivación por exploración y posibilidad de capas explicativas multimodales (texto, audio, imagen).</dd>
+            <dt>Riesgos y exclusiones</dt>
+            <dd>Tentación del “turismo virtual” pasivo, densidad textual incompatible con lectura fácil, menús complejos y dependencia de periféricos que no siempre están adaptados.</dd>
+            <dt>Transferencia a la maleta</dt>
+            <dd>Se toma la <strong>secuencia por eras</strong> y la idea de <strong>curación</strong> (cada compartimento es una “sala” con intención didáctica), pero se exige manipulación y verbalización grupal para evitar el modo espectador.</dd>
+          </dl>
+        </article>
+
+        <article class="xr-card">
+          <header>
+            <div class="pill-row" aria-hidden="true">
+              <span class="pill">XR patrimonial</span>
+              <span class="pill ok">Conexión emocional</span>
+              <span class="pill warn">Fragmentación</span>
+            </div>
+            <h3>Experiencias XR en museos y patrimonio</h3>
+          </header>
+          <p class="xr-card-lede">Visitas 360, reconstrucciones arqueológicas o piezas “desaparecidas” que se manipulan en volumen comparten el objetivo de <strong>anclar el conocimiento en el lugar y la emoción</strong>.</p>
+          <dl>
+            <dt>Fortalezas pedagógicas</dt>
+            <dd>Puente entre objeto y narrativa, memorización asistida por el contexto y potente gancho motivacional inicial.</dd>
+            <dt>Riesgos y exclusiones</dt>
+            <dd>Desconexión entre la visita digital y el trabajo competencial posterior, brecha de dispositivos, y dificultad para ajustar el ritmo a perfiles heterogéneos sin diseño específico.</dd>
+            <dt>Transferencia a la maleta</dt>
+            <dd>La maleta actúa como <strong>micro-museo portátil</strong>: objetos reales + QR o NFC opcional + pictogramas, priorizando la continuidad didáctica más allá del “efecto novedad”.</dd>
+          </dl>
+        </article>
+      </div>
+
+      <div class="synthesis">
+        <h3>Síntesis: matriz de decisión (referentes digitales vs. propuesta híbrida)</h3>
+        <p>La tabla resume el criterio profesional que guía el Sprint: qué se importa como idea y qué se rediseña para inclusión real.</p>
+        <div class="matrix-wrap">
+        <table class="matrix" role="table" aria-label="Comparativa entre referentes XR y La Maleta del Tiempo">
+          <thead>
+            <tr>
+              <th scope="col">Dimensión</th>
+              <th scope="col">Tensión habitual en XR / serious games</th>
+              <th scope="col">Cómo lo resuelve esta propuesta</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Co-presencia social</strong></td>
+              <td>El casco puede privatizar la atención y dificultar la mediación del docente.</td>
+              <td>Énfasis en cooperación cara a cara, roles rotativos y facilitador visible.</td>
+            </tr>
+            <tr>
+              <td><strong>Accesibilidad cognitiva</strong></td>
+              <td>Interfaces densas y textos largos en pantalla.</td>
+              <td>Pictogramas ARASAAC, lectura fácil, pistas graduadas y redundancia visual-verbal.</td>
+            </tr>
+            <tr>
+              <td><strong>Feedback</strong></td>
+              <td>Muy logrado en VR, a veces opaco en apps 2D.</td>
+              <td>Candados físicos, sellos en pasaporte y validación digital opcional (NFC) con alternativa táctil.</td>
+            </tr>
+            <tr>
+              <td><strong>Coste y sostenibilidad</strong></td>
+              <td>Licencias y equipamiento elevados.</td>
+              <td>Kit transportable, impresión 3D puntual y software ligero; escalable por módulos.</td>
+            </tr>
+            <tr>
+              <td><strong>Transferencia a la vida</strong></td>
+              <td>Riesgo de habilidad “solo para el simulador”.</td>
+              <td>Prácticas de comunicación, autonomía y STEAM conectadas a itinerarios reales del alumnado.</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap section" id="galp">
+      <div class="section-title">
+        <div>
+          <h2>6. Relación con el enfoque GALP</h2>
+          <p class="section-kicker">La Gamificación del Aprendizaje Centrado en la Persona conecta motivación, emoción, participación y objetivos reales de aprendizaje.</p>
+        </div>
+      </div>
+      <div class="galp-grid">
+        <article class="principle"><div class="number">1</div><h3>Propósito significativo</h3><p>La misión tiene un sentido claro: salvar la Historia y recuperar el conocimiento perdido.</p></article>
+        <article class="principle"><div class="number">2</div><h3>Autonomía</h3><p>El alumnado explora, formula hipótesis y decide cómo resolver cada reto.</p></article>
+        <article class="principle"><div class="number">3</div><h3>Competencia y progreso</h3><p>Cada desafío ofrece una dificultad adecuada y permite experimentar logro.</p></article>
+        <article class="principle"><div class="number">4</div><h3>Relación social</h3><p>La experiencia fomenta cooperación, ayuda mutua y comunicación.</p></article>
+        <article class="principle"><div class="number">5</div><h3>Inmersión narrativa</h3><p>El viaje en el tiempo aporta coherencia y significado a las actividades.</p></article>
+        <article class="principle"><div class="number">6</div><h3>Feedback inmediato</h3><p>Candados, compartimentos y sellos muestran el avance de forma visible.</p></article>
+        <article class="principle"><div class="number">7</div><h3>Inclusión por diseño</h3><p>El juego incorpora adaptaciones y apoyos para garantizar la participación.</p></article>
+        <article class="principle"><div class="number">8</div><h3>Transferencia</h3><p>Las competencias desarrolladas son aplicables a contextos académicos y cotidianos.</p></article>
+      </div>
+    </section>
+
+    <section class="wrap section" id="boceto">
+      <div class="section-title">
+        <div>
+          <h2>7. Primer boceto del juego</h2>
+          <p class="section-kicker">La propuesta inicial transforma un objetivo pedagógico en mecánicas de exploración, cooperación y descubrimiento.</p>
+        </div>
+      </div>
+      <div class="game-board">
+        <article class="card feature">
+          <div class="feature-icon">📜</div>
+          <div><h3>Historia</h3><p>Una anomalía temporal ha borrado parte de la Historia. Los exploradores deberán viajar a través del tiempo para recuperar los fragmentos perdidos.</p></div>
+        </article>
+        <article class="card feature">
+          <div class="feature-icon">🔐</div>
+          <div><h3>Mecánica principal</h3><p>Resolver enigmas y desafíos para abrir compartimentos, conseguir sellos y avanzar por las distintas eras.</p></div>
+        </article>
+        <article class="card feature">
+          <div class="feature-icon">🧩</div>
+          <div><h3>Dinámicas</h3><p>Exploración, descubrimiento, cooperación, recompensa, progresión y toma de decisiones.</p></div>
+        </article>
+        <article class="card feature">
+          <div class="feature-icon">🎒</div>
+          <div><h3>Elementos del juego</h3><p>Maleta temática, Pasaporte del Explorador, sellos, candados, cofres, tarjetas de reto y sistema de pistas.</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="wrap section" id="fundamentacion">
+      <div class="grid two">
+        <div class="quote">
+          <p>El juego no aparece como un adorno del aprendizaje, sino como una forma de exploración, cultura, relación y construcción de sentido.</p>
+          <small>Fundamentación conceptual del Sprint 1</small>
+        </div>
+        <article class="card">
+          <h3>8. Fundamentación teórica</h3>
+          <p>La propuesta se inspira en el concepto de <em>Homo Ludens</em>, donde el juego se entiende como un elemento esencial en el desarrollo cultural y cognitivo. También se apoya en investigaciones sobre experiencias placenteras de aprendizaje, que destacan la importancia de la curiosidad, la emoción y el sentimiento de logro como motores del aprendizaje significativo.</p>
+          <p>Asimismo, incorpora referentes actuales de experiencias inmersivas y serious games, como los Premios Inmersiva XR, que muestran el potencial de las tecnologías interactivas para transformar la educación y abrir nuevas posibilidades de diseño.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="wrap section" id="conclusion">
+      <div class="card">
+        <h2>9. Conclusión</h2>
+        <p>La Maleta del Tiempo es una propuesta que combina narrativa, juego, inclusión y aprendizaje significativo. A través de un viaje por las distintas eras históricas, el alumnado desarrolla competencias STEAM y habilidades esenciales mientras participa en una experiencia inmersiva y motivadora.</p>
+        <p>Este Sprint 1 establece las bases conceptuales y pedagógicas del proyecto: competencia, objetivos, learner persona, descripción de la experiencia, lectura crítica de referentes XR y serious games, vínculo con GALP y primer boceto. Sobre esta retícula se desarrollarán en los siguientes sprints las mecánicas detalladas, prototipos y sistemas de evaluación.</p>
+      </div>
+    </section>
+
+    <section class="wrap section" id="fuentes">
+      <div class="section-title">
+        <div>
+          <h2>Recursos consultados</h2>
+          <p class="section-kicker">Enlaces de referencia compartidos para la asignatura.</p>
+        </div>
+      </div>
+      <div class="sources">
+        <a class="source-link" href="https://www.igi-global.com/chapter/pleasant-learning-eperiences/63072" target="_blank" rel="noopener">Pleasant Learning Experiences · IGI Global</a>
+        <a class="source-link" href="https://es.wikipedia.org/wiki/Homo_ludens" target="_blank" rel="noopener">Homo Ludens · Johan Huizinga</a>
+        <a class="source-link" href="https://inmersivaxr.com/premios-inmersiva-xr-25" target="_blank" rel="noopener">Premios Inmersiva XR 2025</a>
+      </div>
+    </section>
+  </main>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/apexcharts@3.45.2/dist/apexcharts.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/cytoscape@3.28.1/dist/cytoscape.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script>
+  window.addEventListener('load', function () {
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (window.mermaid) {
+      window.mermaid.initialize({
+        startOnLoad: true,
+        theme: 'base',
+        themeVariables: {
+          primaryColor: '#ead8b8',
+          primaryTextColor: '#2b2118',
+          lineColor: '#7a4c25',
+          secondaryColor: '#fffaf1',
+          tertiaryColor: '#f1dfbd'
+        }
+      });
+    }
+
+    if (window.ApexCharts && document.querySelector('#chart-eras')) {
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          var chartEl = document.querySelector('#chart-eras');
+          if (!chartEl) return;
+          var slot = chartEl.parentElement;
+          var radarH = slot ? Math.round(Math.max(240, Math.min(slot.clientHeight || 320, 400))) : 320;
+          var eraLabels = ['Dinosaurios', 'Prehistoria', 'Antigua', 'Media', 'Moderna', 'Contemp.', 'Digital', 'Futuro'];
+          new ApexCharts(chartEl, {
+        chart: { type: 'radar', height: radarH, toolbar: { show: false }, fontFamily: 'Inter, system-ui, sans-serif' },
+        series: [{ name: 'Intensidad didáctica (ejemplo)', data: [38, 52, 61, 58, 66, 70, 74, 68] }],
+        xaxis: { categories: eraLabels },
+        yaxis: { show: false, min: 0, max: 100, tickAmount: 4 },
+        stroke: { width: 2, colors: ['#7a4c25'] },
+        fill: { opacity: 0.25, colors: ['#c7963d'] },
+        markers: { size: 4, colors: ['#4a2d17'] },
+        plotOptions: { radar: { polygons: { strokeColors: 'rgba(74,45,23,.2)', fill: { colors: ['rgba(255,250,241,.9)', 'rgba(241,223,189,.35)'] } } } },
+        colors: ['#7a4c25'],
+        dataLabels: { enabled: false },
+        legend: { show: true, position: 'bottom' }
+          }).render();
+        });
+      });
+    }
+
+    if (window.Chart && document.getElementById('chart-steam')) {
+      var ctx = document.getElementById('chart-steam').getContext('2d');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['Dinos', 'Prehist.', 'Antigua', 'Media', 'Moderna', 'Contemp.', 'Digital', 'Futuro'],
+          datasets: [{
+            label: 'Carga cognitiva estimada (ejemplo)',
+            data: [28, 35, 44, 48, 52, 58, 62, 55],
+            borderColor: '#3f6f85',
+            backgroundColor: 'rgba(63,111,133,.12)',
+            tension: 0.35,
+            fill: true,
+            pointRadius: 4,
+            pointBackgroundColor: '#4a2d17'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { labels: { color: '#514235', font: { family: 'Inter' } } } },
+          scales: {
+            x: { ticks: { color: '#6f5f4b' }, grid: { color: 'rgba(74,45,23,.08)' } },
+            y: { beginAtZero: true, max: 80, ticks: { color: '#6f5f4b' }, grid: { color: 'rgba(74,45,23,.08)' } }
+          }
+        }
+      });
+    }
+
+    if (window.cytoscape && document.getElementById('cy-galp')) {
+      var cy = window.cytoscape({
+        container: document.getElementById('cy-galp'),
+        elements: [
+          { data: { id: 'maleta', label: 'Maleta' } },
+          { data: { id: 'pasaporte', label: 'Pasaporte' } },
+          { data: { id: 'p1', label: 'Propósito' } },
+          { data: { id: 'p2', label: 'Autonomía' } },
+          { data: { id: 'p3', label: 'Feedback' } },
+          { data: { id: 'p4', label: 'Inclusión' } },
+          { data: { id: 'p5', label: 'Cooperación' } },
+          { data: { source: 'p1', target: 'maleta' } },
+          { data: { source: 'p2', target: 'maleta' } },
+          { data: { source: 'p3', target: 'pasaporte' } },
+          { data: { source: 'p4', target: 'maleta' } },
+          { data: { source: 'p5', target: 'maleta' } },
+          { data: { source: 'p3', target: 'maleta' } },
+          { data: { source: 'p2', target: 'pasaporte' } }
+        ],
+        style: [
+          { selector: 'node', style: {
+            'label': 'data(label)',
+            'font-size': '11px',
+            'font-weight': '700',
+            'text-wrap': 'wrap',
+            'text-max-width': '88px',
+            'background-color': '#ead8b8',
+            'border-width': 2,
+            'border-color': '#4a2d17',
+            'color': '#2b2118'
+          }},
+          { selector: 'edge', style: {
+            'width': 2,
+            'line-color': '#7a4c25',
+            'target-arrow-color': '#7a4c25',
+            'target-arrow-shape': 'triangle',
+            'curve-style': 'bezier',
+            'opacity': 0.75
+          }}
+        ],
+        layout: { name: 'cose', animate: !reduceMotion, randomize: false, componentSpacing: 40, nodeOverlap: 12 }
+      });
+      setTimeout(function () { cy.resize(); }, 100);
+    }
+
+    if (window.THREE && document.getElementById('three-canvas')) {
+      var THREE = window.THREE;
+      var canvas = document.getElementById('three-canvas');
+      var card = canvas.closest('.suitcase-card');
+      var renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+      renderer.setClearColor(0x000000, 0);
+      var scene = new THREE.Scene();
+      var camera = new THREE.PerspectiveCamera(42, 1, 0.1, 80);
+      camera.position.set(0, 0.2, 3.4);
+      var geo = new THREE.IcosahedronGeometry(1.05, 1);
+      var mat = new THREE.MeshStandardMaterial({
+        color: 0xc7963d,
+        metalness: 0.35,
+        roughness: 0.4,
+        wireframe: true,
+        emissive: 0x4a2d17,
+        emissiveIntensity: 0.15
+      });
+      var mesh = new THREE.Mesh(geo, mat);
+      scene.add(mesh);
+      var dl = new THREE.DirectionalLight(0xfff2dd, 1.15);
+      dl.position.set(2.2, 3, 2);
+      scene.add(dl);
+      scene.add(new THREE.AmbientLight(0x7a4c25, 0.28));
+      function resizeThree() {
+        if (!card) return;
+        var r = card.getBoundingClientRect();
+        var w = Math.max(200, Math.floor(r.width));
+        var h = Math.max(200, Math.floor(r.height));
+        renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+        renderer.setSize(w, h, false);
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+      }
+      resizeThree();
+      if (card && window.ResizeObserver) {
+        new ResizeObserver(resizeThree).observe(card);
+      }
+      var raf;
+      function tick(t) {
+        if (!reduceMotion) {
+          mesh.rotation.x = t * 0.00022;
+          mesh.rotation.y = t * 0.00031;
+        }
+        renderer.render(scene, camera);
+        if (!reduceMotion) raf = requestAnimationFrame(tick);
+      }
+      if (reduceMotion) {
+        mesh.rotation.set(0.45, 0.6, 0);
+        renderer.render(scene, camera);
+      } else {
+        raf = requestAnimationFrame(tick);
+      }
+    }
+
+    if (window.gsap && window.ScrollTrigger && !reduceMotion) {
+      window.gsap.registerPlugin(window.ScrollTrigger);
+      window.gsap.utils.toArray('.section').forEach(function (sec) {
+        var targets = sec.querySelectorAll('.card, .xr-card, .principle, .era, .synthesis');
+        if (!targets.length) return;
+        window.gsap.from(targets, {
+          opacity: 0,
+          y: 22,
+          duration: 0.55,
+          stagger: 0.035,
+          ease: 'power2.out',
+          scrollTrigger: { trigger: sec, start: 'top 92%', once: true }
+        });
+      });
+      window.gsap.from('.hero > div:first-child > *', {
+        opacity: 0,
+        y: 26,
+        duration: 0.65,
+        stagger: 0.1,
+        ease: 'power3.out',
+        delay: 0.05
+      });
+    }
+
+  });
+  </script>
+
+  <script type="module">
+  import * as Plot from 'https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6.16/+esm';
+
+  function renderPlotSteam() {
+    var el = document.getElementById('plot-steam');
+    if (!el || el.querySelector('svg')) return;
+    var w = Math.max(280, Math.min(el.getBoundingClientRect().width || el.clientWidth || 900, 1040));
+    var rows = [
+      { era: 'Dinos', v: 22 }, { era: 'Prehist.', v: 30 }, { era: 'Antigua', v: 38 },
+      { era: 'Media', v: 36 }, { era: 'Moderna', v: 44 }, { era: 'Contemp.', v: 48 },
+      { era: 'Digital', v: 52 }, { era: 'Futuro', v: 46 }
+    ];
+    el.appendChild(Plot.plot({
+      width: w,
+      height: 280,
+      marginLeft: 72,
+      marginRight: 12,
+      style: { fontFamily: 'Inter, system-ui, sans-serif', fontSize: 11 },
+      x: { label: 'Era' },
+      y: { label: 'Peso STEAM integrado (ejemplo)', grid: true },
+      marks: [Plot.barY(rows, { x: 'era', y: 'v', fill: '#7a4c25', inset: 0.35 })]
+    }));
+  }
+
+  if (document.readyState === 'complete') {
+    requestAnimationFrame(function () { requestAnimationFrame(renderPlotSteam); });
+  } else {
+    window.addEventListener('load', function () {
+      requestAnimationFrame(function () { requestAnimationFrame(renderPlotSteam); });
+    });
+  }
+  </script>
+
+  <script type="module">
+  (async function initSigmaEras() {
+    var host = document.getElementById('sigma-eras');
+    if (!host || host.getAttribute('data-sigma-init') === '1') return;
+
+    await new Promise(function (resolve) {
+      requestAnimationFrame(function () { requestAnimationFrame(resolve); });
+    });
+
+    if (host.clientWidth < 48 || host.clientHeight < 48) return;
+
+    try {
+      var Graph = (await import('https://cdn.jsdelivr.net/npm/graphology@0.25.4/+esm')).default;
+      var SigmaMod = await import('https://cdn.jsdelivr.net/npm/sigma@2.4.0/+esm');
+      var Sigma = SigmaMod.Sigma;
+      if (!Sigma) throw new Error('Sigma export no encontrado');
+
+      var labels = ['Dinos', 'Prehist.', 'Antigua', 'Media', 'Moderna', 'Contemp.', 'Digital', 'Futuro'];
+      var graph = new Graph({ type: 'undirected' });
+      var n = labels.length;
+      var R = 2.3;
+      for (var i = 0; i < n; i++) {
+        var ang = (2 * Math.PI * i) / n - Math.PI / 2;
+        graph.addNode(String(i), {
+          label: labels[i],
+          x: Math.cos(ang) * R,
+          y: Math.sin(ang) * R,
+          size: 18,
+          color: '#ead8b8'
+        });
+      }
+      for (var j = 0; j < n; j++) {
+        graph.addEdge(String(j), String((j + 1) % n), { size: 2.5, color: '#7a4c25' });
+      }
+
+      var renderer = new Sigma(graph, host);
+      host.setAttribute('data-sigma-init', '1');
+
+      var ro = new ResizeObserver(function () { renderer.refresh(); });
+      ro.observe(host);
+    } catch (err) {
+      console.error(err);
+      host.textContent = 'No se pudo cargar Sigma.js. Comprueba la consola o la conexión a Internet.';
+    }
+  })();
+  </script>
+
+  <footer>
+    <div class="wrap">
+      Sprint 1 · Playful Learning · La Maleta del Tiempo / La Maleta de la Historia
+    </div>
+  </footer>
+</body>
+</html>
