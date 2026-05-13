@@ -1285,73 +1285,62 @@
       <div class="section-title">
         <div>
           <h2 id="viz-title">Visualización del diseño</h2>
-          <p class="section-kicker">Stack integrado: <strong>ApexCharts</strong> (métricas / radar), <strong>Chart.js</strong> (series ligeras), <strong>Observable Plot</strong> (facetas), <strong>Cytoscape.js</strong> (mapa conceptual), <strong>Sigma.js</strong> (red exploratoria), <strong>Mermaid</strong> (flujos, Gantt y organigrama), <strong>Three.js</strong> (escena 3D en el hero) y <strong>GSAP</strong> (animación con respeto al movimiento reducido). <strong>Nivo</strong> se documenta como opción React.</p>
         </div>
       </div>
 
       <div class="viz-grid">
         <article class="card">
-          <h3>Flujo narrativo y de sesión (Mermaid)</h3>
-          <p class="xr-card-lede">Diagrama de decisión alineado con pistas graduadas y validación visible del progreso.</p>
+          <h3>Flujo narrativo y de sesión</h3>
+          <p class="xr-card-lede">Primero se explica el problema (el Archivo pierde fragmentos). Luego se juega <strong>era por era</strong>: reto, ayuda si hace falta, sello en el pasaporte y paso a la siguiente. Al final se cierra la historia y se comenta en voz baja qué ha pasado.</p>
           <div class="mermaid-wrap">
             <pre class="mermaid">
 flowchart TD
-  start([Inicio de sesión]) --> maleta[Explorar maleta]
-  maleta --> era[Era activa]
-  era --> reto[Reto STEAM / lógica]
-  reto --> val{Supera el reto?}
-  val -->|Sí| sello[Sello en pasaporte]
-  val -->|No| pista[Pistas graduadas]
-  pista --> reto
-  sello --> next{Quedan eras?}
-  next -->|Sí| era
-  next -->|No| fin([Misión cumplida])
+  A([Inicio]) --> B[Problema del Archivo]
+  B --> C[Se abre la maleta]
+  C --> D[Reto de la era]
+  D --> E{¿Lo resuelven?}
+  E -->|No| F[Pistas más sencillas]
+  F --> D
+  E -->|Sí| G[Sello en el pasaporte]
+  G --> H{¿Queda otra era?}
+  H -->|Sí| I[Siguiente compartimento]
+  I --> D
+  H -->|No| J[Último tramo: Futuro]
+  J --> K([Fin de sesión])
             </pre>
           </div>
+          <p class="xr-card-lede viz-mermaid-stack">Orden de las <strong>eras</strong> en el pasaporte (de izquierda a derecha).</p>
           <div class="mermaid-wrap viz-mermaid-stack">
             <pre class="mermaid">
 flowchart LR
-  A[Dinosaurios] --> B[Prehistoria]
-  B --> C[Antigua]
-  C --> D[Media]
-  D --> E[Moderna]
-  E --> F[Contemporánea]
-  F --> G[Digital]
-  G --> H[Futuro]
+  Dinos[Dinosaurios] --> Pre[Prehistoria]
+  Pre --> Ant[Antigua]
+  Ant --> Med[Media]
+  Med --> Mod[Moderna]
+  Mod --> Cont[Contemporánea]
+  Cont --> Dig[Digital]
+  Dig --> Fut[Futuro]
             </pre>
           </div>
-          <p class="xr-card-lede viz-mermaid-stack">Cronograma tipo <strong>Gantt</strong> (planificación orientativa del ciclo de diseño).</p>
+          <p class="xr-card-lede viz-mermaid-stack"><strong>Gantt</strong> solo como idea de tiempos: entrada corta, bloque largo de juego y cierre. Los días son unidades relativas, no un calendario real.</p>
           <div class="mermaid-wrap">
             <pre class="mermaid">
 gantt
-    title Fases orientativas (ejemplo)
+    title Idea de tiempos en una sesión
     dateFormat  YYYY-MM-DD
-    section Análisis
-    Competencias y persona     :a1, 2026-05-01, 3d
-    section Diseño
-    Mecánicas y materiales       :a2, after a1, 5d
-    section Cierre
-    Evaluación y mejora        :a3, after a2, 2d
+    section Entrada
+    Explicar misión     :a1, 2026-06-01, 1d
+    section Juego
+    Eras y retos        :a2, after a1, 3d
+    section Salida
+    Cierre y charla     :a3, after a2, 1d
             </pre>
           </div>
-          <p class="xr-card-lede viz-mermaid-stack">Organigrama de roles en sesión (apoyos y mediación).</p>
-          <div class="mermaid-wrap">
-            <pre class="mermaid">
-flowchart TB
-  coord[Coordinación pedagógica]
-  fac[Facilitador del escape]
-  ap[Apoyos visuales / SAAC]
-  grp[Grupo de exploradores]
-  coord --> fac
-  coord --> ap
-  fac --> grp
-  ap -.-> grp
-            </pre>
-          </div>
+          <p class="xr-card-lede viz-mermaid-stack"><strong>Roles</strong> (sin diagrama extra): la <strong>coordinación</strong> vigila ritmo e inclusión; el <strong>facilitador</strong> lleva la narrativa y el reloj; el <strong>grupo</strong> juega con <strong>apoyos visuales</strong> (pictos, ARASAAC) cuando los necesite.</p>
         </article>
 
         <article class="card">
-          <h3>Progresión competencial por era (ApexCharts)</h3>
+          <h3>Progresión competencial por era</h3>
           <p class="xr-card-lede">Radar ilustrativo de intensidad didáctica estimada por módulo (valores orientativos para diseño).</p>
           <div class="viz-chart-slot">
             <div id="chart-eras" role="img" aria-label="Gráfico radar de progresión por era histórica"></div>
@@ -1359,7 +1348,7 @@ flowchart TB
         </article>
 
         <article class="card">
-          <h3>Curva de carga cognitiva por fase (Chart.js)</h3>
+          <h3>Curva de carga cognitiva por fase</h3>
           <p class="xr-card-lede">Línea de tendencia para equilibrar picos de atención con pausas y refuerzo positivo.</p>
           <div class="viz-chart-slot">
             <canvas id="chart-steam" aria-label="Gráfico de líneas de carga cognitiva por era"></canvas>
@@ -1367,7 +1356,7 @@ flowchart TB
         </article>
 
         <article class="card">
-          <h3>Mapa conceptual GALP ↔ dinámica (Cytoscape.js)</h3>
+          <h3>Mapa conceptual GALP ↔ dinámica</h3>
           <p class="xr-card-lede">Red de apoyos entre principios centrales y elementos jugables de la maleta.</p>
           <div class="viz-chart-slot">
             <div id="cy-galp" role="application" aria-label="Grafo interactivo GALP y mecánicas"></div>
@@ -1375,34 +1364,34 @@ flowchart TB
         </article>
 
         <article class="card viz-span-2">
-          <h3>Facetas STEAM por era (Observable Plot)</h3>
-          <p class="xr-card-lede">Barras declarativas con la gramática de gráficos de Observable; útil para iterar datos reales de evaluación.</p>
+          <h3>Facetas STEAM por era</h3>
+          <p class="xr-card-lede">Barras declarativas con una gramática de gráficos orientada a datos; útil para iterar valores reales de evaluación.</p>
           <div class="viz-chart-slot viz-chart-slot--plot">
             <div id="plot-steam" role="img" aria-label="Gráfico de barras STEAM por era"></div>
           </div>
         </article>
 
         <article class="card viz-span-2">
-          <h3>Red circular de eras (Sigma.js)</h3>
-          <p class="xr-card-lede">Visualización WebGL ideal para <strong>grafos grandes</strong> y exploración fluida. Aquí complementa a Cytoscape: mientras aquel modela relaciones pedagógicas abstractas, Sigma muestra la <strong>topología del recorrido temporal</strong> (anillo de eras conectadas).</p>
-          <div id="sigma-eras" class="viz-sigma-host" role="application" aria-label="Grafo circular de eras con Sigma.js"></div>
+          <h3>Red circular de eras</h3>
+          <p class="xr-card-lede">Visualización WebGL adecuada para <strong>grafos grandes</strong>. Complementa el mapa conceptual: allí predominan las relaciones pedagógicas abstractas; aquí se ve la <strong>topología del recorrido temporal</strong> (anillo de eras conectadas).</p>
+          <div id="sigma-eras" class="viz-sigma-host" role="application" aria-label="Grafo circular de eras del pasaporte"></div>
         </article>
       </div>
 
-      <article class="card viz-refs">
+      <!-- <article class="card viz-refs">
         <h3>Guía rápida del stack (esta página)</h3>
         <ul>
-          <li><strong>ApexCharts</strong> · Progresión y métricas (radar por era).</li>
-          <li><strong>Chart.js</strong> · Curvas y series con muy poco código.</li>
-          <li><strong>Observable Plot</strong> · Barras y facetas declarativas (<code>+esm</code>).</li>
-          <li><strong>Cytoscape.js</strong> · Mapas conceptuales y relaciones complejas (GALP ↔ mecánicas).</li>
-          <li><strong>Sigma.js</strong> · Redes y grafos a escala, interacción pan/zoom.</li>
-          <li><strong>Mermaid</strong> · Flujos narrativos, <strong>Gantt</strong> y <strong>organigramas</strong>.</li>
-          <li><strong>Three.js</strong> · Escena 3D inmersiva en la maleta del hero.</li>
-          <li><strong>GSAP</strong> · Animaciones de entrada y al scroll (ScrollTrigger).</li>
-          <li><strong>Nivo</strong> · Librería <strong>React</strong> para dashboards muy pulidos; no está embebida en este HTML estático. Referencia: <a href="https://nivo.rocks/" target="_blank" rel="noopener">nivo.rocks</a>.</li>
+          <li>Progresión y métricas (radar por era).</li>
+          <li>Curvas y series ligeras.</li>
+          <li>Barras y facetas declarativas (módulo ES).</li>
+          <li>Mapas conceptuales y relaciones complejas (GALP ↔ mecánicas).</li>
+          <li>Redes y grafos a escala, exploración fluida.</li>
+          <li>Flujos narrativos, <strong>Gantt</strong> y organigramas.</li>
+          <li>Escena 3D inmersiva en la maleta del hero.</li>
+          <li>Animaciones de entrada y al scroll (ScrollTrigger).</li>
+          <li>Dashboards muy pulidos en entornos React; referencia externa: <a href="https://nivo.rocks/" target="_blank" rel="noopener">nivo.rocks</a>.</li>
         </ul>
-      </article>
+      </article> -->
     </section>
 
     <section class="wrap section" id="xr" aria-labelledby="xr-title">
@@ -1590,7 +1579,7 @@ flowchart TB
       </div>
     </section>
 
-    <section class="wrap section" id="fuentes">
+    <!-- <section class="wrap section" id="fuentes">
       <div class="section-title">
         <div>
           <h2>Recursos consultados</h2>
@@ -1602,7 +1591,7 @@ flowchart TB
         <a class="source-link" href="https://es.wikipedia.org/wiki/Homo_ludens" target="_blank" rel="noopener">Homo Ludens · Johan Huizinga</a>
         <a class="source-link" href="https://inmersivaxr.com/premios-inmersiva-xr-25" target="_blank" rel="noopener">Premios Inmersiva XR 2025</a>
       </div>
-    </section>
+    </section> -->
   </main>
 
   <script defer src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
@@ -1639,7 +1628,13 @@ flowchart TB
           var radarH = slot ? Math.round(Math.max(240, Math.min(slot.clientHeight || 320, 400))) : 320;
           var eraLabels = ['Dinosaurios', 'Prehistoria', 'Antigua', 'Media', 'Moderna', 'Contemp.', 'Digital', 'Futuro'];
           new ApexCharts(chartEl, {
-        chart: { type: 'radar', height: radarH, toolbar: { show: false }, fontFamily: 'Inter, system-ui, sans-serif' },
+        chart: {
+          type: 'radar',
+          height: radarH,
+          toolbar: { show: false },
+          zoom: { enabled: false },
+          fontFamily: 'Inter, system-ui, sans-serif'
+        },
         series: [{ name: 'Intensidad didáctica (ejemplo)', data: [38, 52, 61, 58, 66, 70, 74, 68] }],
         xaxis: { categories: eraLabels },
         yaxis: { show: false, min: 0, max: 100, tickAmount: 4 },
@@ -1724,7 +1719,8 @@ flowchart TB
             'opacity': 0.75
           }}
         ],
-        layout: { name: 'cose', animate: !reduceMotion, randomize: false, componentSpacing: 40, nodeOverlap: 12 }
+        layout: { name: 'cose', animate: !reduceMotion, randomize: false, componentSpacing: 40, nodeOverlap: 12 },
+        userZoomingEnabled: false
       });
       setTimeout(function () { cy.resize(); }, 100);
     }
@@ -1879,21 +1875,36 @@ flowchart TB
         graph.addEdge(String(j), String((j + 1) % n), { size: 2.5, color: '#7a4c25' });
       }
 
+      function lockSigmaZoom(s) {
+        var r = s.getCamera().getState().ratio;
+        s.setSetting('minCameraRatio', r);
+        s.setSetting('maxCameraRatio', r);
+      }
+
       var renderer = new Sigma(graph, host);
+      requestAnimationFrame(function () {
+        lockSigmaZoom(renderer);
+      });
+
       host.setAttribute('data-sigma-init', '1');
 
-      var ro = new ResizeObserver(function () { renderer.refresh(); });
+      var ro = new ResizeObserver(function () {
+        renderer.refresh();
+        requestAnimationFrame(function () {
+          lockSigmaZoom(renderer);
+        });
+      });
       ro.observe(host);
     } catch (err) {
       console.error(err);
-      host.textContent = 'No se pudo cargar Sigma.js. Comprueba la consola o la conexión a Internet.';
+      host.textContent = 'No se pudo cargar el gráfico circular. Comprueba la consola o la conexión a Internet.';
     }
   })();
   </script>
 
   <footer>
     <div class="wrap">
-      Sprint 1 · Playful Learning · La Maleta del Tiempo / La Maleta de la Historia
+      Sprint 1 · Playful Learning · La Maleta del Tiempo · Raquel Cuesta & Antonia Riera
     </div>
   </footer>
 </body>
