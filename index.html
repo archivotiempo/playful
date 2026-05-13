@@ -41,6 +41,7 @@
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       .btn { transition: none; }
+      .btn:hover { transform: none; }
     }
 
     .skip-link {
@@ -85,6 +86,26 @@
     }
 
     a { color: inherit; }
+
+    main section[id].section {
+      scroll-margin-top: 88px;
+    }
+
+    .nav-links a:focus-visible,
+    .source-link:focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    .btn:focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 3px;
+    }
+
+    .btn:focus:not(:focus-visible) {
+      outline: none;
+    }
 
     .wrap {
       width: min(1120px, calc(100% - 2 * var(--wrap-inline)));
@@ -164,7 +185,12 @@
       white-space: nowrap;
     }
 
-    .nav-links a:hover { color: var(--brown-dark); }
+    .nav-links a:hover {
+      color: var(--brown-dark);
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 4px;
+    }
 
     .nav-more {
       display: none;
@@ -888,7 +914,13 @@
     #viz .viz-grid > .card {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
+    }
+
+    #viz .viz-grid > .card > h3 {
+      padding-bottom: 2px;
+      border-bottom: 1px solid rgba(74,45,23,.1);
+      margin-bottom: 2px;
     }
 
     .viz-mermaid-stack {
@@ -932,8 +964,9 @@
     .mermaid-wrap {
       overflow-x: auto;
       border-radius: 18px;
-      background: rgba(255,250,241,.5);
-      padding: 12px;
+      background: rgba(255,250,241,.55);
+      border: 1px solid rgba(74,45,23,.12);
+      padding: 14px 14px 16px;
       min-height: 200px;
     }
 
@@ -1011,9 +1044,13 @@
     .viz-refs li { margin-bottom: 8px; }
 
     footer {
-      padding: 44px 0 60px;
+      padding: 48px 0 64px;
+      margin-top: 8px;
+      border-top: 1px solid rgba(74,45,23,.12);
       color: var(--muted);
       text-align: center;
+      font-size: 15px;
+      line-height: 1.55;
     }
 
     @media (max-width: 1039px) {
@@ -1109,7 +1146,7 @@
   </style>
 </head>
 <body>
-  <a class="skip-link" href="#competencia">Ir al contenido</a>
+  <a class="skip-link" href="#contenido">Ir al contenido</a>
   <header>
     <div class="wrap">
       <nav aria-label="Navegación principal">
@@ -1143,12 +1180,14 @@
           <a href="#galp">GALP</a>
           <a href="#boceto">Boceto</a>
           <a href="#fundamentacion">Fundamentos</a>
+          <a href="#conclusion">Conclusión</a>
+          <a href="#fuentes">Referencias</a>
         </div>
       </nav>
     </div>
   </header>
 
-  <main>
+  <main id="contenido">
     <section class="wrap hero">
       <div>
         <span class="eyebrow">Asignatura · Playful Learning</span>
@@ -1285,6 +1324,7 @@
       <div class="section-title">
         <div>
           <h2 id="viz-title">Visualización del diseño</h2>
+          <p class="section-kicker">Gráficos y diagramas que apoyan el diseño: flujo de sesión, progresión por era, carga cognitiva, vínculos GALP con la dinámica y facetas STEAM.</p>
         </div>
       </div>
 
@@ -1579,7 +1619,7 @@ gantt
       </div>
     </section>
 
-    <!-- <section class="wrap section" id="fuentes">
+    <section class="wrap section" id="fuentes">
       <div class="section-title">
         <div>
           <h2>Recursos consultados</h2>
@@ -1591,7 +1631,7 @@ gantt
         <a class="source-link" href="https://es.wikipedia.org/wiki/Homo_ludens" target="_blank" rel="noopener">Homo Ludens · Johan Huizinga</a>
         <a class="source-link" href="https://inmersivaxr.com/premios-inmersiva-xr-25" target="_blank" rel="noopener">Premios Inmersiva XR 2025</a>
       </div>
-    </section> -->
+    </section>
   </main>
 
   <script defer src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
