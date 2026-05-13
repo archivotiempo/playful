@@ -35,7 +35,7 @@
       --red: #dc2626;
       --red-bg: #fef2f2;
       --white: #ffffff;
-      --max: 900px;
+      --max: min(1240px, calc(100vw - 48px));
       --yellow-line: #fde68a;
       /* Alias hacia reglas legacy del sprint */
       --brown: var(--amber);
@@ -994,56 +994,198 @@
     }
 
     #viz {
+      --viz-chart-h: clamp(260px, 46vmin, 480px);
+      --viz-panel-accent: var(--amber-accent);
       position: relative;
-      background: linear-gradient(180deg, var(--surface) 0%, var(--white) 100%);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding-top: 12px;
-      padding-bottom: 12px;
-      margin-top: 8px;
-      box-shadow: var(--shadow);
+      margin-top: 12px;
+      padding: clamp(20px, 3vw, 32px);
+      border-radius: 22px;
+      border: 1px solid var(--yellow-line);
+      background:
+        radial-gradient(ellipse 100% 80% at 50% -20%, rgba(255, 255, 255, 0.7), transparent 55%),
+        linear-gradient(165deg, #fffbeb 0%, #ffffff 48%, #f8fafc 100%);
+      box-shadow:
+        0 10px 40px rgba(180, 83, 9, 0.07),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    }
+
+    #viz .section-title {
+      margin-bottom: clamp(18px, 3vw, 28px);
+    }
+
+    #viz .viz-grid {
+      gap: clamp(20px, 3vw, 32px);
     }
 
     #viz .viz-grid > .card {
       display: flex;
       flex-direction: column;
-      gap: 14px;
-      border-radius: 16px;
+      gap: clamp(14px, 2vw, 18px);
+      border-radius: 20px;
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(10px);
+      box-shadow:
+        0 4px 24px rgba(15, 23, 42, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.85);
+      padding: clamp(20px, 2.8vw, 30px);
+      border-left: 5px solid var(--viz-panel-accent);
     }
 
     #viz .viz-grid > .card:nth-child(1) {
-      border-top: 3px solid var(--amber);
-      background: var(--white);
+      --viz-panel-accent: var(--amber-accent);
     }
 
     #viz .viz-grid > .card:nth-child(2) {
-      border-top: 3px solid var(--amber-accent);
+      --viz-panel-accent: var(--amber);
     }
 
     #viz .viz-grid > .card:nth-child(3) {
-      border-top: 3px solid var(--blue);
-      background: linear-gradient(180deg, var(--blue-light) 0%, var(--white) 100%);
+      --viz-panel-accent: var(--blue);
+      background: linear-gradient(135deg, rgba(239, 246, 255, 0.55) 0%, rgba(255, 255, 255, 0.92) 55%);
     }
 
     #viz .viz-grid > .card:nth-child(4) {
-      border-top: 3px solid var(--green);
+      --viz-panel-accent: var(--green);
     }
 
     #viz .viz-grid > .card:nth-child(5) {
-      border-top: 3px solid #6366f1;
-      background: var(--white);
+      --viz-panel-accent: #6366f1;
     }
 
     #viz .viz-grid > .card:nth-child(6) {
-      border-top: 3px solid var(--red);
-      background: linear-gradient(180deg, var(--red-bg) 0%, var(--white) 100%);
+      --viz-panel-accent: var(--red);
+      background: linear-gradient(135deg, rgba(254, 242, 242, 0.45) 0%, rgba(255, 255, 255, 0.92) 50%);
     }
 
     #viz .viz-grid > .card > h3 {
-      margin: 0 0 6px;
-      padding: 0 0 10px;
-      border-bottom: 1px solid var(--border);
-      font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+      margin: 0;
+      padding: 0 0 12px;
+      border-bottom: none;
+      font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #viz .viz-grid > .card > h3::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--viz-panel-accent);
+      flex-shrink: 0;
+      box-shadow: 0 0 0 3px rgba(255, 251, 235, 0.9);
+    }
+
+    #viz .viz-narrative-stack {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(22px, 3.5vw, 36px);
+    }
+
+    #viz .viz-diagram-block {
+      position: relative;
+      padding-top: clamp(16px, 2.5vw, 22px);
+    }
+
+    #viz .viz-narrative-stack > .viz-diagram-block:first-child {
+      padding-top: 0;
+    }
+
+    #viz .viz-diagram-block:not(:first-child)::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(180, 83, 9, 0.22), transparent);
+    }
+
+    #viz .viz-diagram-block > .xr-card-lede:first-child {
+      margin-top: 0;
+    }
+
+    #viz .viz-journey-step {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 10px;
+      padding: 6px 12px 6px 10px;
+      width: fit-content;
+      max-width: 100%;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--amber-accent);
+      background: linear-gradient(90deg, rgba(255, 251, 235, 0.95), rgba(248, 250, 252, 0.75));
+      border: 1px solid rgba(253, 230, 138, 0.85);
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) inset;
+    }
+
+    #viz .viz-journey-step i {
+      font-size: 0.85rem;
+      opacity: 0.88;
+      color: var(--amber);
+    }
+
+    #viz .mermaid-wrap {
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(255, 251, 235, 0.55) 0%, var(--surface) 100%);
+      border: 1px dashed rgba(180, 83, 9, 0.22);
+      padding: clamp(16px, 2.5vw, 24px);
+    }
+
+    #viz .mermaid-wrap--flow .mermaid {
+      justify-content: center;
+    }
+
+    #viz .mermaid-wrap--flow svg {
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    #viz .viz-chart-slot {
+      border-radius: 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 12px 14px;
+    }
+
+    #viz .viz-chart-slot--plot {
+      min-height: max(300px, var(--viz-chart-h));
+    }
+
+    #viz .viz-chart-slot--plot > #plot-steam {
+      min-height: 300px;
+    }
+
+    #viz .mermaid-wrap--eras {
+      background: linear-gradient(180deg, rgba(248, 250, 252, 0.9) 0%, rgba(255, 251, 235, 0.45) 100%);
+      border-color: rgba(148, 163, 184, 0.35);
+    }
+
+    #viz .mermaid-wrap--gantt {
+      background: linear-gradient(180deg, rgba(255, 251, 235, 0.5) 0%, rgba(248, 250, 252, 0.95) 100%);
+    }
+
+    #viz .viz-sigma-host {
+      border-radius: 18px;
+      border-style: dashed;
+      border-color: rgba(180, 83, 9, 0.28);
+      background:
+        radial-gradient(ellipse 70% 55% at 50% 42%, rgba(255, 255, 255, 0.55), transparent 72%),
+        linear-gradient(165deg, rgba(255, 251, 235, 0.65) 0%, #ffffff 50%, var(--surface) 100%);
+    }
+
+    #viz #cy-galp {
+      border-radius: 16px;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5);
     }
 
     .card.xr-intro {
@@ -1124,7 +1266,7 @@
     }
 
     #conclusion .card {
-      max-width: 720px;
+      max-width: 100%;
       margin-inline: auto;
       text-align: center;
       padding: clamp(28px, 5vw, 48px) clamp(24px, 4vw, 40px);
@@ -1613,6 +1755,17 @@
       .viz-grid > .viz-span-2 {
         grid-column: 1 / -1;
       }
+    }
+
+    /* Visualización: una sola columna para gráficos y diagramas */
+    #viz .viz-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    #viz .viz-grid > *,
+    #viz .viz-grid > *:not(.viz-span-2),
+    #viz .viz-grid > .viz-span-2 {
+      grid-column: 1 / -1;
     }
 
     .viz-mermaid-stack {
@@ -2202,13 +2355,22 @@
       </div>
     </section>
 
-    <section class="wrap section" id="viz" aria-label="Gráficos y diagramas del diseño">
+    <section class="wrap section" id="viz" aria-labelledby="viz-title">
+      <div class="section-title">
+        <div>
+          <h2 id="viz-title">Visualización del diseño</h2>
+          <p class="section-kicker">Misma columna y ancho amplio: flujo de sesión, secuencia del pasaporte, tiempos orientativos y paneles de datos en un solo recorrido visual, alineado con la landing del TFM.</p>
+        </div>
+      </div>
       <div class="viz-grid">
         <article class="card">
           <h3>Flujo narrativo y de sesión</h3>
-          <p class="xr-card-lede">Primero se explica el problema (el Archivo pierde fragmentos). Luego se juega <strong>era por era</strong>: reto, ayuda si hace falta, sello en el pasaporte y paso a la siguiente. Al final se cierra la historia y se comenta en voz baja qué ha pasado.</p>
-          <div class="mermaid-wrap mermaid-wrap--flow">
-            <pre class="mermaid">
+          <div class="viz-narrative-stack">
+            <div class="viz-diagram-block">
+              <p class="viz-journey-step" aria-hidden="true"><i class="fa-solid fa-book-open"></i> Marco</p>
+              <p class="xr-card-lede">Primero se explica el problema (el Archivo pierde fragmentos). Luego se juega <strong>era por era</strong>: reto, ayuda si hace falta, sello en el pasaporte y paso a la siguiente. Al final se cierra la historia y se comenta en voz baja qué ha pasado.</p>
+              <div class="mermaid-wrap mermaid-wrap--flow">
+                <pre class="mermaid">
 flowchart TD
   A([Inicio]) --> B[Problema del Archivo]
   B --> C[Se abre la maleta]
@@ -2222,11 +2384,14 @@ flowchart TD
   I --> D
   H -->|No| J[Último tramo: Futuro]
   J --> K([Fin de sesión])
-            </pre>
-          </div>
-          <p class="xr-card-lede viz-mermaid-stack">Orden de las <strong>eras</strong> en el pasaporte (de izquierda a derecha).</p>
-          <div class="mermaid-wrap mermaid-wrap--eras viz-mermaid-stack">
-            <pre class="mermaid">
+                </pre>
+              </div>
+            </div>
+            <div class="viz-diagram-block">
+              <p class="viz-journey-step" aria-hidden="true"><i class="fa-solid fa-ticket"></i> Pasaporte</p>
+              <p class="xr-card-lede">Orden de las <strong>eras</strong> en el pasaporte (de izquierda a derecha).</p>
+              <div class="mermaid-wrap mermaid-wrap--eras">
+                <pre class="mermaid">
 %%{init: {'flowchart': {'useMaxWidth': false, 'nodeSpacing': 52, 'rankSpacing': 44, 'padding': 18, 'curve': 'basis'}}}%%
 flowchart LR
   Dinos[Dinosaurios] --> Pre[Prehistoria]
@@ -2236,11 +2401,14 @@ flowchart LR
   Mod --> Cont[Contemporánea]
   Cont --> Dig[Digital]
   Dig --> Fut[Futuro]
-            </pre>
-          </div>
-          <p class="xr-card-lede viz-mermaid-stack"><strong>Gantt</strong> solo como idea de tiempos: entrada corta, bloque largo de juego y cierre. Las fechas son <strong>ejemplo</strong> para separar el eje; lo importante son las proporciones entre fases.</p>
-          <div class="mermaid-wrap mermaid-wrap--gantt">
-            <pre class="mermaid">
+                </pre>
+              </div>
+            </div>
+            <div class="viz-diagram-block">
+              <p class="viz-journey-step" aria-hidden="true"><i class="fa-solid fa-clock"></i> Ritmo</p>
+              <p class="xr-card-lede"><strong>Gantt</strong> solo como idea de tiempos: entrada corta, bloque largo de juego y cierre. Las fechas son <strong>ejemplo</strong> para separar el eje; lo importante son las proporciones entre fases.</p>
+              <div class="mermaid-wrap mermaid-wrap--gantt">
+                <pre class="mermaid">
 %%{init: {'gantt': {'barHeight': 28, 'barGap': 12, 'topPadding': 56, 'leftPadding': 24, 'gridLineStartPadding': 320, 'fontSize': 13, 'sectionFontSize': 13, 'numberSectionStyles': 3}}}%%
 gantt
     title Idea de tiempos en una sesión
@@ -2252,9 +2420,14 @@ gantt
     Eras y retos        :a2, after a1, 56d
     section Salida
     Cierre y charla     :a3, after a2, 14d
-            </pre>
+                </pre>
+              </div>
+            </div>
+            <div class="viz-diagram-block">
+              <p class="viz-journey-step" aria-hidden="true"><i class="fa-solid fa-people-group"></i> En sala</p>
+              <p class="xr-card-lede"><strong>Roles</strong>: la <strong>coordinación</strong> vigila ritmo e inclusión; el <strong>facilitador</strong> lleva la narrativa y el reloj; el <strong>grupo</strong> juega con <strong>apoyos visuales</strong> (pictos, ARASAAC) cuando los necesite.</p>
+            </div>
           </div>
-          <p class="xr-card-lede viz-mermaid-stack"><strong>Roles</strong>: la <strong>coordinación</strong> vigila ritmo e inclusión; el <strong>facilitador</strong> lleva la narrativa y el reloj; el <strong>grupo</strong> juega con <strong>apoyos visuales</strong> (pictos, ARASAAC) cuando los necesite.</p>
         </article>
 
         <article class="card">
@@ -2546,11 +2719,18 @@ gantt
           numberSectionStyles: 3
         },
         themeVariables: {
-          primaryColor: '#fef3c7',
+          primaryColor: '#fffbeb',
           primaryTextColor: '#0f172a',
-          lineColor: '#b45309',
-          secondaryColor: '#ffffff',
+          primaryBorderColor: '#fde68a',
+          secondaryColor: '#f8fafc',
+          secondaryTextColor: '#0f172a',
+          secondaryBorderColor: '#e2e8f0',
           tertiaryColor: '#e2e8f0',
+          tertiaryTextColor: '#334155',
+          lineColor: '#d97706',
+          clusterBkg: '#fffbeb',
+          titleColor: '#0f172a',
+          edgeLabelBackground: '#ffffff',
           fontSize: '14px'
         }
       });
