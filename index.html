@@ -481,6 +481,280 @@
       letter-spacing: -.02em;
     }
 
+    .section-title h2 {
+      position: relative;
+      padding-bottom: 14px;
+    }
+
+    .section-title h2::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: min(140px, 36vw);
+      height: 5px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--gold), var(--brown) 55%, rgba(63,111,133,.65));
+    }
+
+    .hero > div:first-child {
+      padding: clamp(18px, 3.5vw, 36px);
+      border-radius: clamp(22px, 4vw, 34px);
+      background: linear-gradient(145deg, rgba(255,250,241,.72), rgba(255,250,241,.38));
+      border: 1px solid rgba(74,45,23,.12);
+      box-shadow: 0 20px 50px rgba(74,45,23,.08);
+      backdrop-filter: blur(10px);
+    }
+
+    #competencia .card {
+      border-radius: 32px;
+      border-left: 6px solid var(--gold);
+      background: linear-gradient(120deg, rgba(255,250,241,.95), rgba(241,223,189,.42));
+      box-shadow: 0 18px 46px rgba(74,45,23,.11);
+    }
+
+    #objetivos .objectives-grid {
+      align-items: stretch;
+    }
+
+    #objetivos .objectives-grid .card:nth-child(1) {
+      border-radius: 30px 30px 36px 30px;
+      border-top: 4px solid var(--brown);
+      background: linear-gradient(180deg, rgba(255,250,241,.95), rgba(255,250,241,.78));
+    }
+
+    #objetivos .objectives-grid .card:nth-child(2) {
+      border-radius: 36px;
+      border: 1px solid rgba(63,111,133,.22);
+      background: linear-gradient(165deg, rgba(63,111,133,.09), rgba(255,250,241,.9));
+      box-shadow: 0 22px 48px rgba(63,111,133,.1);
+    }
+
+    #objetivos .objectives-grid .card:nth-child(3) {
+      border-radius: 30px 36px 30px 30px;
+      border-right: 5px solid var(--green);
+      background: linear-gradient(225deg, rgba(111,143,84,.12), rgba(255,250,241,.9));
+    }
+
+    @media (min-width: 1040px) {
+      #objetivos .objectives-grid .card:nth-child(2) {
+        transform: translateY(-10px);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #objetivos .objectives-grid .card:nth-child(2) {
+        transform: none;
+      }
+    }
+
+    #persona .grid.two .card:nth-child(1) {
+      border-radius: 28px 32px 28px 28px;
+      border-left: 5px solid var(--green);
+    }
+
+    #persona .grid.two .card:nth-child(2) {
+      border-radius: 28px 28px 32px 28px;
+      border-left: 5px solid var(--blue);
+      background: linear-gradient(188deg, rgba(63,111,133,.08), rgba(255,250,241,.9));
+    }
+
+    #experiencia > .card {
+      border-radius: 32px;
+      background: linear-gradient(135deg, rgba(255,250,241,.9), rgba(232,214,180,.45));
+      box-shadow: 0 16px 42px rgba(122,76,37,.1);
+    }
+
+    .timeline .era {
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+    }
+
+    .timeline .era:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 32px rgba(74,45,23,.12);
+    }
+
+    .timeline .era:nth-child(1) { border-top: 3px solid #9a7b4a; }
+    .timeline .era:nth-child(2) { border-top: 3px solid #c75a3a; }
+    .timeline .era:nth-child(3) { border-top: 3px solid #7a4c25; }
+    .timeline .era:nth-child(4) { border-top: 3px solid #5c4a7a; }
+    .timeline .era:nth-child(5) { border-top: 3px solid #3f6f85; }
+    .timeline .era:nth-child(6) { border-top: 3px solid #6f8f54; }
+    .timeline .era:nth-child(7) { border-top: 3px solid #2d6a6a; }
+    .timeline .era:nth-child(8) { border-top: 3px solid #a14e3d; }
+
+    #viz {
+      position: relative;
+      background:
+        radial-gradient(ellipse 90% 55% at 12% 0%, rgba(199,150,61,.14), transparent 52%),
+        radial-gradient(ellipse 70% 45% at 92% 8%, rgba(63,111,133,.1), transparent 48%);
+      border-radius: 40px;
+      padding-top: 8px;
+      padding-bottom: 8px;
+      margin-top: 6px;
+    }
+
+    #viz .section-title {
+      margin-bottom: 28px;
+    }
+
+    #viz .viz-grid > .card {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      border-radius: clamp(22px, 3vw, 30px);
+    }
+
+    #viz .viz-grid > .card:nth-child(1) {
+      border-top: 5px solid var(--brown);
+      background: linear-gradient(180deg, rgba(255,250,241,.97), rgba(255,250,241,.82));
+    }
+
+    #viz .viz-grid > .card:nth-child(2) {
+      border-top: 5px solid var(--gold);
+    }
+
+    #viz .viz-grid > .card:nth-child(3) {
+      border-top: 5px solid var(--blue);
+      background: linear-gradient(175deg, rgba(63,111,133,.07), rgba(255,250,241,.9));
+    }
+
+    #viz .viz-grid > .card:nth-child(4) {
+      border-top: 5px solid var(--green);
+    }
+
+    #viz .viz-grid > .card:nth-child(5) {
+      border-top: 5px solid #6b5b8e;
+      background: linear-gradient(180deg, rgba(107,91,142,.08), rgba(255,250,241,.92));
+    }
+
+    #viz .viz-grid > .card:nth-child(6) {
+      border-top: 5px solid var(--red);
+      background: linear-gradient(195deg, rgba(161,78,61,.08), rgba(255,250,241,.9));
+    }
+
+    #viz .viz-grid > .card > h3 {
+      margin: 0 0 6px;
+      padding: 0 0 10px;
+      border-bottom: 1px solid rgba(74,45,23,.08);
+      font-size: clamp(1.15rem, 2.4vw, 1.35rem);
+    }
+
+    .card.xr-intro {
+      border-radius: 32px;
+      border-left: 6px solid var(--blue);
+      background: linear-gradient(105deg, rgba(63,111,133,.12), rgba(255,250,241,.9) 48%, rgba(255,250,241,.82));
+      box-shadow: 0 18px 44px rgba(63,111,133,.09);
+    }
+
+    .xr-card:nth-child(1) {
+      border-radius: 28px 32px 26px 28px;
+      border-top: 3px solid rgba(63,111,133,.45);
+    }
+
+    .xr-card:nth-child(2) {
+      border-radius: 32px 26px 32px 26px;
+      background: linear-gradient(160deg, rgba(199,150,61,.1), rgba(255,250,241,.92));
+      border: 1px solid rgba(199,150,61,.28);
+    }
+
+    .xr-card:nth-child(3) {
+      border-radius: 26px 28px 32px 32px;
+      border-right: 4px solid var(--green);
+      background: linear-gradient(200deg, rgba(111,143,84,.1), rgba(255,250,241,.9));
+    }
+
+    .principle:nth-child(4n + 1) { border-left: 4px solid var(--brown); }
+    .principle:nth-child(4n + 2) { border-left: 4px solid var(--blue); }
+    .principle:nth-child(4n + 3) { border-left: 4px solid var(--green); }
+    .principle:nth-child(4n) { border-left: 4px solid var(--gold); }
+
+    .principle:nth-child(even) {
+      background: linear-gradient(145deg, rgba(255,250,241,.88), rgba(241,223,189,.22));
+    }
+
+    #boceto .game-board .card.feature:nth-child(1) .feature-icon {
+      background: linear-gradient(145deg, rgba(122,76,37,.18), #f0dfbd);
+    }
+
+    #boceto .game-board .card.feature:nth-child(2) .feature-icon {
+      background: linear-gradient(145deg, rgba(63,111,133,.22), #f0dfbd);
+    }
+
+    #boceto .game-board .card.feature:nth-child(3) .feature-icon {
+      background: linear-gradient(145deg, rgba(111,143,84,.22), #f0dfbd);
+    }
+
+    #boceto .game-board .card.feature:nth-child(4) .feature-icon {
+      background: linear-gradient(145deg, rgba(161,78,61,.18), #f0dfbd);
+    }
+
+    #boceto .game-board .card.feature:nth-child(odd) {
+      border-radius: 26px 30px 26px 22px;
+    }
+
+    #boceto .game-board .card.feature:nth-child(even) {
+      border-radius: 22px 26px 30px 26px;
+      background: linear-gradient(180deg, rgba(255,250,241,.92), rgba(232,214,180,.25));
+    }
+
+    #fundamentacion .grid.two {
+      gap: var(--gap-lg);
+      align-items: stretch;
+    }
+
+    #fundamentacion .grid.two > .card {
+      border-radius: 30px;
+      border: 1px solid rgba(74,45,23,.12);
+      background: linear-gradient(165deg, rgba(255,250,241,.95), rgba(241,223,189,.2));
+    }
+
+    #conclusion .card {
+      max-width: 800px;
+      margin-inline: auto;
+      text-align: center;
+      padding: clamp(28px, 5vw, 48px) clamp(24px, 4vw, 40px);
+      border-radius: 36px;
+      background: linear-gradient(145deg, rgba(255,250,241,.98), rgba(241,223,189,.35));
+      box-shadow:
+        0 0 0 1px rgba(199,150,61,.35),
+        0 28px 64px rgba(74,45,23,.12);
+    }
+
+    #conclusion .card h2 {
+      font-size: clamp(28px, 4vw, 40px);
+    }
+
+    #fuentes .sources {
+      gap: 16px;
+    }
+
+    #fuentes .source-link {
+      border-radius: 22px 28px 22px 28px;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    #fuentes .source-link:nth-child(even) {
+      border-radius: 28px 22px 28px 22px;
+      background: linear-gradient(99deg, rgba(63,111,133,.08), rgba(255,250,241,.88));
+    }
+
+    #fuentes .source-link:hover {
+      transform: translateX(4px);
+      box-shadow: 0 14px 28px rgba(74,45,23,.1);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .timeline .era,
+      #fuentes .source-link {
+        transition: none;
+      }
+      .timeline .era:hover,
+      #fuentes .source-link:hover {
+        transform: none;
+      }
+    }
+
     .card p, .card li {
       color: #514235;
     }
@@ -808,12 +1082,29 @@
       line-height: 1.55;
     }
 
+    #xr {
+      border-radius: 40px;
+      padding-top: 12px;
+      padding-bottom: 4px;
+      margin-top: 4px;
+      background: radial-gradient(ellipse 85% 45% at 80% 0%, rgba(63,111,133,.1), transparent 50%);
+    }
+
+    #galp {
+      border-radius: 36px;
+      padding-top: 10px;
+      padding-bottom: 6px;
+      margin-top: 8px;
+      background: radial-gradient(ellipse 75% 50% at 20% 0%, rgba(111,143,84,.11), transparent 55%);
+    }
+
     .synthesis {
       margin-top: 22px;
       padding: 24px;
       border-radius: 30px;
       background: rgba(74,45,23,.06);
       border: 1px dashed rgba(74,45,23,.22);
+      border-left: 5px solid var(--brown);
     }
 
     .synthesis h3 { font-size: 22px; margin-bottom: 10px; }
@@ -911,18 +1202,6 @@
       }
     }
 
-    #viz .viz-grid > .card {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    #viz .viz-grid > .card > h3 {
-      padding-bottom: 2px;
-      border-bottom: 1px solid rgba(74,45,23,.1);
-      margin-bottom: 2px;
-    }
-
     .viz-mermaid-stack {
       margin-top: 12px;
     }
@@ -963,21 +1242,57 @@
 
     .mermaid-wrap {
       overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
       border-radius: 18px;
       background: rgba(255,250,241,.55);
       border: 1px solid rgba(74,45,23,.12);
-      padding: 14px 14px 16px;
-      min-height: 200px;
+      padding: 18px 20px 24px;
+      min-height: auto;
     }
 
     .mermaid-wrap .mermaid {
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
+      align-items: center;
+      min-height: 0;
     }
 
     .mermaid-wrap svg {
       max-width: 100%;
       height: auto;
+      vertical-align: top;
+    }
+
+    .mermaid-wrap--flow svg {
+      min-width: min(100%, 520px);
+    }
+
+    .mermaid-wrap--eras {
+      padding: 22px 18px 28px;
+    }
+
+    .mermaid-wrap--eras .mermaid {
+      justify-content: center;
+    }
+
+    .mermaid-wrap--eras svg {
+      min-width: 780px;
+      max-width: none;
+    }
+
+    @media (min-width: 900px) {
+      .mermaid-wrap--eras svg {
+        min-width: 880px;
+      }
+    }
+
+    .mermaid-wrap--gantt {
+      padding-bottom: 28px;
+    }
+
+    .mermaid-wrap--gantt svg {
+      min-width: 680px;
+      max-width: none;
     }
 
     #viz .viz-chart-slot #chart-eras,
@@ -994,10 +1309,10 @@
     }
 
     #viz .viz-chart-slot:not(.viz-chart-slot--plot) #cy-galp {
-      height: clamp(240px, 52dvh, 380px);
+      height: clamp(300px, 56dvh, 440px);
       width: 100%;
       flex: 1 1 auto;
-      min-height: 220px;
+      min-height: 280px;
     }
 
     #plot-steam {
@@ -1126,6 +1441,11 @@
         height: min(320px, 46dvh);
         min-height: 220px;
       }
+
+      #viz .viz-chart-slot:not(.viz-chart-slot--plot) #cy-galp {
+        min-height: 260px;
+        height: clamp(260px, 50vmin, 380px);
+      }
     }
 
     @media print {
@@ -1142,6 +1462,28 @@
         grid-template-columns: repeat(4, minmax(0, 1fr));
       }
       .matrix-wrap { overflow: visible; }
+      #viz {
+        background: none;
+        border-radius: 0;
+        padding: 0;
+        margin: 0;
+      }
+      #xr,
+      #galp {
+        background: none;
+        border-radius: 0;
+        padding: 0;
+        margin: 0;
+      }
+      .hero > div:first-child {
+        backdrop-filter: none;
+        box-shadow: none;
+        background: #fffaf1;
+        border: 1px solid #ddd;
+      }
+      #objetivos .objectives-grid .card:nth-child(2) { transform: none; }
+      .timeline .era:hover { transform: none; box-shadow: none; }
+      #fuentes .source-link:hover { transform: none; box-shadow: none; }
     }
   </style>
 </head>
@@ -1332,7 +1674,7 @@
         <article class="card">
           <h3>Flujo narrativo y de sesión</h3>
           <p class="xr-card-lede">Primero se explica el problema (el Archivo pierde fragmentos). Luego se juega <strong>era por era</strong>: reto, ayuda si hace falta, sello en el pasaporte y paso a la siguiente. Al final se cierra la historia y se comenta en voz baja qué ha pasado.</p>
-          <div class="mermaid-wrap">
+          <div class="mermaid-wrap mermaid-wrap--flow">
             <pre class="mermaid">
 flowchart TD
   A([Inicio]) --> B[Problema del Archivo]
@@ -1350,8 +1692,9 @@ flowchart TD
             </pre>
           </div>
           <p class="xr-card-lede viz-mermaid-stack">Orden de las <strong>eras</strong> en el pasaporte (de izquierda a derecha).</p>
-          <div class="mermaid-wrap viz-mermaid-stack">
+          <div class="mermaid-wrap mermaid-wrap--eras viz-mermaid-stack">
             <pre class="mermaid">
+%%{init: {'flowchart': {'useMaxWidth': false, 'nodeSpacing': 52, 'rankSpacing': 44, 'padding': 18, 'curve': 'basis'}}}%%
 flowchart LR
   Dinos[Dinosaurios] --> Pre[Prehistoria]
   Pre --> Ant[Antigua]
@@ -1362,21 +1705,23 @@ flowchart LR
   Dig --> Fut[Futuro]
             </pre>
           </div>
-          <p class="xr-card-lede viz-mermaid-stack"><strong>Gantt</strong> solo como idea de tiempos: entrada corta, bloque largo de juego y cierre. Los días son unidades relativas, no un calendario real.</p>
-          <div class="mermaid-wrap">
+          <p class="xr-card-lede viz-mermaid-stack"><strong>Gantt</strong> solo como idea de tiempos: entrada corta, bloque largo de juego y cierre. Las fechas son <strong>ejemplo</strong> para separar el eje; lo importante son las proporciones entre fases.</p>
+          <div class="mermaid-wrap mermaid-wrap--gantt">
             <pre class="mermaid">
+%%{init: {'gantt': {'barHeight': 28, 'barGap': 12, 'topPadding': 56, 'leftPadding': 24, 'gridLineStartPadding': 320, 'fontSize': 13, 'sectionFontSize': 13, 'numberSectionStyles': 3}}}%%
 gantt
     title Idea de tiempos en una sesión
-    dateFormat  YYYY-MM-DD
+    dateFormat YYYY-MM-DD
+    axisFormat %d %b
     section Entrada
-    Explicar misión     :a1, 2026-06-01, 1d
+    Explicar misión     :a1, 2026-06-01, 14d
     section Juego
-    Eras y retos        :a2, after a1, 3d
+    Eras y retos        :a2, after a1, 56d
     section Salida
-    Cierre y charla     :a3, after a2, 1d
+    Cierre y charla     :a3, after a2, 14d
             </pre>
           </div>
-          <p class="xr-card-lede viz-mermaid-stack"><strong>Roles</strong> (sin diagrama extra): la <strong>coordinación</strong> vigila ritmo e inclusión; el <strong>facilitador</strong> lleva la narrativa y el reloj; el <strong>grupo</strong> juega con <strong>apoyos visuales</strong> (pictos, ARASAAC) cuando los necesite.</p>
+          <p class="xr-card-lede viz-mermaid-stack"><strong>Roles</strong>: la <strong>coordinación</strong> vigila ritmo e inclusión; el <strong>facilitador</strong> lleva la narrativa y el reloj; el <strong>grupo</strong> juega con <strong>apoyos visuales</strong> (pictos, ARASAAC) cuando los necesite.</p>
         </article>
 
         <article class="card">
@@ -1405,7 +1750,7 @@ gantt
 
         <article class="card viz-span-2">
           <h3>Facetas STEAM por era</h3>
-          <p class="xr-card-lede">Barras declarativas con una gramática de gráficos orientada a datos; útil para iterar valores reales de evaluación.</p>
+          <!-- <p class="xr-card-lede">Barras declarativas con una gramática de gráficos orientada a datos; útil para iterar valores reales de evaluación.</p> -->
           <div class="viz-chart-slot viz-chart-slot--plot">
             <div id="plot-steam" role="img" aria-label="Gráfico de barras STEAM por era"></div>
           </div>
@@ -1413,7 +1758,7 @@ gantt
 
         <article class="card viz-span-2">
           <h3>Red circular de eras</h3>
-          <p class="xr-card-lede">Visualización WebGL adecuada para <strong>grafos grandes</strong>. Complementa el mapa conceptual: allí predominan las relaciones pedagógicas abstractas; aquí se ve la <strong>topología del recorrido temporal</strong> (anillo de eras conectadas).</p>
+          <!-- <p class="xr-card-lede">Visualización WebGL adecuada para <strong>grafos grandes</strong>. Complementa el mapa conceptual: allí predominan las relaciones pedagógicas abstractas; aquí se ve la <strong>topología del recorrido temporal</strong> (anillo de eras conectadas).</p> -->
           <div id="sigma-eras" class="viz-sigma-host" role="application" aria-label="Grafo circular de eras del pasaporte"></div>
         </article>
       </div>
@@ -1619,7 +1964,7 @@ gantt
       </div>
     </section>
 
-    <section class="wrap section" id="fuentes">
+    <!-- <section class="wrap section" id="fuentes">
       <div class="section-title">
         <div>
           <h2>Recursos consultados</h2>
@@ -1631,7 +1976,7 @@ gantt
         <a class="source-link" href="https://es.wikipedia.org/wiki/Homo_ludens" target="_blank" rel="noopener">Homo Ludens · Johan Huizinga</a>
         <a class="source-link" href="https://inmersivaxr.com/premios-inmersiva-xr-25" target="_blank" rel="noopener">Premios Inmersiva XR 2025</a>
       </div>
-    </section>
+    </section> -->
   </main>
 
   <script defer src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
@@ -1649,12 +1994,31 @@ gantt
       window.mermaid.initialize({
         startOnLoad: true,
         theme: 'base',
+        flowchart: {
+          useMaxWidth: true,
+          htmlLabels: true,
+          padding: 16,
+          nodeSpacing: 48,
+          rankSpacing: 42,
+          curve: 'basis'
+        },
+        gantt: {
+          barHeight: 26,
+          barGap: 10,
+          topPadding: 50,
+          leftPadding: 20,
+          gridLineStartPadding: 280,
+          fontSize: 13,
+          sectionFontSize: 13,
+          numberSectionStyles: 3
+        },
         themeVariables: {
           primaryColor: '#ead8b8',
           primaryTextColor: '#2b2118',
           lineColor: '#7a4c25',
           secondaryColor: '#fffaf1',
-          tertiaryColor: '#f1dfbd'
+          tertiaryColor: '#f1dfbd',
+          fontSize: '14px'
         }
       });
     }
@@ -1741,14 +2105,20 @@ gantt
         style: [
           { selector: 'node', style: {
             'label': 'data(label)',
-            'font-size': '11px',
+            'font-size': '13px',
             'font-weight': '700',
             'text-wrap': 'wrap',
-            'text-max-width': '88px',
+            'text-max-width': '110px',
+            'text-valign': 'center',
+            'text-halign': 'center',
             'background-color': '#ead8b8',
             'border-width': 2,
             'border-color': '#4a2d17',
-            'color': '#2b2118'
+            'color': '#2b2118',
+            'width': 'label',
+            'height': 'label',
+            'padding': '14px',
+            'shape': 'roundrectangle'
           }},
           { selector: 'edge', style: {
             'width': 2,
@@ -1759,10 +2129,30 @@ gantt
             'opacity': 0.75
           }}
         ],
-        layout: { name: 'cose', animate: !reduceMotion, randomize: false, componentSpacing: 40, nodeOverlap: 12 },
+        layout: {
+          name: 'cose',
+          animate: !reduceMotion,
+          randomize: false,
+          padding: 48,
+          componentSpacing: 100,
+          nodeOverlap: 4,
+          idealEdgeLength: 140,
+          nodeRepulsion: 14000,
+          gravity: 0.22,
+          numIter: 4000
+        },
         userZoomingEnabled: false
       });
-      setTimeout(function () { cy.resize(); }, 100);
+      setTimeout(function () {
+        cy.resize();
+        cy.fit(undefined, 36);
+      }, 120);
+      if (window.ResizeObserver) {
+        new ResizeObserver(function () {
+          cy.resize();
+          cy.fit(undefined, 36);
+        }).observe(document.getElementById('cy-galp'));
+      }
     }
 
     if (window.THREE && document.getElementById('three-canvas')) {
