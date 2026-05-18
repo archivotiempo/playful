@@ -1,0 +1,1364 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sprint 2 · Playful Learning · La Maleta del Tiempo</title>
+  <meta name="description" content="Sprint 2: diseño de mecánicas, dinámicas e inmersión de La Maleta del Tiempo — escape room educativo STEAM inclusivo." />
+  <meta name="author" content="Raquel Cuesta Barberá" />
+  <meta name="theme-color" content="#b45309" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    :root {
+      --amber: #b45309;
+      --amber-dark: #92400e;
+      --amber-light: #fffbeb;
+      --amber-mid: #fef3c7;
+      --amber-accent: #d97706;
+      --ink: #0f172a;
+      --body: #374151;
+      --muted: #475569;
+      --subtle: #64748b;
+      --transition: 0.22s ease;
+      --border: #e2e8f0;
+      --surface: #f8fafc;
+      --blue: #2563eb;
+      --blue-light: #eff6ff;
+      --green: #16a34a;
+      --green-bg: #ecfdf5;
+      --red: #dc2626;
+      --red-bg: #fef2f2;
+      --white: #ffffff;
+      --max: min(1240px, calc(100vw - 48px));
+      --yellow-line: #fde68a;
+      --brown: var(--amber);
+      --shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+      --gap: 16px;
+      --gap-lg: 24px;
+      --wrap-inline: clamp(16px, 4vw, 24px);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .btn:hover, .mechanic-card:hover, .dynamic-card:hover { transform: none; }
+    }
+
+    .skip-link {
+      position: absolute; left: -9999px; top: 12px; z-index: 120;
+      padding: 12px 18px; border-radius: 10px; background: var(--ink); color: var(--white);
+      font-weight: 700; text-decoration: none;
+    }
+    .skip-link:focus { left: 16px; }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--white);
+      color: var(--body);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; }
+    main section[id].section { scroll-margin-top: 72px; }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 2 * var(--wrap-inline)));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255, 251, 235, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--yellow-line);
+    }
+
+    nav {
+      display: flex; flex-wrap: wrap; align-items: center;
+      gap: 12px 16px; padding: 10px 0; min-height: 56px;
+    }
+
+    #nav-desktop { margin-left: auto; min-width: 0; }
+
+    .brand {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 800; letter-spacing: -0.02em; color: var(--ink);
+      font-size: 17px; min-width: 0;
+    }
+
+    .brand span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .brand span em { font-style: normal; color: var(--amber-accent); }
+
+    .brand-mark {
+      width: 40px; height: 40px; border-radius: 12px;
+      display: grid; place-items: center;
+      background: var(--white); border: 1px solid var(--yellow-line);
+      color: var(--amber-accent); font-size: 18px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .nav-links {
+      display: flex; flex-wrap: wrap; justify-content: flex-end;
+      gap: 6px 14px; align-items: center;
+      font-size: 13px; font-weight: 500; color: var(--muted);
+      margin: 0; padding: 0; list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none; color: var(--muted);
+      white-space: nowrap; transition: color var(--transition);
+    }
+    .nav-links a:hover { color: var(--amber); }
+    .nav-links a:focus-visible {
+      outline: 2px solid var(--amber-accent); outline-offset: 3px; border-radius: 4px;
+    }
+
+    .nav-more { display: none; margin: 0; margin-left: auto; position: relative; }
+    .nav-more summary {
+      cursor: pointer; font-weight: 700; color: var(--ink);
+      list-style: none; padding: 10px 14px; border-radius: 10px;
+      border: 1px solid var(--yellow-line); background: var(--white);
+    }
+    .nav-more summary::-webkit-details-marker { display: none; }
+    .nav-more .nav-links {
+      flex-direction: column; align-items: stretch;
+      margin-top: 10px; padding: 8px 0; border-radius: 12px;
+      background: rgba(255, 255, 255, 0.98); border: 1px solid var(--border);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+      max-height: min(70vh, 480px); overflow-y: auto;
+    }
+    .nav-more .nav-links a {
+      padding: 12px 16px; border-bottom: 1px solid rgba(253, 230, 138, 0.45);
+      white-space: normal;
+    }
+    .nav-more .nav-links a:last-child { border-bottom: none; }
+    .nav-more .nav-links a:hover { background: var(--amber-light); color: var(--amber); }
+
+    .hero-wrap {
+      position: relative; overflow: hidden;
+      background: linear-gradient(160deg, #fef3c7 0%, #fffbeb 40%, #ffffff 100%);
+      border-bottom: 1px solid var(--yellow-line);
+    }
+    .hero-wrap::before {
+      content: ""; position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 90% 60% at 15% 20%, rgba(217, 119, 6, 0.12), transparent 50%),
+        radial-gradient(ellipse 70% 50% at 90% 80%, rgba(15, 23, 42, 0.06), transparent 45%);
+      pointer-events: none;
+    }
+
+    .hero {
+      position: relative; z-index: 1;
+      padding: clamp(48px, 8vw, 72px) 0 clamp(40px, 6vw, 64px);
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: clamp(var(--gap), 4vw, 40px);
+      align-items: center;
+      max-width: var(--max); margin: 0 auto;
+      width: min(var(--max), calc(100% - 2 * var(--wrap-inline)));
+    }
+
+    .eyebrow {
+      display: inline-block; background: var(--amber-mid);
+      color: var(--amber-dark); font-size: 11px; font-weight: 700;
+      letter-spacing: 1.2px; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 999px; margin-bottom: 16px;
+    }
+
+    h1, h2, h3 { font-family: Inter, system-ui, sans-serif; line-height: 1.15; color: var(--ink); margin: 0; }
+    h1 {
+      font-size: clamp(34px, 5.5vw, 52px); font-weight: 900;
+      letter-spacing: -0.04em; line-height: 1.08;
+    }
+    h1 em { font-style: normal; color: var(--amber-accent); }
+    h2 { font-size: clamp(24px, 4vw, 34px); font-weight: 800; letter-spacing: -0.03em; }
+    h3 { font-size: 20px; font-weight: 700; }
+
+    .subtitle {
+      max-width: min(680px, 100%); margin: 20px 0 0;
+      font-size: clamp(16px, 2vw, 18px); color: var(--muted); line-height: 1.75;
+    }
+
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 13px 22px; border-radius: 10px; text-decoration: none;
+      font-weight: 700; font-size: 15px;
+      transition: box-shadow var(--transition), background var(--transition), transform var(--transition);
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn:focus-visible { outline: 2px solid var(--amber-accent); outline-offset: 3px; }
+    .btn.primary {
+      color: var(--white); background: var(--amber); border: none;
+      box-shadow: 0 4px 14px rgba(180, 83, 9, 0.3);
+    }
+    .btn.secondary {
+      background: transparent; color: var(--amber); border: 1.5px solid var(--amber);
+    }
+    .btn.secondary:hover { background: var(--amber-light); }
+
+    .hero-visual {
+      position: relative; min-height: 420px; border-radius: 18px;
+      background: var(--white); border: 1px solid var(--yellow-line);
+      box-shadow: 0 8px 32px rgba(180, 83, 9, 0.08);
+      padding: 28px; overflow: hidden;
+    }
+
+    .hero-visual__grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+      position: relative; z-index: 1; margin-top: 12px;
+    }
+
+    .hero-pill {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 14px; border-radius: 14px;
+      background: var(--amber-light); border: 1px solid var(--yellow-line);
+      font-size: 13px; font-weight: 600; color: var(--ink); line-height: 1.4;
+    }
+
+    .hero-pill i {
+      color: var(--amber-accent); font-size: 18px; margin-top: 2px; flex-shrink: 0;
+    }
+
+    .hero-visual__title {
+      font-size: 12px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--amber-dark); margin: 0 0 8px;
+    }
+
+    .section { padding: 64px 0; }
+
+    .section-title { margin-bottom: var(--gap-lg); }
+
+    .section-title h2 {
+      position: relative; padding-bottom: 14px;
+    }
+
+    .section-title h2::after {
+      content: ""; position: absolute; left: 0; bottom: 0;
+      width: min(120px, 32vw); height: 4px; border-radius: 999px;
+      background: linear-gradient(90deg, var(--amber-accent), var(--ink));
+      opacity: 0.45;
+    }
+
+    .section-kicker {
+      margin: 10px 0 0; max-width: min(72ch, 100%);
+      color: var(--muted); font-size: clamp(15px, 2vw, 17px); line-height: 1.65;
+    }
+
+    .card {
+      background: var(--white); border: 1.5px solid var(--border);
+      border-radius: 16px; padding: 24px; box-shadow: var(--shadow);
+    }
+
+    .card p, .card li { color: var(--body); }
+    .card ul { margin: 12px 0 0; padding-left: 1.2rem; }
+
+    .grid { display: grid; gap: var(--gap); }
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+    .tag-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+
+    .tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 14px; border-radius: 999px;
+      font-size: 12px; font-weight: 600; color: #78350f;
+      background: var(--amber-light); border: 1px solid #fcd34d;
+    }
+
+    .callout {
+      border-radius: 14px; padding: 20px 22px; margin-top: 18px;
+      background: linear-gradient(135deg, var(--amber-light) 0%, var(--white) 100%);
+      border: 1px solid var(--yellow-line); box-shadow: var(--shadow);
+    }
+    .callout p { margin: 0; font-size: 15px; line-height: 1.6; }
+
+    .quote {
+      padding: 28px 28px 28px 32px; border-radius: 14px;
+      background: var(--white); border: 1px solid var(--border);
+      border-left: 4px solid var(--amber-accent); box-shadow: var(--shadow);
+    }
+    .quote p {
+      font-size: clamp(17px, 2.4vw, 21px); font-style: italic;
+      font-weight: 500; line-height: 1.65; margin: 0; color: var(--ink);
+    }
+    .quote small {
+      display: block; margin-top: 14px; color: var(--subtle);
+      font-weight: 600; font-size: 13px; font-style: normal;
+    }
+
+    .matrix-wrap {
+      overflow-x: auto; -webkit-overflow-scrolling: touch;
+      margin-top: 18px; border-radius: 14px;
+      border: 1px solid var(--border); background: var(--surface);
+    }
+
+    .matrix {
+      width: 100%; border-collapse: collapse;
+      font-size: 14px; min-width: 560px;
+    }
+
+    .matrix th, .matrix td {
+      padding: 14px 16px; text-align: left;
+      border-bottom: 1px solid var(--border); vertical-align: top;
+    }
+
+    .matrix th {
+      background: var(--amber-light); color: var(--ink);
+      font-weight: 700; font-size: 13px;
+    }
+
+    .matrix tr:last-child td { border-bottom: none; }
+    .matrix td { background: var(--white); }
+
+    .mechanic-grid {
+      display: grid; gap: var(--gap);
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+    }
+
+    .mechanic-card, .dynamic-card, .immersion-card {
+      border-radius: 16px; padding: 20px;
+      background: var(--white); border: 1.5px solid var(--border);
+      box-shadow: var(--shadow);
+      transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+
+    .mechanic-card:hover, .dynamic-card:hover, .immersion-card:hover {
+      border-color: var(--amber-accent);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(217, 119, 6, 0.1);
+    }
+
+    .mechanic-card h3, .dynamic-card h3, .immersion-card h3 {
+      font-size: 17px; margin: 0 0 8px;
+      display: flex; align-items: center; gap: 10px;
+    }
+
+    .mechanic-card h3 i, .dynamic-card h3 i, .immersion-card h3 i {
+      color: var(--amber-accent); font-size: 16px;
+    }
+
+    .mechanic-card p, .dynamic-card p, .immersion-card p {
+      margin: 0; font-size: 14px; color: var(--muted); line-height: 1.55;
+    }
+
+    .mechanic-card .meta {
+      margin-top: 12px; padding-top: 12px;
+      border-top: 1px dashed var(--border);
+      font-size: 13px; color: var(--body);
+    }
+
+    .mechanic-card .meta strong { color: var(--ink); }
+
+    .dynamic-list {
+      display: grid; gap: 12px;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+    }
+
+    .dynamic-card { border-left: 4px solid var(--amber-accent); }
+
+    .journey-shell {
+      margin-top: var(--gap-lg); padding: 22px 18px 26px;
+      border-radius: 18px; border: 1px solid var(--yellow-line);
+      background: linear-gradient(165deg, #fffbeb 0%, #ffffff 55%, #f8fafc 100%);
+      box-shadow: 0 8px 32px rgba(180, 83, 9, 0.08);
+    }
+
+    .journey-recorrido__title {
+      font-size: 13px; font-weight: 800; color: var(--amber-dark);
+      text-transform: uppercase; letter-spacing: 1.2px; margin: 0 0 16px;
+    }
+
+    .journey-recorrido__scroll {
+      overflow-x: auto; -webkit-overflow-scrolling: touch;
+      padding-bottom: 4px;
+    }
+
+    .journey-recorrido__track {
+      display: flex; gap: 0; min-width: min(100%, 920px);
+      list-style: none; margin: 0 0 20px; padding: 8px 4px 0;
+      position: relative;
+    }
+
+    .journey-recorrido__track::before {
+      content: ""; position: absolute; left: 4%; right: 4%; top: 68px;
+      height: 4px; border-radius: 999px;
+      background: linear-gradient(90deg, #fbbf24, #b45309 50%, #0f172a);
+      opacity: 0.5;
+    }
+
+    .journey-recorrido__item {
+      flex: 1; min-width: 72px; text-align: center;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      position: relative; z-index: 1;
+    }
+
+    .journey-tm-icon {
+      width: 40px; height: 40px; border-radius: 12px;
+      background: var(--white); border: 1.5px solid var(--yellow-line);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--amber-accent); font-size: 16px;
+    }
+
+    .journey-tm-dot {
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--white); border: 3px solid var(--amber-accent);
+    }
+
+    .journey-tm-name {
+      font-size: 9px; font-weight: 800; color: var(--ink);
+      text-transform: uppercase; letter-spacing: 0.03em; max-width: 10ch; line-height: 1.25;
+    }
+
+    .phase-timeline {
+      display: grid; gap: 14px; margin-top: 18px;
+    }
+
+    @media (min-width: 720px) {
+      .phase-timeline { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (min-width: 1040px) {
+      .phase-timeline { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+
+    .phase-card {
+      border-radius: 14px; padding: 18px;
+      background: var(--white); border: 1px solid var(--border);
+      border-top: 3px solid var(--amber);
+    }
+
+    .phase-card:nth-child(5) { border-top-color: var(--green); }
+    .phase-card:nth-child(6) { border-top-color: var(--blue); }
+
+    .phase-card .phase-num {
+      font-size: 11px; font-weight: 800; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--amber); margin-bottom: 6px;
+    }
+
+    .phase-card h3 { font-size: 16px; margin-bottom: 8px; }
+    .phase-card p { margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+    .phase-card dl {
+      margin: 10px 0 0; display: grid; gap: 6px; font-size: 12px;
+    }
+
+    .phase-card dt { font-weight: 700; color: var(--ink); }
+    .phase-card dd { margin: 0; color: var(--muted); }
+
+    #xr {
+      border-radius: 18px; padding: 8px 0;
+      background: linear-gradient(180deg, var(--blue-light) 0%, var(--white) 50%);
+    }
+
+    .card.xr-intro {
+      border-left: 4px solid var(--blue);
+      background: linear-gradient(105deg, var(--blue-light) 0%, var(--white) 55%);
+    }
+
+    #accesibilidad {
+      border-radius: 18px; padding: 8px 0;
+      background: linear-gradient(180deg, var(--green-bg) 0%, var(--white) 45%);
+    }
+
+    #entrega .delivery-grid {
+      display: grid; gap: 10px;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
+    }
+
+    .delivery-page {
+      border-radius: 12px; padding: 14px 16px;
+      background: var(--white); border: 1px solid var(--border);
+      font-size: 13px;
+    }
+
+    .delivery-page strong {
+      display: block; font-size: 22px; font-weight: 900;
+      color: var(--amber); line-height: 1; margin-bottom: 6px;
+    }
+
+    #conclusion .card {
+      text-align: center; padding: clamp(28px, 5vw, 44px);
+      background: linear-gradient(160deg, var(--amber-light) 0%, var(--white) 50%, var(--surface) 100%);
+      border: 1px solid var(--yellow-line);
+    }
+
+    #marco {
+      padding-top: 48px;
+    }
+
+    .brief-shell {
+      padding: clamp(22px, 3vw, 32px);
+      border-radius: 20px;
+      border: 1px solid var(--yellow-line);
+      background: linear-gradient(165deg, #fffbeb 0%, #ffffff 48%, #f8fafc 100%);
+      box-shadow: 0 10px 40px rgba(180, 83, 9, 0.07);
+    }
+
+    .brief-shell__lead {
+      margin: 0 0 20px;
+      font-size: clamp(15px, 2vw, 17px);
+      color: var(--body);
+      line-height: 1.7;
+    }
+
+    .req-checklist {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    @media (min-width: 720px) {
+      .req-checklist { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    .req-checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .req-checklist li i {
+      color: var(--green);
+      font-size: 18px;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .req-checklist a {
+      color: var(--amber);
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .req-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 14px;
+      padding: 5px 11px;
+      border-radius: 999px;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--amber-dark);
+      background: var(--amber-mid);
+      border: 1px solid var(--yellow-line);
+    }
+
+    .objective-grid {
+      display: grid;
+      gap: var(--gap);
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+    }
+
+    .objective-card {
+      border-radius: 16px;
+      padding: 20px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--amber-accent);
+      box-shadow: var(--shadow);
+    }
+
+    .objective-card h3 {
+      font-size: 15px;
+      margin: 0 0 8px;
+      line-height: 1.35;
+    }
+
+    .objective-card p {
+      margin: 0;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .objective-card .where {
+      margin-top: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--amber);
+    }
+
+    .objective-card .where a {
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .criteria-grid {
+      display: grid;
+      gap: var(--gap);
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+      margin-bottom: var(--gap-lg);
+    }
+
+    .criteria-card {
+      border-radius: 16px;
+      padding: 22px;
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .criteria-card h3 {
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--amber-dark);
+      margin: 0 0 10px;
+    }
+
+    .criteria-card p, .criteria-card ul {
+      margin: 0;
+      font-size: 14px;
+      color: var(--body);
+      line-height: 1.55;
+    }
+
+    .criteria-card ul {
+      padding-left: 1.1rem;
+      margin-top: 8px;
+    }
+
+    .align-table td:first-child {
+      font-weight: 700;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+
+    footer {
+      padding: 28px 0 36px; background: #0a0f1e;
+      border-top: 1px solid #1e293b; color: #64748b;
+      text-align: center; font-size: 13px;
+    }
+
+    footer a { color: #94a3b8; text-decoration: none; }
+    footer a:hover { color: #cbd5e1; }
+
+    @media (max-width: 1039px) {
+      #nav-desktop { display: none; }
+      .nav-more { display: block; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-visual { max-width: 520px; margin-inline: auto; min-height: 360px; }
+    }
+
+    @media (max-width: 719px) {
+      .section { padding: 44px 0; }
+      .grid.two, .grid.three { grid-template-columns: 1fr; }
+      .hero-actions { display: grid; grid-template-columns: 1fr; }
+      .hero-actions .btn { width: 100%; justify-content: center; }
+      .matrix { font-size: 13px; min-width: 520px; }
+    }
+
+    @media print {
+      header, .hero-actions, .nav-more, .skip-link { display: none; }
+      body { background: white; }
+      .card, .journey-shell, .mechanic-card { box-shadow: none; break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Ir al contenido</a>
+
+  <header>
+    
+    
+    
+    <div class="wrap">
+      <nav aria-label="Navegación principal">
+        
+        <div class="brand">
+          
+          <div class="brand-mark" aria-hidden="true"><i class="fa-solid fa-suitcase-rolling"></i></div>
+          <span title="Playful Learning · Sprint 2">Playful Learning · <em>Sprint 2</em></span>
+        </div>
+        <details class="nav-more">
+          <summary>Menú</summary>
+          <div class="nav-links" aria-label="Navegación móvil">
+            <a href="#marco">Marco</a>
+            <a href="#objetivos">Objetivos</a>
+            <a href="#partida">Partida</a>
+            <a href="#referencia">Referencias</a>
+            <a href="#mecanicas">Mecánicas</a>
+            <a href="#dinamicas">Dinámicas</a>
+            <a href="#narrativa">Narrativa</a>
+            <a href="#niveles">Niveles</a>
+            <a href="#acciones">Acciones</a>
+            <a href="#inmersion">Inmersión</a>
+            <a href="#xr">XR</a>
+            <a href="#feedback">Feedback</a>
+            <a href="#mapa">Mapa</a>
+            <a href="#accesibilidad">Accesibilidad</a>
+            <a href="#justificacion">Justificación</a>
+            <a href="#entrega">Entrega</a>
+          </div>
+        </details>
+        
+                <div class="nav-links" id="nav-desktop">
+          <a href="#marco">Marco</a>
+          <a href="#objetivos">Objetivos</a>
+          <a href="#partida">Partida</a>
+          <a href="#referencia">Referencias</a>
+          <a href="#mecanicas">Mecánicas</a>
+          <a href="#dinamicas">Dinámicas</a>
+          <a href="#narrativa">Narrativa</a>
+          <a href="#niveles">Niveles</a>
+          <a href="#acciones">Acciones</a>
+          <a href="#inmersion">Inmersión</a>
+          <a href="#xr">XR</a>
+          <a href="#feedback">Feedback</a>
+          <a href="#mapa">Mapa</a>
+          <a href="#accesibilidad">Accesibilidad</a>
+          <a href="#justificacion">Justificación</a>
+          <a href="#entrega">Entrega</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <div class="hero-wrap">
+      <section class="hero" aria-labelledby="hero-title">
+        <div>
+          <span class="eyebrow">Asignatura · Playful Learning</span>
+          <h1 id="hero-title">La Maleta del <em>Tiempo</em></h1>
+          <p class="subtitle"><strong>Sprint 2 · Diseño de mecánicas, dinámicas e inmersión.</strong> Este documento define mecánicas y dinámicas, diseña acciones, retos y niveles, selecciona inmersión (narrativa, sensorial, social), sistematiza el feedback al jugador y elabora el mapa de experiencia — con integración XR justificada y criterios de entrega del sprint.</p>
+          
+          <div class="tag-list" aria-label="Enfoques del sprint">
+            <span class="tag"><i class="fa-solid fa-puzzle-piece" aria-hidden="true"></i> Mecánicas</span>
+            <span class="tag"><i class="fa-solid fa-people-group" aria-hidden="true"></i> Dinámicas</span>
+            <span class="tag"><i class="fa-solid fa-book-open" aria-hidden="true"></i> Narrativa</span>
+            <span class="tag"><i class="fa-solid fa-vr-cardboard" aria-hidden="true"></i> XR / AR</span>
+          </div>
+          <div class="hero-actions">
+            <a class="btn primary" href="#marco">Mapa del sprint</a>
+            <a class="btn secondary" href="#mecanicas">Ver mecánicas</a>
+            <a class="btn secondary" href="#niveles">Estructura de niveles</a>
+            <a class="btn secondary" href="../clase1/playful/index.html">Sprint 1</a>
+            <a class="btn secondary" href="javascript:window.print()">Imprimir / PDF</a>
+          </div>
+        </div>
+        <aside class="hero-visual" aria-label="Resumen visual del sprint">
+          <p class="hero-visual__title">Pilares del diseño</p>
+          <div class="hero-visual__grid">
+            
+            <div class="hero-pill"><i class="fa-solid fa-lock" aria-hidden="true"></i><span>Retos, candados y progreso visible en el pasaporte</span></div>
+            <div class="hero-pill"><i class="fa-solid fa-handshake" aria-hidden="true"></i><span>Roles cooperativos y pistas graduadas</span></div>
+            <div class="hero-pill"><i class="fa-solid fa-volume-high" aria-hidden="true"></i><span>Inmersión narrativa, sensorial y social</span></div>
+            <div class="hero-pill"><i class="fa-solid fa-universal-access" aria-hidden="true"></i><span>Accesibilidad integrada desde el diseño</span></div>
+          </div>
+        </aside>
+      </section>
+    </div>
+
+    <section class="wrap section" id="marco" aria-labelledby="marco-title">
+            <div class="section-title">
+        <div>
+          <h2 id="marco-title">Enunciado del Sprint 2 · Contenidos obligatorios</h2>
+          <p class="section-kicker">Alineación explícita con lo solicitado en la actividad (puedes ampliar con el detalle de las secciones numeradas).</p>
+        </div>
+      </div>
+      <div class="brief-shell">
+        <p class="brief-shell__lead">En este sprint debes <strong>definir las mecánicas y dinámicas</strong>, <strong>diseñar las acciones, retos y niveles</strong>, <strong>seleccionar los elementos de inmersión</strong> (sensorial, narrativa, social) y los <strong>feedbacks al jugador</strong>, y <strong>elaborar el mapa de experiencia</strong>. Todo ello queda desarrollado a continuación y enlazado desde este índice.</p>
+        <ul class="req-checklist" aria-label="Checklist de entregables del Sprint 2">
+          <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i><span><strong>Mecánicas y dinámicas definidas</strong> — <a href="#mecanicas">§3 Mecánicas</a> y <a href="#dinamicas">§4 Dinámicas</a>.</span></li>
+          <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i><span><strong>Acciones, retos y niveles diseñados</strong> — <a href="#acciones">§7 Acciones</a>, <a href="#niveles">§6 Niveles y retos</a>.</span></li>
+          <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i><span><strong>Inmersión seleccionada</strong> (narrativa, sensorial, social) — <a href="#inmersion">§8 Inmersión</a>; narrativa ampliada en <a href="#narrativa">§5</a>.</span></li>
+          <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i><span><strong>Feedbacks al jugador</strong> — <a href="#feedback">§10 Feedback</a>.</span></li>
+          <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i><span><strong>Mapa de experiencia</strong> — <a href="#mapa">§11 Mapa</a> (fases, emociones, apoyos y evidencias).</span></li>
+          <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i><span><strong>Competencia y rediseño desde juego de referencia</strong> — <a href="#partida">§1</a> y <a href="#referencia">§2</a>.</span></li>
+          <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i><span><strong>XR integrada y justificada</strong> — <a href="#xr">§9 XR</a>; relación con la competencia en <a href="#justificacion">§13</a>.</span></li>
+          <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i><span><strong>Justificación lúdica y pedagógica</strong> — <a href="#justificacion">§13</a>.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="wrap section" id="objetivos" aria-labelledby="objetivos-title">
+      <div class="section-title">
+        <div>
+          <h2 id="objetivos-title">Objetivos de la actividad · Cómo se cumplen</h2>
+          <p class="section-kicker">Los alumnos deben demostrar estas capacidades; cada objetivo se resuelve en un apartado concreto de este trabajo.</p>
+        </div>
+      </div>
+      <div class="objective-grid">
+        <article class="objective-card">
+          <h3>Seleccionar una competencia o habilidad real relevante</h3>
+          <p>Competencia: <strong>resolución cooperativa de problemas en contextos STEAM</strong> (14–18 años, DI leve/moderada), contextualizada en el TFM.</p>
+          <p class="where">→ <a href="#partida">§1 Punto de partida</a></p>
+        </article>
+        <article class="objective-card">
+          <h3>Analizar juegos e identificar elementos adaptables</h3>
+          <p>Tabla comparativa: escape room, viaje temporal, cooperativos, museo interactivo y AR educativa.</p>
+          <p class="where">→ <a href="#referencia">§2 Juego de referencia</a></p>
+        </article>
+        <article class="objective-card">
+          <h3>Rediseñar el juego con objetivo pedagógico claro</h3>
+          <p>Transformación del escape room en experiencia STEAM inclusiva con finalidad explícita (no “jugar por jugar”).</p>
+          <p class="where">→ <a href="#referencia">§2</a>, <a href="#mecanicas">§3–4</a>, <a href="#niveles">§6</a></p>
+        </article>
+        <article class="objective-card">
+          <h3>Integrar inmersión (AR/VR/MR) de forma justificada</h3>
+          <p>Prioridad AR y MR ligera; VR no como eje por accesibilidad. Recursos vinculados a objetos físicos.</p>
+          <p class="where">→ <a href="#xr">§9 Integración XR</a></p>
+        </article>
+        <article class="objective-card">
+          <h3>Explicar cómo lo inmersivo potencia la competencia</h3>
+          <p>La AR amplía comprensión histórica y secuenciación sin sustituir manipulación ni cooperación presencial.</p>
+          <p class="where">→ <a href="#xr">§9</a>, <a href="#justificacion">§13</a></p>
+        </article>
+        <article class="objective-card">
+          <h3>Justificar decisiones desde lo lúdico y lo pedagógico</h3>
+          <p>Argumentación de mecánicas, dinámicas, feedback, inclusión y mapa de experiencia.</p>
+          <p class="where">→ <a href="#justificacion">§13 Justificación</a>, <a href="#accesibilidad">§12</a></p>
+        </article>
+      </div>
+    </section>
+
+    <section class="wrap section" id="partida" aria-labelledby="partida-title">
+      <p class="req-badge"><i class="fa-solid fa-clipboard-check" aria-hidden="true"></i> Requisito: competencia seleccionada</p>
+      <div class="section-title">
+        <div>
+          <h2 id="partida-title">1. Punto de partida</h2>
+          <p class="section-kicker">Continuidad del TFM y del Sprint 1: misma maleta, ahora con el foco en cómo se juega, se siente y se apoya al alumnado.</p>
+        </div>
+      </div>
+      <div class="card">
+        <p>La propuesta parte del proyecto <strong>«La Maleta del Tiempo»</strong>, una experiencia educativa tipo escape room en la que el alumnado viaja por diferentes eras históricas para recuperar fragmentos perdidos del conocimiento. A través de retos manipulativos, pruebas visuales, enigmas cooperativos y recursos digitales accesibles, desarrolla competencias STEAM, habilidades cognitivas, comunicación, autonomía y trabajo en equipo.</p>
+        <p>La competencia principal es la <strong>resolución cooperativa de problemas en contextos STEAM</strong>, especialmente en alumnado de <strong>14 a 18 años</strong> con discapacidad intelectual leve o moderada. La experiencia busca que el alumnado aprenda haciendo, manipulando, comunicándose y tomando decisiones dentro de una narrativa significativa.</p>
+        <div class="callout">
+          <p><strong>Duración del prototipo:</strong> 60–70 minutos (introducción narrativa, desarrollo del juego y cierre reflexivo). La versión completa puede plantearse como experiencia <strong>modular por sesiones</strong>, centrando cada sesión en una o varias eras históricas.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap section" id="referencia" aria-labelledby="referencia-title">
+      <p class="req-badge"><i class="fa-solid fa-clipboard-check" aria-hidden="true"></i> Requisito: juego de referencia y rediseño educativo</p>
+      <div class="section-title">
+        <div>
+          <h2 id="referencia-title">2. Juego de referencia y elementos adaptables</h2>
+          <p class="section-kicker">Inspiración en escape rooms, breakouts y museos interactivos — rediseño con finalidad pedagógica explícita.</p>
+        </div>
+      </div>
+      <p class="section-kicker" style="margin-top:-8px;margin-bottom:16px;">El diseño se inspira en escape rooms educativos, breakouts, juegos de exploración, narrativos y experiencias inmersivas de museo. El rediseño no consiste en «jugar por jugar», sino en transformar esas mecánicas en una experiencia con <strong>finalidad pedagógica clara</strong>: relaciones históricas, razonamiento lógico, trabajo en equipo y autonomía.</p>
+      <div class="matrix-wrap">
+        <table class="matrix" role="table">
+          <thead>
+            <tr>
+              <th scope="col">Juego o experiencia</th>
+              <th scope="col">Elemento adaptable</th>
+              <th scope="col">Aplicación en La Maleta del Tiempo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Escape room / breakout educativo</td>
+              <td>Candados, códigos, pistas y resolución por equipos</td>
+              <td>Retos para abrir compartimentos y avanzar por las eras históricas.</td>
+            </tr>
+            <tr>
+              <td>Juegos de viaje temporal</td>
+              <td>Narrativa episódica y avance por misiones</td>
+              <td>Cada era como misión independiente en la línea temporal general.</td>
+            </tr>
+            <tr>
+              <td>Juegos cooperativos</td>
+              <td>Roles, comunicación y objetivo común</td>
+              <td>Funciones dentro del equipo para participación equilibrada.</td>
+            </tr>
+            <tr>
+              <td>Museo interactivo</td>
+              <td>Exploración de objetos y pistas visuales</td>
+              <td>Materiales físicos como piezas históricas que ordenar o interpretar.</td>
+            </tr>
+            <tr>
+              <td>Realidad aumentada educativa</td>
+              <td>Capas digitales sobre objetos físicos</td>
+              <td>Tarjetas o piezas que activan información, pistas o reconstrucciones.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="wrap section" id="mecanicas" aria-labelledby="mecanicas-title">
+      <p class="req-badge"><i class="fa-solid fa-clipboard-check" aria-hidden="true"></i> Requisito: mecánicas definidas</p>
+      <div class="section-title">
+        <div>
+          <h2 id="mecanicas-title">3. Mecánicas principales</h2>
+          <p class="section-kicker">Acciones concretas que estructuran el juego y su intención didáctica.</p>
+        </div>
+      </div>
+      <div class="mechanic-grid">
+        <article class="mechanic-card">
+          <h3><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> Exploración de la maleta</h3>
+          <p>Revisar compartimentos, sobres, tarjetas, objetos y pistas.</p>
+          <p class="meta"><strong>Finalidad:</strong> curiosidad, atención sostenida y observación.</p>
+        </article>
+        <article class="mechanic-card">
+          <h3><i class="fa-solid fa-lightbulb" aria-hidden="true"></i> Resolución de enigmas</h3>
+          <p>Asociación, lógica, secuenciación, cifrado o relación visual por era.</p>
+          <p class="meta"><strong>Finalidad:</strong> pensamiento lógico, memoria, comprensión y deducción.</p>
+        </article>
+        <article class="mechanic-card">
+          <h3><i class="fa-solid fa-lock-open" aria-hidden="true"></i> Apertura de candados</h3>
+          <p>Códigos obtenidos abren nuevos compartimentos.</p>
+          <p class="meta"><strong>Finalidad:</strong> causa-efecto y aprendizaje basado en logro.</p>
+        </article>
+        <article class="mechanic-card">
+          <h3><i class="fa-solid fa-passport" aria-hidden="true"></i> Pasaporte del tiempo</h3>
+          <p>Sello o marca de progreso al superar cada era.</p>
+          <p class="meta"><strong>Finalidad:</strong> avance visible y motivación.</p>
+        </article>
+        <article class="mechanic-card">
+          <h3><i class="fa-solid fa-user-group" aria-hidden="true"></i> Roles cooperativos</h3>
+          <p>Explorador/a, cronista, guardián/a de pistas, técnico/a del tiempo.</p>
+          <p class="meta"><strong>Finalidad:</strong> participación, comunicación y responsabilidad compartida.</p>
+        </article>
+        <article class="mechanic-card">
+          <h3><i class="fa-solid fa-stairs" aria-hidden="true"></i> Pistas graduadas</h3>
+          <p>Orientación → ayuda parcial → solución guiada.</p>
+          <p class="meta"><strong>Finalidad:</strong> adaptar dificultad sin eliminar el reto.</p>
+        </article>
+        <article class="mechanic-card">
+          <h3><i class="fa-solid fa-bolt" aria-hidden="true"></i> Feedback inmediato</h3>
+          <p>Apertura, luz, sonido o mensaje confirman el avance.</p>
+          <p class="meta"><strong>Finalidad:</strong> motivación y comprensión del resultado.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="wrap section" id="dinamicas" aria-labelledby="dinamicas-title">
+      <p class="req-badge"><i class="fa-solid fa-clipboard-check" aria-hidden="true"></i> Requisito: dinámicas definidas</p>
+      <div class="section-title">
+        <div>
+          <h2 id="dinamicas-title">4. Dinámicas de juego</h2>
+          <p class="section-kicker">Experiencias que emergen cuando el alumnado interactúa con las mecánicas.</p>
+        </div>
+      </div>
+      <div class="dynamic-list">
+        <article class="dynamic-card"><h3><i class="fa-solid fa-people-group" aria-hidden="true"></i> Cooperación</h3><p>Retos que exigen repartir tareas, escuchar y consensuar; no se resuelven bien en solitario.</p></article>
+        <article class="dynamic-card"><h3><i class="fa-solid fa-comments" aria-hidden="true"></i> Socialización</h3><p>Narrativa y roles favorecen diálogo, explicación de ideas y petición de ayuda.</p></article>
+        <article class="dynamic-card"><h3><i class="fa-solid fa-compass" aria-hidden="true"></i> Curiosidad</h3><p>Compartimentos ocultos y piezas históricas generan expectativa por descubrir.</p></article>
+        <article class="dynamic-card"><h3><i class="fa-solid fa-chart-line" aria-hidden="true"></i> Progreso visible</h3><p>Pasaporte, sellos y línea temporal muestran cuánto se ha avanzado.</p></article>
+        <article class="dynamic-card"><h3><i class="fa-solid fa-hand-pointer" aria-hidden="true"></i> Autonomía guiada</h3><p>Decisiones propias con apoyos visuales, pistas graduadas y materiales accesibles.</p></article>
+        <article class="dynamic-card"><h3><i class="fa-solid fa-trophy" aria-hidden="true"></i> Superación</h3><p>Dificultad alcanzable para generar sensación de logro.</p></article>
+        <article class="dynamic-card"><h3><i class="fa-solid fa-masks-theater" aria-hidden="true"></i> Inmersión narrativa</h3><p>El equipo repara la historia; no realiza ejercicios descontextualizados.</p></article>
+      </div>
+    </section>
+
+    <section class="wrap section" id="narrativa" aria-labelledby="narrativa-title">
+      <div class="section-title">
+        <div>
+          <h2 id="narrativa-title">5. Narrativa de la experiencia</h2>
+          <p class="section-kicker">Marco ficticio que da sentido a cada reto y conecta eras con el Archivo de la Historia.</p>
+        </div>
+      </div>
+      
+      
+      <div class="card">
+        <p>La línea temporal se ha fragmentado y conocimientos esenciales de la humanidad han quedado desordenados. El alumnado forma parte del <strong>Equipo de Exploradores del Tiempo</strong> y recibe una maleta con restos de diferentes épocas.</p>
+        <p>Su misión es recuperar los fragmentos perdidos, ordenar la historia y desbloquear cada era mediante retos sobre descubrimientos, inventos, símbolos, objetos, culturas y avances tecnológicos. Cada era superada permite <strong>sellar el pasaporte del tiempo</strong> y recuperar una pieza del Archivo de la Historia.</p>
+      </div>
+      <blockquote class="quote" style="margin-top:20px;">
+        <p>«La Historia se ha roto. Algunos inventos, descubrimientos y conocimientos han desaparecido de su época original. Si no conseguimos devolver cada fragmento a su lugar, la línea temporal quedará alterada. Vuestra misión es abrir la Maleta del Tiempo, viajar por las eras históricas y recuperar el Archivo perdido.»</p>
+        <small>Guión breve para introducir el juego</small>
+      </blockquote>
+    </section>
+
+    <section class="wrap section" id="niveles" aria-labelledby="niveles-title">
+      <p class="req-badge"><i class="fa-solid fa-clipboard-check" aria-hidden="true"></i> Requisito: retos y niveles diseñados</p>
+      <div class="section-title">
+        <div>
+          <h2 id="niveles-title">6. Estructura de niveles y retos</h2>
+          <p class="section-kicker">Cada nivel: misión histórica, reto principal, contenido STEAM y feedback de progreso.</p>
+        </div>
+      </div>
+      <div class="journey-shell">
+        <p class="journey-recorrido__title">Recorrido por niveles (0 → Futuro)</p>
+        <div class="journey-recorrido__scroll" role="region" aria-label="Secuencia de nueve niveles">
+          <ol class="journey-recorrido__track">
+            <li class="journey-recorrido__item"><span class="journey-tm-icon" aria-hidden="true"><i class="fa-solid fa-flag"></i></span><span class="journey-tm-dot" aria-hidden="true"></span><span class="journey-tm-name">Nivel 0</span></li>
+            <li class="journey-recorrido__item"><span class="journey-tm-icon" aria-hidden="true"><i class="fa-solid fa-bone"></i></span><span class="journey-tm-dot" aria-hidden="true"></span><span class="journey-tm-name">Dinos</span></li>
+            <li class="journey-recorrido__item"><span class="journey-tm-icon" aria-hidden="true"><i class="fa-solid fa-fire"></i></span><span class="journey-tm-dot" aria-hidden="true"></span><span class="journey-tm-name">Prehist.</span></li>
+            <li class="journey-recorrido__item"><span class="journey-tm-icon" aria-hidden="true"><i class="fa-solid fa-landmark"></i></span><span class="journey-tm-dot" aria-hidden="true"></span><span class="journey-tm-name">Antigua</span></li>
+            <li class="journey-recorrido__item"><span class="journey-tm-icon" aria-hidden="true"><i class="fa-solid fa-chess-rook"></i></span><span class="journey-tm-dot" aria-hidden="true"></span><span class="journey-tm-name">Media</span></li>
+            <li class="journey-recorrido__item"><span class="journey-tm-icon" aria-hidden="true"><i class="fa-solid fa-flask"></i></span><span class="journey-tm-dot" aria-hidden="true"></span><span class="journey-tm-name">Moderna</span></li>
+            <li class="journey-recorrido__item"><span class="journey-tm-icon" aria-hidden="true"><i class="fa-solid fa-industry"></i></span><span class="journey-tm-dot" aria-hidden="true"></span><span class="journey-tm-name">Contemp.</span></li>
+            <li class="journey-recorrido__item"><span class="journey-tm-icon" aria-hidden="true"><i class="fa-solid fa-microchip"></i></span><span class="journey-tm-dot" aria-hidden="true"></span><span class="journey-tm-name">Digital</span></li>
+            <li class="journey-recorrido__item"><span class="journey-tm-icon" aria-hidden="true"><i class="fa-solid fa-rocket"></i></span><span class="journey-tm-dot" aria-hidden="true"></span><span class="journey-tm-name">Futuro</span></li>
+          </ol>
+        </div>
+      </div>
+      <div class="matrix-wrap" style="margin-top:20px;">
+        <table class="matrix" role="table" aria-label="Niveles, retos y feedback">
+          <thead>
+            <tr>
+              <th scope="col">Nivel</th>
+              <th scope="col">Era</th>
+              <th scope="col">Tipo de reto</th>
+              <th scope="col">Habilidad</th>
+              <th scope="col">Feedback</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>0</td><td>Activación</td><td>Misión, roles, entrenamiento</td><td>Normas y cooperación</td><td>Bienvenida y primer compartimento</td></tr>
+            <tr><td>1</td><td>Dinosaurios</td><td>Fósiles, huellas, características</td><td>Observación y clasificación</td><td>Primer sello del pasaporte</td></tr>
+            <tr><td>2</td><td>Prehistoria</td><td>Herramientas, materiales y usos</td><td>Secuenciación y lógica</td><td>Apertura de compartimento</td></tr>
+            <tr><td>3</td><td>Edad Antigua</td><td>Cifrado, símbolos, coordenadas</td><td>Decodificación y razonamiento</td><td>Fragmento del Archivo</td></tr>
+            <tr><td>4</td><td>Edad Media</td><td>Escudos, gremios, patrones</td><td>Memoria visual y deducción</td><td>Cambio en la línea temporal</td></tr>
+            <tr><td>5</td><td>Edad Moderna</td><td>Inventos, mapas, ciencia</td><td>Causa-efecto y pensamiento científico</td><td>Nueva pista narrativa</td></tr>
+            <tr><td>6</td><td>Contemporánea</td><td>Industria, electricidad, sociedad</td><td>Problemas y conexión STEAM</td><td>Código final parcial</td></tr>
+            <tr><td>7</td><td>Digital</td><td>QR, binario, programación sencilla</td><td>Competencia digital</td><td>Recurso digital o AR</td></tr>
+            <tr><td>8</td><td>Futuro</td><td>Tecnología, sostenibilidad, inclusión</td><td>Pensamiento crítico</td><td>Cierre y restauración del Archivo</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="wrap section" id="acciones" aria-labelledby="acciones-title">
+      <p class="req-badge"><i class="fa-solid fa-clipboard-check" aria-hidden="true"></i> Requisito: acciones del alumnado diseñadas</p>
+      <div class="section-title">
+        <div>
+          <h2 id="acciones-title">7. Acciones del alumnado</h2>
+          <p class="section-kicker">Variedad de gestos para evitar que la actividad se reduzca a responder preguntas escritas.</p>
+        </div>
+      </div>
+      <div class="matrix-wrap">
+        <table class="matrix" role="table">
+          <thead>
+            <tr><th scope="col">Acción</th><th scope="col">Ejemplo en el juego</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Observar</strong></td><td>Diferencias en ilustraciones históricas o símbolos ocultos.</td></tr>
+            <tr><td><strong>Manipular</strong></td><td>Ordenar piezas, encajar tarjetas o formar secuencias.</td></tr>
+            <tr><td><strong>Relacionar</strong></td><td>Unir inventos con épocas o materiales con usos.</td></tr>
+            <tr><td><strong>Decodificar</strong></td><td>Cifrado César, binario gráfico, coordenadas o símbolos.</td></tr>
+            <tr><td><strong>Comunicar</strong></td><td>Explicar una pista al equipo o defender una hipótesis.</td></tr>
+            <tr><td><strong>Decidir</strong></td><td>Elegir pista, compartimento o secuencia a probar.</td></tr>
+            <tr><td><strong>Reflexionar</strong></td><td>Completar el pasaporte o comentar estrategias.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="wrap section" id="inmersion" aria-labelledby="inmersion-title">
+      <p class="req-badge"><i class="fa-solid fa-clipboard-check" aria-hidden="true"></i> Requisito: inmersión narrativa, sensorial y social</p>
+            <div class="section-title">
+        <div>
+          <h2 id="inmersion-title">8. Elementos de inmersión</h2>
+          <p class="section-kicker">Selección explícita de narrativa, sensorial y social; capa digital/XR en <a href="#xr" style="color:var(--amber);font-weight:700;">§9</a>.</p>
+        </div>
+      </div>
+      <div class="grid three">
+        <article class="immersion-card">
+          <h3><i class="fa-solid fa-scroll" aria-hidden="true"></i> Narrativa</h3>
+          <p>Misión temporal, pasaporte, fragmentos del Archivo y cartas de época. Da sentido a las pruebas.</p>
+        </article>
+        <article class="immersion-card">
+          <h3><i class="fa-solid fa-hand" aria-hidden="true"></i> Sensorial</h3>
+          <p>Objetos físicos, texturas, madera, sobres, sellos, sonidos suaves y luces de progreso.</p>
+        </article>
+        <article class="immersion-card">
+          <h3><i class="fa-solid fa-users" aria-hidden="true"></i> Social</h3>
+          <p>Roles, decisiones compartidas y comunicación oral para toda la participación.</p>
+        </article>
+      </div>
+      <div class="callout" style="margin-top:18px;">
+        <p><strong>Digital / XR:</strong> realidad aumentada en tarjetas, objetos escaneables y línea temporal interactiva — información sin sustituir la manipulación física.</p>
+      </div>
+    </section>
+
+    <section class="wrap section" id="xr" aria-labelledby="xr-title">
+      <p class="req-badge"><i class="fa-solid fa-clipboard-check" aria-hidden="true"></i> Requisito: XR integrada y justificada</p>
+      <div class="section-title">
+        <div>
+          <h2 id="xr-title">9. Integración conceptual de XR</h2>
+          <p class="section-kicker">Ampliar comprensión y accesibilidad; priorizar AR y realidad mixta ligera frente a VR como eje.</p>
+        </div>
+      </div>
+            <div class="card xr-intro">
+        <p>La XR no es un añadido decorativo: mantiene el carácter físico de la maleta y añade capas visuales, sonoras o interactivas. Se prioriza la <strong>realidad aumentada</strong>; la VR no es el eje principal por barreras de accesibilidad, fatiga y gestión en el aula.</p>
+      </div>
+      <div class="callout">
+        <p><strong>Cómo potencia la competencia seleccionada:</strong> la AR y la MR ligera refuerzan la <strong>resolución cooperativa de problemas STEAM</strong> al ofrecer apoyos visuales y secuenciación histórica (línea temporal aumentada, reconstrucciones) que reducen la carga abstracta, mientras el equipo sigue manipulando, dialogando y decidiendo en la mesa. Así la tecnología <em>acompaña</em> el reto, no lo sustituye ni aísla al alumnado.</p>
+      </div>
+      <div class="matrix-wrap">
+        <table class="matrix" role="table">
+          <thead>
+            <tr>
+              <th scope="col">Recurso XR</th>
+              <th scope="col">Aplicación</th>
+              <th scope="col">Justificación pedagógica</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Tarjetas con AR</td><td>Reconstrucción, pista o animación al enfocar la tarjeta</td><td>Conceptos abstractos con apoyo visual</td></tr>
+            <tr><td>Línea temporal aumentada</td><td>Capa digital breve al desbloquear cada era</td><td>Secuenciación histórica y progreso</td></tr>
+            <tr><td>Objetos escaneables</td><td>Explicación adaptada al escanear pieza</td><td>Objeto físico + contenido curricular</td></tr>
+            <tr><td>Mensajes del Archivo</td><td>Audios o vídeos breves de guías ficticios</td><td>Inmersión narrativa y comprensión oral</td></tr>
+            <tr><td>Escena 360 opcional</td><td>Visualización de época no obligatoria</td><td>Contexto sin depender solo del texto</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="wrap section" id="feedback" aria-labelledby="feedback-title">
+      <p class="req-badge"><i class="fa-solid fa-clipboard-check" aria-hidden="true"></i> Requisito: feedbacks al jugador</p>
+      <div class="section-title">
+        <div>
+          <h2 id="feedback-title">10. Feedback al jugador</h2>
+          <p class="section-kicker">Orientar sin romper la autonomía — especialmente relevante en perfiles con ansiedad ante el error.</p>
+        </div>
+      </div>
+      
+      <div class="mechanic-grid">
+        <article class="mechanic-card"><h3><i class="fa-solid fa-bolt" aria-hidden="true"></i> Inmediato</h3><p>Candado abierto, luz, sonido o mensaje de validación.</p><p class="meta">Confirma que la acción fue correcta.</p></article>
+        <article class="mechanic-card"><h3><i class="fa-solid fa-book" aria-hidden="true"></i> Narrativo</h3><p>El Archivo informa de que una era ha sido restaurada.</p><p class="meta">Conecta el logro con la historia.</p></article>
+        <article class="mechanic-card"><h3><i class="fa-solid fa-eye" aria-hidden="true"></i> Visual</h3><p>Sellos, colores por era o avance en la línea temporal.</p><p class="meta">Progreso visible.</p></article>
+        <article class="mechanic-card"><h3><i class="fa-solid fa-heart" aria-hidden="true"></i> Social</h3><p>Celebración del equipo y nuevas funciones.</p><p class="meta">Cooperación y autoestima.</p></article>
+        <article class="mechanic-card"><h3><i class="fa-solid fa-sliders" aria-hidden="true"></i> Adaptativo</h3><p>Pistas graduadas según bloqueo.</p><p class="meta">Mantiene el reto sin frustración.</p></article>
+        <article class="mechanic-card"><h3><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Final</h3><p>Reflexión sobre estrategias y aprendizajes.</p><p class="meta">Metacognición y transferencia.</p></article>
+      </div>
+    </section>
+
+    <section class="wrap section" id="mapa" aria-labelledby="mapa-title">
+      <p class="req-badge"><i class="fa-solid fa-clipboard-check" aria-hidden="true"></i> Requisito: mapa de experiencia</p>
+      <div class="section-title">
+        <div>
+          <h2 id="mapa-title">11. Mapa de experiencia</h2>
+          <p class="section-kicker">Fases de la sesión: emoción buscada, acción del alumnado, apoyo docente y evidencia.</p>
+        </div>
+      </div>
+      <div class="phase-timeline">
+        <article class="phase-card">
+          <p class="phase-num">Fase 1</p>
+          <h3>Entrada en la misión</h3>
+          <p>Historia y maleta · <em>Curiosidad</em></p>
+          <dl>
+            <dt>Alumnado</dt><dd>Escuchar, observar, asumir roles</dd>
+            <dt>Docente</dt><dd>Explicación breve y accesible</dd>
+            <dt>Evidencia</dt><dd>Comprensión de normas y objetivo</dd>
+          </dl>
+        </article>
+        <article class="phase-card">
+          <p class="phase-num">Fase 2</p>
+          <h3>Exploración inicial</h3>
+          <p>Materiales y primeras pistas · <em>Intriga</em></p>
+          <dl>
+            <dt>Alumnado</dt><dd>Buscar, tocar, comparar, comunicar</dd>
+            <dt>Docente</dt><dd>Acompañar sin resolver</dd>
+            <dt>Evidencia</dt><dd>Participación y observación</dd>
+          </dl>
+        </article>
+        <article class="phase-card">
+          <p class="phase-num">Fase 3</p>
+          <h3>Resolución de retos</h3>
+          <p>Pruebas por eras · <em>Reto y concentración</em></p>
+          <dl>
+            <dt>Alumnado</dt><dd>Relacionar, ordenar, deducir, probar códigos</dd>
+            <dt>Docente</dt><dd>Pistas graduadas si hace falta</dd>
+            <dt>Evidencia</dt><dd>Resolución de problemas</dd>
+          </dl>
+        </article>
+        <article class="phase-card">
+          <p class="phase-num">Fase 4</p>
+          <h3>Desbloqueo y progreso</h3>
+          <p>Compartimentos y sellos · <em>Logro</em></p>
+          <dl>
+            <dt>Alumnado</dt><dd>Validar respuestas y registrar avance</dd>
+            <dt>Docente</dt><dd>Refuerzo positivo</dd>
+            <dt>Evidencia</dt><dd>Pasaporte parcialmente completado</dd>
+          </dl>
+        </article>
+        <article class="phase-card">
+          <p class="phase-num">Fase 5</p>
+          <h3>Cierre narrativo</h3>
+          <p>Archivo restaurado · <em>Satisfacción</em></p>
+          <dl>
+            <dt>Alumnado</dt><dd>Compartir aprendizajes y estrategias</dd>
+            <dt>Docente</dt><dd>Preguntas de reflexión</dd>
+            <dt>Evidencia</dt><dd>Expresión oral y metacognición</dd>
+          </dl>
+        </article>
+        <article class="phase-card">
+          <p class="phase-num">Fase 6</p>
+          <h3>Transferencia</h3>
+          <p>Conexión STEAM e histórica · <em>Sentido</em></p>
+          <dl>
+            <dt>Alumnado</dt><dd>Explicar qué aprendieron y cómo lo resolvieron</dd>
+            <dt>Docente</dt><dd>Evaluación formativa</dd>
+            <dt>Evidencia</dt><dd>Rúbrica, observación y reflexión final</dd>
+          </dl>
+        </article>
+      </div>
+      <div class="matrix-wrap" style="margin-top:22px;">
+        <table class="matrix" role="table" aria-label="Tabla resumen del mapa de experiencia">
+          <thead>
+            <tr>
+              <th scope="col">Fase</th>
+              <th scope="col">Qué ocurre</th>
+              <th scope="col">Emoción</th>
+              <th scope="col">Apoyo docente</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1. Entrada</td><td>Historia y maleta</td><td>Curiosidad</td><td>Explicación accesible</td></tr>
+            <tr><td>2. Exploración</td><td>Primeras pistas</td><td>Intriga</td><td>Acompañamiento</td></tr>
+            <tr><td>3. Retos</td><td>Eras históricas</td><td>Concentración</td><td>Pistas graduadas</td></tr>
+            <tr><td>4. Progreso</td><td>Sellos y aperturas</td><td>Logro</td><td>Refuerzo positivo</td></tr>
+            <tr><td>5. Cierre</td><td>Archivo restaurado</td><td>Satisfacción</td><td>Reflexión guiada</td></tr>
+            <tr><td>6. Transferencia</td><td>STEAM e historia</td><td>Sentido</td><td>Evaluación formativa</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="wrap section" id="accesibilidad" aria-labelledby="accesibilidad-title">
+      <div class="section-title">
+        <div>
+          <h2 id="accesibilidad-title">12. Accesibilidad e inclusión</h2>
+          <p class="section-kicker">Apoyos diversos desde el diseño, no como parche final.</p>
+        </div>
+      </div>
+      <div class="matrix-wrap">
+        <table class="matrix" role="table">
+          <thead>
+            <tr><th scope="col">Necesidad</th><th scope="col">Adaptación propuesta</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Discapacidad intelectual</td><td>Instrucciones breves, lenguaje claro, pictogramas, retos secuenciados.</td></tr>
+            <tr><td>TDAH</td><td>Pruebas cortas, manipulación activa, cambio de tareas y roles dinámicos.</td></tr>
+            <tr><td>TEA</td><td>Anticipación de normas, estructura clara, rol predecible, menos estímulos.</td></tr>
+            <tr><td>Dificultad visual</td><td>Contraste alto, tipografías legibles, piezas grandes y apoyo táctil.</td></tr>
+            <tr><td>Dificultad auditiva</td><td>Alternativa visual o escrita a toda información sonora.</td></tr>
+            <tr><td>Daltonismo</td><td>Símbolos, patrones o ColorADD además del color.</td></tr>
+            <tr><td>Movilidad reducida</td><td>Materiales en mesa; roles de análisis, lectura o validación.</td></tr>
+            <tr><td>Ansiedad ante el error</td><td>Pistas graduadas, tiempo flexible y feedback positivo al proceso.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="wrap section" id="justificacion" aria-labelledby="justificacion-title">
+      <p class="req-badge"><i class="fa-solid fa-clipboard-check" aria-hidden="true"></i> Requisito: justificación lúdica y pedagógica</p>
+      <div class="section-title">
+        <div>
+          <h2 id="justificacion-title">13. Justificación lúdica y pedagógica</h2>
+          <p class="section-kicker">Argumentación de las decisiones de diseño y coherencia con la competencia STEAM cooperativa.</p>
+        </div>
+      </div>
+      <div class="grid two">
+        <div class="card">
+          <h3>Enfoque lúdico</h3>
+          <p>Elementos del escape room: misterio, reto, cooperación, descubrimiento, desbloqueo progresivo y recompensa simbólica. Convierten el aprendizaje en experiencia activa y motivan la participación.</p>
+        </div>
+        <div class="card">
+          <h3>Enfoque pedagógico</h3>
+          <p>Cada mecánica tiene finalidad: candados → resolución de problemas; pasaporte → progreso visible; roles → participación; pistas graduadas → dificultad ajustada; narrativa → sentido de las tareas.</p>
+        </div>
+      </div>
+      
+      <div class="callout">
+        <p><strong>XR y competencia:</strong> las capas AR/MR refuerzan la comprensión histórica y la secuenciación sin sustituir manipulación ni cooperación. Competencias: razonamiento lógico, atención, memoria, comunicación, autonomía, cooperación, decisiones y pensamiento crítico.</p>
+      </div>
+      <div class="matrix-wrap" style="margin-top:18px;">
+        <table class="matrix align-table" role="table" aria-label="Coherencia diseño-competencia">
+          <thead>
+            <tr>
+              <th scope="col">Competencia / eje</th>
+              <th scope="col">Mecánica / dinámica</th>
+              <th scope="col">Inmersión y feedback</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Resolver problemas en equipo</td><td>Roles, cooperación, enigmas</td><td>Social + feedback social</td></tr>
+            <tr><td>STEAM contextualizado</td><td>Retos por era, niveles 0–8</td><td>Narrativa + sensorial (objetos)</td></tr>
+            <tr><td>Autonomía con apoyo</td><td>Pistas graduadas</td><td>Feedback adaptativo</td></tr>
+            <tr><td>Secuenciación histórica</td><td>Pasaporte, orden de eras</td><td>Visual + AR línea temporal</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="wrap section" id="entrega" aria-labelledby="entrega-title">
+      <div class="section-title">
+        <div>
+          <h2 id="entrega-title">14. Criterios de entrega del Sprint 2</h2>
+          <p class="section-kicker">Formato, extensión y criterios de evaluación explícitos, más la estructura de 10 páginas de este documento.</p>
+        </div>
+      </div>
+      <div class="criteria-grid">
+        <article class="criteria-card">
+          <h3>Formato</h3>
+          <p><strong>Enlace web</strong> (este HTML, desplegable o carpeta local) + exportación <strong>PDF</strong> mediante «Imprimir / PDF» del navegador. Alternativa válida: PPT con la misma estructura de 10 diaposiciones.</p>
+          <p style="margin-top:10px;font-size:13px;color:var(--muted);">Entrega recomendada: URL o archivo PDF generado desde esta página.</p>
+        </article>
+        <article class="criteria-card">
+          <h3>Extensión</h3>
+          <p><strong>Máximo 10 páginas</strong> en PDF. La estructura inferior replica ese límite: cada bloque ≈ una página al imprimir.</p>
+          <p style="margin-top:10px;font-size:13px;color:var(--muted);">Contenido ampliado en web para lectura cómoda; al imprimir, usar márgenes normales y ocultar navegación.</p>
+        </article>
+        <article class="criteria-card">
+          <h3>Otros criterios relevantes</h3>
+          <ul>
+            <li><strong>Originalidad e ideas:</strong> maleta-portátil, pasaporte, Archivo fragmentado.</li>
+            <li><strong>Argumentación:</strong> finalidad por mecánica y tabla de coherencia (§13).</li>
+            <li><strong>Estética:</strong> continuidad visual Sprint 1 / archivotiempo.</li>
+            <li><strong>Síntesis:</strong> marco + checklist (<a href="#marco">§ Marco</a>).</li>
+            <li><strong>Coherencia pedagógica:</strong> mapa de experiencia y niveles.</li>
+            <li><strong>XR conceptual:</strong> §9 con prioridad AR y vínculo a competencia.</li>
+          </ul>
+        </article>
+      </div>
+      <h3 style="margin:28px 0 14px;font-size:18px;">Estructura en 10 páginas (índice PDF)</h3>
+      <div class="delivery-grid">
+        <div class="delivery-page"><strong>1</strong> Portada · Sprint 2 · La Maleta del Tiempo</div>
+        <div class="delivery-page"><strong>2</strong> Punto de partida, competencia y duración</div>
+        <div class="delivery-page"><strong>3</strong> Juego de referencia y rediseño</div>
+        
+        <div class="delivery-page"><strong>4</strong> Mecánicas y dinámicas</div>
+        <div class="delivery-page"><strong>5</strong> Acciones, retos y niveles</div>
+        <div class="delivery-page"><strong>6</strong> Inmersión narrativa, sensorial y social</div>
+        <div class="delivery-page"><strong>7</strong> Integración XR</div>
+        <div class="delivery-page"><strong>8</strong> Feedback al jugador</div>
+        <div class="delivery-page"><strong>9</strong> Mapa de experiencia</div>
+        <div class="delivery-page"><strong>10</strong> Justificación, accesibilidad y cierre</div>
+      </div>
+    </section>
+
+    <section class="wrap section" id="conclusion" aria-labelledby="conclusion-title">
+      <div class="card">
+        <h2 id="conclusion-title">Cierre del Sprint 2</h2>
+        <p style="margin:14px 0 0;color:var(--muted);max-width:56ch;margin-inline:auto;">Diseño de mecánicas, dinámicas e inmersión para <strong>La Maleta del Tiempo</strong>, alineado con el TFM y la landing <a href="https://archivotiempo.github.io/" target="_blank" rel="noopener noreferrer" style="color:var(--amber);font-weight:700;">archivotiempo.github.io</a>. Sprint 1: fundamentos y visualización; Sprint 2: cómo se juega, se siente y se incluye a todo el alumnado.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      Sprint 2 · Playful Learning · La Maleta del Tiempo ·
+      <a href="../clase1/playful/index.html">Sprint 1</a> ·
+      <a href="https://archivotiempo.github.io/" target="_blank" rel="noopener noreferrer">TFM · Archivo del Tiempo</a>
+    </div>
+  </footer>
+</body>
+</html>
