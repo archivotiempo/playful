@@ -84,12 +84,25 @@
     .matrix th,.matrix td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
     .matrix th { background: var(--amber-light); color: var(--ink); font-weight: 700; font-size: 13px; }
     .matrix tr:last-child td { border-bottom: none; }
+    .matrix .evidence-ref { color: var(--amber-accent); font-weight: 800; text-decoration: underline; text-decoration-color: rgba(217, 119, 6, 0.35); text-underline-offset: 2px; }
+    .matrix .evidence-ref:hover { color: var(--amber-dark); }
+    .annex-legend { margin: 0 0 14px; padding: 12px 14px; border-radius: 12px; background: var(--blue-light); border: 1px solid #bfdbfe; font-size: 13px; color: var(--body); line-height: 1.55; max-width: min(90ch, 100%); }
+    .annex-legend strong { color: var(--ink); }
+    .annex-legend a { color: var(--blue); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
     .req-badge { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 14px; padding: 5px 11px; border-radius: 999px; font-size: .68rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--amber-dark); background: var(--amber-mid); border: 1px solid var(--yellow-line); }
     .objective-grid { display: grid; gap: var(--gap); grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); }
     .objective-card { border-radius: 16px; padding: 20px; background: var(--white); border: 1px solid var(--border); border-left: 4px solid var(--amber-accent); box-shadow: var(--shadow); }
     .objective-card h3 { font-size: 15px; margin: 0 0 8px; line-height: 1.35; }
     .objective-card p { margin: 0; font-size: 13px; color: var(--muted); line-height: 1.55; }
-    .objective-card .where { margin-top: 12px; font-size: 12px; font-weight: 700; color: var(--amber); }
+    .objective-jumps { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .objective-jump {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px; flex: 1 1 auto; min-width: min(100%, 140px);
+      padding: 10px 12px; border-radius: 10px; font-size: 12px; font-weight: 800; text-decoration: none; text-align: center;
+      color: var(--amber-dark); background: var(--amber-light); border: 1px solid var(--yellow-line); transition: background var(--transition), border-color var(--transition), transform var(--transition);
+    }
+    .objective-jump:hover { background: var(--amber-mid); border-color: #fcd34d; transform: translateY(-1px); }
+    .objective-jump:focus-visible { outline: 2px solid var(--amber-accent); outline-offset: 2px; }
+    .objective-jump i { font-size: 11px; opacity: 0.85; }
     .timeline { display: grid; gap: 12px; }
     .step { border-radius: 14px; padding: 16px; border: 1px solid var(--border); background: var(--white); border-left: 4px solid var(--amber-accent); }
     .step .step-tag { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--amber); margin-bottom: 6px; }
@@ -98,11 +111,9 @@
     .scene .visual { height: 74px; border-radius: 12px; border: 1px dashed var(--yellow-line); background: var(--amber-light); display: flex; align-items: center; justify-content: center; font-size: 34px; margin-bottom: 10px; }
     .mermaid-wrap { border-radius: 16px; background: linear-gradient(180deg, rgba(255,251,235,.55) 0%, var(--surface) 100%); border: 1px dashed rgba(180,83,9,.22); padding: 16px; overflow-x: auto; }
     .note { border-radius: 14px; padding: 14px 16px; margin-top: 14px; background: linear-gradient(135deg, var(--amber-light) 0%, var(--white) 100%); border: 1px solid var(--yellow-line); font-size: 14px; color: var(--body); }
-    .criteria-grid { display: grid; gap: var(--gap); grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); margin-bottom: var(--gap-lg); }
-    .criteria-card { border-radius: 16px; padding: 22px; background: var(--white); border: 1.5px solid var(--border); box-shadow: var(--shadow); }
-    .criteria-card h3 { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; color: var(--amber-dark); margin: 0 0 10px; }
-    .criteria-card p,.criteria-card ul { margin: 0; font-size: 14px; color: var(--body); line-height: 1.55; }
-    .criteria-card ul { padding-left: 1.1rem; margin-top: 8px; }
+    .note a { color: var(--amber-accent); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
+    .note a:hover { color: var(--amber-dark); }
+    #leyenda-anexos { scroll-margin-top: 80px; }
     footer { padding: 28px 0 36px; background: #0a0f1e; border-top: 1px solid #1e293b; color: #64748b; text-align: center; font-size: 13px; }
 
     @media (min-width: 1040px) {
@@ -110,7 +121,6 @@
       #nav-desktop { display: flex; flex-wrap: wrap; align-content: center; row-gap: 8px; column-gap: 14px; font-size: 12px; max-width: min(960px, 78vw); }
       .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
       .objective-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-      .criteria-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
       .storyboard { grid-template-columns: repeat(3, minmax(0, 1fr)); }
       .timeline { grid-template-columns: repeat(3, minmax(0, 1fr)); }
       .matrix { min-width: 0; }
@@ -148,15 +158,15 @@
         <details class="nav-more">
           <summary>Menú</summary>
           <div class="nav-links">
-            <a href="#marco">Marco</a><a href="#objetivos">Objetivos</a><a href="#thinking">Game Thinking</a><a href="#referentes">Referentes</a>
+            <a href="#marco">Marco</a><a href="#objetivos">Mapa</a><a href="#thinking">Game Thinking</a><a href="#referentes">Referentes</a>
             <a href="#concepto">Concepto</a><a href="#narrativa">Narrativa</a><a href="#storyboard">Storyboard</a><a href="#flujo">Flujo</a>
-            <a href="#xr">Ficha XR</a><a href="#playtest">Playtest</a><a href="#coherencia">Coherencia</a><a href="#galp">GALP</a><a href="#entrega">Entrega</a>
+            <a href="#xr">Ficha XR</a><a href="#playtest">Playtest</a><a href="#coherencia">Coherencia</a><a href="#galp">GALP</a>
           </div>
         </details>
         <div class="nav-links" id="nav-desktop">
           <a href="#marco">Marco</a><a href="#objetivos">Objetivos</a><a href="#thinking">Game Thinking</a><a href="#referentes">Referentes</a>
           <a href="#concepto">Concepto</a><a href="#narrativa">Narrativa</a><a href="#storyboard">Storyboard</a><a href="#flujo">Flujo</a>
-          <a href="#xr">Ficha XR</a><a href="#playtest">Playtest</a><a href="#coherencia">Coherencia</a><a href="#galp">GALP</a><a href="#entrega">Entrega</a>
+          <a href="#xr">Ficha XR</a><a href="#playtest">Playtest</a><a href="#coherencia">Coherencia</a><a href="#galp">GALP</a>
         </div>
       </nav>
     </div>
@@ -194,14 +204,60 @@
     </section>
 
     <section class="wrap section" id="objetivos">
-      <div class="section-title"><div><h2>Objetivos de la actividad y cómo se cumplen</h2><p class="section-kicker">Rastreo explícito de cada objetivo del enunciado a una evidencia concreta del documento.</p></div></div>
+      <nav class="section-title" aria-labelledby="mapa-entrega-title">
+        <div>
+          <h2 id="mapa-entrega-title">Mapa de la entrega</h2>
+          <p class="section-kicker">Cada tarjeta resume un objetivo del enunciado y enlaza al apartado donde está la evidencia. Los mismos destinos aparecen en el menú superior.</p>
+        </div>
+      </nav>
       <div class="objective-grid">
-        <article class="objective-card"><h3>Comprender el proceso de Game Thinking</h3><p>Fases de empatizar, definir, idear, prototipar, testear e iterar aplicadas al caso.</p><p class="where">→ § Game Thinking</p></article>
-        <article class="objective-card"><h3>Diseñar prototipo con storyboard y flujo</h3><p>Secuencia de escenas + diagrama de decisiones del jugador.</p><p class="where">→ § Storyboard y § Mapa de flujo</p></article>
-        <article class="objective-card"><h3>Aplicar feedback para mejorar</h3><p>Validación conceptual y evidencias reales del TFM (Anexos B/C) traducidas a mejoras.</p><p class="where">→ § Playtest, feedback e iteración</p></article>
-        <article class="objective-card"><h3>Integrar iteraciones</h3><p>Ajustes en reglas, pistas, accesibilidad, narrativa y capa XR.</p><p class="where">→ § Playtest + § Coherencia</p></article>
-        <article class="objective-card"><h3>Relacionar pedagogía, mecánicas e inmersión</h3><p>Matriz objetivo ↔ mecánica/dinámica ↔ narrativa ↔ XR ↔ evidencia.</p><p class="where">→ § Coherencia pedagógico-lúdica</p></article>
+        <article class="objective-card">
+          <h3>Comprender el proceso de Game Thinking</h3>
+          <p>Fases de empatizar, definir, idear, prototipar, testear e iterar aplicadas al caso.</p>
+          <div class="objective-jumps">
+            <a class="objective-jump" href="#thinking">Game Thinking <i class="fa-solid fa-arrow-down" aria-hidden="true"></i></a>
+          </div>
+        </article>
+        <article class="objective-card">
+          <h3>Diseñar prototipo con storyboard y flujo</h3>
+          <p>Secuencia de escenas + diagrama de decisiones del jugador.</p>
+          <div class="objective-jumps">
+            <a class="objective-jump" href="#storyboard">Storyboard <i class="fa-solid fa-arrow-down" aria-hidden="true"></i></a>
+            <a class="objective-jump" href="#flujo">Mapa de flujo <i class="fa-solid fa-arrow-down" aria-hidden="true"></i></a>
+          </div>
+        </article>
+        <article class="objective-card">
+          <h3>Aplicar feedback para mejorar</h3>
+          <p>Validación conceptual y evidencias reales del TFM (Anexos B/C) traducidas a mejoras.</p>
+          <div class="objective-jumps">
+            <a class="objective-jump" href="#playtest">Playtest e iteración <i class="fa-solid fa-arrow-down" aria-hidden="true"></i></a>
+            <a class="objective-jump" href="#leyenda-anexos">Leyenda anexos TFM <i class="fa-solid fa-arrow-down" aria-hidden="true"></i></a>
+          </div>
+        </article>
+        <article class="objective-card">
+          <h3>Integrar iteraciones</h3>
+          <p>Ajustes en reglas, pistas, accesibilidad, narrativa y capa XR.</p>
+          <div class="objective-jumps">
+            <a class="objective-jump" href="#playtest">Playtest <i class="fa-solid fa-arrow-down" aria-hidden="true"></i></a>
+            <a class="objective-jump" href="#coherencia">Coherencia <i class="fa-solid fa-arrow-down" aria-hidden="true"></i></a>
+          </div>
+        </article>
+        <article class="objective-card">
+          <h3>Relacionar pedagogía, mecánicas e inmersión</h3>
+          <p>Matriz objetivo ↔ mecánica/dinámica ↔ narrativa ↔ XR ↔ evidencia.</p>
+          <div class="objective-jumps">
+            <a class="objective-jump" href="#coherencia">Coherencia pedagógico-lúdica <i class="fa-solid fa-arrow-down" aria-hidden="true"></i></a>
+          </div>
+        </article>
       </div>
+      <p class="note" style="margin-top:18px;"><strong>Resto del documento:</strong>
+        <a href="#marco">Marco</a> ·
+        <a href="#referentes">Referentes</a> ·
+        <a href="#concepto">Concepto</a> ·
+        <a href="#narrativa">Narrativa</a> ·
+        <a href="#xr">Ficha XR</a> ·
+        <a href="#galp">GALP</a>
+      </p>
     </section>
 
     <section class="wrap section" id="thinking">
@@ -310,15 +366,16 @@ flowchart TD
         <article class="card"><h3>Evidencia real (TFM)</h3><p>Encuestas visuales de satisfacción, termómetros emocionales por era, triangulación encuesta-rúbrica-observación y escala socioemocional.</p></article>
         <article class="card"><h3>Iteración aplicada</h3><p>Reglas más claras, roles más observables, sistema de pistas por niveles y XR más funcional.</p></article>
       </div>
+      <p class="annex-legend" id="leyenda-anexos"><strong>Qué significan B.x y C.x:</strong> son la numeración interna de los <strong>anexos de la memoria del TFM</strong> (URJC): el <strong>Anexo B</strong> agrupa <em>instrumentos y evidencias</em> de la investigación (encuestas, escalas, triangulación); el <strong>Anexo C</strong> documenta el <em>diseño del serious game</em> (narrativa, pistas, modalidades de acceso). Los enlaces llevan a la parte equivalente de la <a href="https://archivotiempo.github.io/" target="_blank" rel="noopener noreferrer">web pública del proyecto</a>; el detalle literal de cada apartado solo está en el PDF del TFM.</p>
       <div class="matrix-wrap">
         <table class="matrix">
           <thead><tr><th>Evidencia del TFM (Anexos)</th><th>Qué aporta al Sprint 3</th><th>Ajuste de diseño resultante</th></tr></thead>
           <tbody>
-            <tr><td><strong>B.6</strong> Encuestas visuales y termómetro emocional (muy bien → muy mal)</td><td>Percepción de comprensión, ayuda docente/pares y regulación emocional por era.</td><td>Ajuste de ritmo por fases y refuerzo visual en instrucciones iniciales.</td></tr>
-            <tr><td><strong>B.7</strong> Triangulación (encuesta post-test + rúbrica STEAM + observación narrativa)</td><td>Contraste de resultados para evitar decisiones basadas en una sola fuente.</td><td>Métricas de éxito mixtas: logro, colaboración y verbalización.</td></tr>
-            <tr><td><strong>B.8</strong> Escala socioemocional (equipo, regulación, comunicación)</td><td>Seguimiento de competencias sociales clave del juego.</td><td>Diseño de roles funcionales y momentos explícitos de coordinación.</td></tr>
-            <tr><td><strong>C.4</strong> Sistema de pistas progresivas (4 niveles)</td><td>Marco real de ayuda graduada para evitar frustración o sobreasistencia.</td><td>Integración en reglas: orientación → parcial → guiada → modelado.</td></tr>
-            <tr><td><strong>C.1/C.5</strong> Modalidades narrativas y alternativas accesibles</td><td>Soporte real para inclusión (texto, pictos, picto-texto, táctil, QR con alternativa).</td><td>Ficha XR y accesibilidad con equivalentes no digitales.</td></tr>
+            <tr><td><a class="evidence-ref" href="https://archivotiempo.github.io/#resultados" target="_blank" rel="noopener noreferrer" title="Anexo B: instrumentos de recogida. En la web: resultados e indicadores de satisfacción.">B.6</a> Encuestas visuales y termómetro emocional (muy bien → muy mal)</td><td>Percepción de comprensión, ayuda docente/pares y regulación emocional por era.</td><td>Ajuste de ritmo por fases y refuerzo visual en instrucciones iniciales.</td></tr>
+            <tr><td><a class="evidence-ref" href="https://archivotiempo.github.io/#resultados" target="_blank" rel="noopener noreferrer" title="Anexo B: triangulación encuesta–rúbrica–observación. En la web: metodología y resultados.">B.7</a> Triangulación (encuesta post-test + rúbrica STEAM + observación narrativa)</td><td>Contraste de resultados para evitar decisiones basadas en una sola fuente.</td><td>Métricas de éxito mixtas: logro, colaboración y verbalización.</td></tr>
+            <tr><td><a class="evidence-ref" href="https://archivotiempo.github.io/#resultados" target="_blank" rel="noopener noreferrer" title="Anexo B: escala socioemocional. En la web: impacto y participación.">B.8</a> Escala socioemocional (equipo, regulación, comunicación)</td><td>Seguimiento de competencias sociales clave del juego.</td><td>Diseño de roles funcionales y momentos explícitos de coordinación.</td></tr>
+            <tr><td><a class="evidence-ref" href="https://archivotiempo.github.io/#experiencia" target="_blank" rel="noopener noreferrer" title="Anexo C: sistema de pistas en cuatro niveles. En la web: experiencia y andamiaje.">C.4</a> Sistema de pistas progresivas (4 niveles)</td><td>Marco real de ayuda graduada para evitar frustración o sobreasistencia.</td><td>Integración en reglas: orientación → parcial → guiada → modelado.</td></tr>
+            <tr><td><a class="evidence-ref" href="https://archivotiempo.github.io/#experiencia" target="_blank" rel="noopener noreferrer" title="Anexo C: narrativa y recorrido. En la web: narrativa inmersiva.">C.1</a>/<a class="evidence-ref" href="https://archivotiempo.github.io/#adaptaciones" target="_blank" rel="noopener noreferrer" title="Anexo C: alternativas accesibles. En la web: adaptaciones DUA.">C.5</a> Modalidades narrativas y alternativas accesibles</td><td>Soporte real para inclusión (texto, pictos, picto-texto, táctil, QR con alternativa).</td><td>Ficha XR y accesibilidad con equivalentes no digitales.</td></tr>
           </tbody>
         </table>
       </div>
@@ -347,19 +404,6 @@ flowchart TD
         <article class="card"><h3>Propósito + narrativa</h3><p>Restaurar el Archivo da sentido al esfuerzo cognitivo.</p></article>
         <article class="card"><h3>Autonomía + feedback</h3><p>Decisión del equipo con apoyo graduado y retroalimentación inmediata.</p></article>
         <article class="card"><h3>Relación + inclusión</h3><p>Roles y comunicación para participación real de todo el grupo.</p></article>
-      </div>
-    </section>
-
-    <section class="wrap section" id="entrega">
-      <div class="section-title"><div><h2>Criterios de entrega y cierre</h2><p class="section-kicker">Formato, extensión y criterios de valoración del Sprint 3.</p></div></div>
-      <div class="criteria-grid">
-        <article class="criteria-card"><h3>Formato</h3><p>PDF, link o presentación digital. Recomendado: HTML + exportación PDF.</p></article>
-        <article class="criteria-card"><h3>Extensión</h3><p>Máximo 15 páginas. Este documento está estructurado por bloques equivalentes.</p></article>
-        <article class="criteria-card"><h3>Criterios relevantes</h3><ul><li>Originalidad del caso</li><li>Argumentación y síntesis</li><li>Estética y coherencia narrativa</li><li>Integración GALP</li><li>Creatividad e interacción XR</li></ul></article>
-      </div>
-      <div class="card">
-        <h3 style="margin-bottom:8px;">Objetivo global de la actividad</h3>
-        <p>Aplicar los conocimientos del módulo para producir un prototipo sólido de Serious Game educativo, demostrando dominio del Game Thinking, integración de mecánicas/dinámicas y planificación de experiencias inmersivas centradas en el aprendizaje.</p>
       </div>
     </section>
   </main>
