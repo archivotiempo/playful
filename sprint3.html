@@ -1,597 +1,365 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Sprint 3 · Playful Learning · La Maleta del Tiempo</title>
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-  <script>
-    mermaid.initialize({ startOnLoad: true, theme: 'base', themeVariables: {
-      primaryColor: '#fff4d6', primaryBorderColor: '#c78b2b', primaryTextColor: '#172033',
-      lineColor: '#8b5a2b', secondaryColor: '#f5efe4', tertiaryColor: '#ffffff'
-    }});
-  </script>
+  <meta name="description" content="Sprint 3: prototipo conceptual XR-Based Serious Game de La Maleta del Tiempo, con storyboard, flujo, feedback real del TFM e iteración." />
+  <meta name="author" content="Raquel Cuesta Barberá" />
+  <meta name="theme-color" content="#b45309" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
-    :root{
-      --ink:#172033;
-      --muted:#5f6472;
-      --paper:#fffaf0;
-      --cream:#fff4d6;
-      --gold:#d6a144;
-      --gold-dark:#9b6a1f;
-      --brown:#5a3921;
-      --line:#ead4a5;
-      --blue:#243b63;
-      --green:#426b4f;
-      --red:#9a4b37;
-      --shadow:0 18px 42px rgba(81,52,24,.12);
-      --radius:24px;
+    :root {
+      --amber: #b45309; --amber-dark: #92400e; --amber-light: #fffbeb; --amber-mid: #fef3c7; --amber-accent: #d97706;
+      --ink: #0f172a; --body: #374151; --muted: #475569; --subtle: #64748b;
+      --border: #e2e8f0; --surface: #f8fafc; --blue: #2563eb; --blue-light: #eff6ff; --green: #16a34a;
+      --green-bg: #ecfdf5; --white: #ffffff; --yellow-line: #fde68a; --shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+      --gap: 16px; --gap-lg: 24px; --transition: .22s ease;
+      --max: min(1240px, calc(100vw - 48px)); --wrap-inline: clamp(16px, 4vw, 24px);
     }
-    *{box-sizing:border-box;}
-    html{scroll-behavior:smooth;}
-    body{
-      margin:0;
-      font-family:Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color:var(--ink);
-      background:
-        radial-gradient(circle at 10% 0%, rgba(214,161,68,.22), transparent 28%),
-        radial-gradient(circle at 100% 10%, rgba(36,59,99,.12), transparent 30%),
-        linear-gradient(180deg,#fffdf7 0%,#f8f0dc 100%);
-      line-height:1.62;
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body { margin: 0; font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: var(--body); background: var(--white); line-height: 1.6; }
+    a { color: inherit; }
+    main section[id].section { scroll-margin-top: 72px; }
+    .wrap { width: min(var(--max), calc(100% - 2 * var(--wrap-inline))); margin: 0 auto; }
+    .skip-link { position: absolute; left: -9999px; top: 12px; z-index: 120; padding: 12px 18px; border-radius: 10px; background: var(--ink); color: var(--white); font-weight: 700; text-decoration: none; }
+    .skip-link:focus { left: 16px; }
+
+    header { position: sticky; top: 0; z-index: 100; background: rgba(255, 251, 235, 0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--yellow-line); }
+    header .wrap { display: block; }
+    nav { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; padding: 10px 0; min-height: 56px; width: 100%; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); font-size: 17px; min-width: 0; }
+    .brand span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .brand span em { font-style: normal; color: var(--amber-accent); }
+    .brand-mark { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--white); border: 1px solid var(--yellow-line); color: var(--amber-accent); font-size: 18px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); }
+    #nav-desktop { margin-left: auto; min-width: 0; flex: 1 1 auto; justify-content: flex-end; }
+    .nav-links { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px 14px; align-items: center; font-size: 13px; font-weight: 500; color: var(--muted); margin: 0; padding: 0; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--muted); white-space: nowrap; transition: color var(--transition); }
+    .nav-links a:hover { color: var(--amber); }
+    .nav-more { display: none; margin: 0; margin-left: auto; position: relative; }
+    .nav-more summary { cursor: pointer; font-weight: 700; color: var(--ink); list-style: none; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--yellow-line); background: var(--white); }
+    .nav-more summary::-webkit-details-marker { display: none; }
+    .nav-more .nav-links { flex-direction: column; align-items: stretch; margin-top: 10px; padding: 8px 0; border-radius: 12px; background: rgba(255,255,255,.98); border: 1px solid var(--border); box-shadow: 0 12px 24px rgba(0,0,0,.08); max-height: min(70vh, 480px); overflow-y: auto; }
+    .nav-more .nav-links a { padding: 12px 16px; border-bottom: 1px solid rgba(253,230,138,.45); white-space: normal; }
+
+    .hero-wrap { position: relative; overflow: hidden; background: linear-gradient(160deg, #fef3c7 0%, #fffbeb 40%, #ffffff 100%); border-bottom: 1px solid var(--yellow-line); }
+    .hero-wrap::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse 90% 60% at 15% 20%, rgba(217,119,6,.12), transparent 50%), radial-gradient(ellipse 70% 50% at 90% 80%, rgba(15,23,42,.06), transparent 45%); pointer-events: none; }
+    .hero { position: relative; z-index: 1; padding: clamp(48px, 8vw, 72px) 0 clamp(40px, 6vw, 64px); display: grid; grid-template-columns: minmax(0,1.12fr) minmax(0,.88fr); gap: clamp(var(--gap), 4vw, 40px); align-items: center; max-width: var(--max); margin: 0 auto; width: min(var(--max), calc(100% - 2 * var(--wrap-inline))); }
+    .eyebrow { display: inline-block; background: var(--amber-mid); color: var(--amber-dark); font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; padding: 5px 12px; border-radius: 999px; margin-bottom: 16px; }
+    h1,h2,h3 { font-family: Inter, system-ui, sans-serif; line-height: 1.15; color: var(--ink); margin: 0; }
+    h1 { font-size: clamp(34px, 5.5vw, 52px); font-weight: 900; letter-spacing: -0.04em; line-height: 1.08; }
+    h1 em { font-style: normal; color: var(--amber-accent); }
+    h2 { font-size: clamp(24px, 4vw, 34px); font-weight: 800; letter-spacing: -0.03em; }
+    h3 { font-size: 20px; font-weight: 700; }
+    .subtitle { max-width: min(720px, 100%); margin: 20px 0 0; font-size: clamp(16px, 2vw, 18px); color: var(--muted); line-height: 1.72; }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+    .tag { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 999px; font-size: 12px; font-weight: 600; color: #78350f; background: var(--amber-light); border: 1px solid #fcd34d; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 13px 22px; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 15px; transition: box-shadow var(--transition), background var(--transition), transform var(--transition); }
+    .btn:hover { transform: translateY(-1px); }
+    .btn.primary { color: var(--white); background: var(--amber); border: none; box-shadow: 0 4px 14px rgba(180, 83, 9, 0.3); }
+    .btn.secondary { background: transparent; color: var(--amber); border: 1.5px solid var(--amber); }
+    .btn.secondary:hover { background: var(--amber-light); }
+    .hero-visual { min-height: 430px; border-radius: 18px; background: var(--white); border: 1px solid var(--yellow-line); box-shadow: 0 8px 32px rgba(180, 83, 9, 0.08); padding: 28px; }
+    .hero-visual__title { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: var(--amber-dark); margin: 0 0 8px; }
+    .hero-visual__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .hero-pill { display: flex; align-items: flex-start; gap: 10px; padding: 14px; border-radius: 14px; background: var(--amber-light); border: 1px solid var(--yellow-line); font-size: 13px; font-weight: 600; color: var(--ink); line-height: 1.4; }
+    .hero-pill i { color: var(--amber-accent); font-size: 18px; margin-top: 2px; }
+
+    .section { padding: 64px 0; }
+    .section-title { margin-bottom: var(--gap-lg); }
+    .section-title h2 { position: relative; padding-bottom: 14px; }
+    .section-title h2::after { content: ""; position: absolute; left: 0; bottom: 0; width: min(120px, 32vw); height: 4px; border-radius: 999px; background: linear-gradient(90deg, var(--amber-accent), var(--ink)); opacity: .45; }
+    .section-kicker { margin: 10px 0 0; max-width: min(74ch, 100%); color: var(--muted); font-size: clamp(15px, 2vw, 17px); line-height: 1.65; }
+    .card { background: var(--white); border: 1.5px solid var(--border); border-radius: 16px; padding: 24px; box-shadow: var(--shadow); }
+    .grid { display: grid; gap: var(--gap); }
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .matrix-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-top: 18px; border-radius: 14px; border: 1px solid var(--border); background: var(--surface); width: 100%; max-width: 100%; }
+    .matrix { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 640px; }
+    .matrix th,.matrix td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .matrix th { background: var(--amber-light); color: var(--ink); font-weight: 700; font-size: 13px; }
+    .matrix tr:last-child td { border-bottom: none; }
+    .req-badge { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 14px; padding: 5px 11px; border-radius: 999px; font-size: .68rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--amber-dark); background: var(--amber-mid); border: 1px solid var(--yellow-line); }
+    .objective-grid { display: grid; gap: var(--gap); grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); }
+    .objective-card { border-radius: 16px; padding: 20px; background: var(--white); border: 1px solid var(--border); border-left: 4px solid var(--amber-accent); box-shadow: var(--shadow); }
+    .objective-card h3 { font-size: 15px; margin: 0 0 8px; line-height: 1.35; }
+    .objective-card p { margin: 0; font-size: 13px; color: var(--muted); line-height: 1.55; }
+    .objective-card .where { margin-top: 12px; font-size: 12px; font-weight: 700; color: var(--amber); }
+    .timeline { display: grid; gap: 12px; }
+    .step { border-radius: 14px; padding: 16px; border: 1px solid var(--border); background: var(--white); border-left: 4px solid var(--amber-accent); }
+    .step .step-tag { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--amber); margin-bottom: 6px; }
+    .storyboard { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .scene { border-radius: 16px; border: 1px solid var(--border); background: var(--white); padding: 16px; box-shadow: var(--shadow); }
+    .scene .visual { height: 74px; border-radius: 12px; border: 1px dashed var(--yellow-line); background: var(--amber-light); display: flex; align-items: center; justify-content: center; font-size: 34px; margin-bottom: 10px; }
+    .mermaid-wrap { border-radius: 16px; background: linear-gradient(180deg, rgba(255,251,235,.55) 0%, var(--surface) 100%); border: 1px dashed rgba(180,83,9,.22); padding: 16px; overflow-x: auto; }
+    .note { border-radius: 14px; padding: 14px 16px; margin-top: 14px; background: linear-gradient(135deg, var(--amber-light) 0%, var(--white) 100%); border: 1px solid var(--yellow-line); font-size: 14px; color: var(--body); }
+    .criteria-grid { display: grid; gap: var(--gap); grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); margin-bottom: var(--gap-lg); }
+    .criteria-card { border-radius: 16px; padding: 22px; background: var(--white); border: 1.5px solid var(--border); box-shadow: var(--shadow); }
+    .criteria-card h3 { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; color: var(--amber-dark); margin: 0 0 10px; }
+    .criteria-card p,.criteria-card ul { margin: 0; font-size: 14px; color: var(--body); line-height: 1.55; }
+    .criteria-card ul { padding-left: 1.1rem; margin-top: 8px; }
+    footer { padding: 28px 0 36px; background: #0a0f1e; border-top: 1px solid #1e293b; color: #64748b; text-align: center; font-size: 13px; }
+
+    @media (min-width: 1040px) {
+      .nav-more { display: none; }
+      #nav-desktop { display: flex; flex-wrap: wrap; align-content: center; row-gap: 8px; column-gap: 14px; font-size: 12px; max-width: min(960px, 78vw); }
+      .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .objective-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .criteria-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .storyboard { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .timeline { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .matrix { min-width: 0; }
     }
-    a{color:inherit;}
-    .skip{position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden;}
-    .skip:focus{left:16px;top:16px;width:auto;height:auto;background:#fff;padding:10px 14px;border-radius:10px;z-index:20;}
-    .wrap{width:min(1160px, calc(100% - 36px));margin:0 auto;}
-    header.hero{
-      padding:42px 0 26px;
-      position:relative;
+    @media (max-width: 1039px) {
+      #nav-desktop { display: none; }
+      .nav-more { display: block; margin-left: auto; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-visual { max-width: 520px; margin-inline: auto; min-height: 360px; }
     }
-    .hero-card{
-      border:1px solid var(--line);
-      border-radius:32px;
-      background:linear-gradient(135deg,rgba(255,250,240,.96),rgba(255,255,255,.92));
-      box-shadow:var(--shadow);
-      overflow:hidden;
-      position:relative;
+    @media (max-width: 719px) {
+      .section { padding: 44px 0; }
+      .grid.two,.grid.three,.storyboard,.hero-visual__grid,.timeline { grid-template-columns: 1fr; }
+      .hero-actions { display: grid; grid-template-columns: 1fr; }
+      .hero-actions .btn { width: 100%; justify-content: center; }
+      .matrix { font-size: 13px; min-width: 520px; }
     }
-    .hero-card:before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background-image:
-        linear-gradient(90deg, rgba(154,106,31,.06) 1px, transparent 1px),
-        linear-gradient(rgba(154,106,31,.05) 1px, transparent 1px);
-      background-size:38px 38px;
-      pointer-events:none;
-      mask-image:linear-gradient(180deg,rgba(0,0,0,.55),transparent 72%);
-    }
-    .hero-inner{position:relative;padding:38px;display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center;}
-    .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:#fff0bd;color:#8f4a00;font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:12px;}
-    h1{font-size:clamp(36px,6vw,68px);line-height:.96;margin:18px 0 14px;color:#121b2f;letter-spacing:-.055em;}
-    .subtitle{font-size:18px;color:var(--muted);max-width:780px;margin:0;}
-    .tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px;}
-    .tag{border:1px solid var(--line);background:rgba(255,255,255,.72);border-radius:999px;padding:8px 12px;font-size:13px;font-weight:700;color:#5b452d;}
-    .hero-panel{border:1px solid var(--line);background:rgba(255,255,255,.75);border-radius:24px;padding:20px;}
-    .hero-panel h2{margin:0 0 10px;font-size:18px;}
-    .hero-panel p{margin:0 0 14px;color:var(--muted);}
-    .metric-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
-    .metric{border:1px solid #ecd7aa;background:#fffaf1;border-radius:18px;padding:12px;}
-    .metric strong{display:block;font-size:24px;line-height:1;color:#7c4a15;}
-    .metric span{font-size:12px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.04em;}
-    nav{
-      position:sticky;
-      top:0;
-      z-index:10;
-      background:rgba(255,250,240,.88);
-      backdrop-filter:blur(14px);
-      border-bottom:1px solid var(--line);
-    }
-    nav .wrap{display:flex;gap:8px;overflow:auto;padding:12px 0;}
-    nav a{white-space:nowrap;text-decoration:none;border:1px solid transparent;padding:8px 11px;border-radius:999px;font-size:13px;font-weight:800;color:#5c4a35;}
-    nav a:hover{background:#fff;border-color:var(--line);}
-    main{padding:28px 0 70px;}
-    section{
-      margin:24px 0;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.82);
-      border-radius:var(--radius);
-      box-shadow:0 12px 28px rgba(81,52,24,.07);
-      overflow:hidden;
-    }
-    .section-head{padding:26px 30px;border-bottom:1px solid var(--line);background:linear-gradient(135deg,#fffaf0,#fff);}
-    .kicker{font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:900;color:#9b6a1f;margin:0 0 6px;}
-    h2{font-size:clamp(24px,3vw,36px);line-height:1.08;margin:0;color:#121b2f;letter-spacing:-.025em;}
-    .lead{margin:12px 0 0;color:var(--muted);font-size:16px;max-width:900px;}
-    .content{padding:28px 30px;}
-    h3{font-size:21px;margin:22px 0 8px;color:#1d2944;}
-    p{margin:0 0 14px;}
-    ul{margin:8px 0 16px;padding-left:22px;}
-    li{margin:5px 0;}
-    .grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;}
-    .grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;}
-    .grid-4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;}
-    .card{border:1px solid var(--line);border-radius:20px;background:#fffaf2;padding:18px;}
-    .card h3,.card h4{margin-top:0;}
-    .card h4{font-size:17px;margin-bottom:8px;color:#233255;}
-    .pill{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:34px;border-radius:999px;background:#26385f;color:#fff;font-weight:900;margin-bottom:10px;}
-    table{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff;}
-    th,td{padding:13px 14px;text-align:left;vertical-align:top;border-bottom:1px solid #efdfbd;}
-    th{background:#fff0bd;color:#59370f;font-size:13px;text-transform:uppercase;letter-spacing:.04em;}
-    tr:last-child td{border-bottom:none;}
-    .quote{border-left:5px solid var(--gold);padding:16px 18px;background:#fff7df;border-radius:0 18px 18px 0;font-size:18px;color:#2b2e3b;}
-    .storyboard{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;counter-reset:scene;}
-    .scene{border:1px solid var(--line);background:#fffaf2;border-radius:20px;padding:16px;position:relative;min-height:220px;}
-    .scene:before{counter-increment:scene;content:"Escena " counter(scene);display:inline-block;background:#26385f;color:white;border-radius:999px;padding:5px 10px;font-size:12px;font-weight:900;margin-bottom:10px;}
-    .scene .visual{height:72px;border-radius:16px;background:linear-gradient(135deg,#fff0bd,#fff);border:1px dashed #d7a84c;margin:8px 0 12px;display:flex;align-items:center;justify-content:center;font-size:34px;}
-    .scene h4{margin:4px 0 8px;font-size:16px;color:#1d2944;}
-    .scene p{font-size:14px;color:#5f6472;margin-bottom:8px;}
-    .mermaid-box{border:1px solid var(--line);background:#fff;border-radius:22px;padding:18px;overflow:auto;}
-    .note{font-size:14px;color:var(--muted);background:#f7f1e4;border:1px solid var(--line);padding:12px 14px;border-radius:16px;}
-    .timeline{display:grid;gap:12px;}
-    .step{display:grid;grid-template-columns:120px 1fr;gap:16px;align-items:start;border:1px solid var(--line);background:#fffaf2;border-radius:18px;padding:15px;}
-    .step strong{display:block;color:#7a4d17;}
-    .step span{font-size:13px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.04em;}
-    footer{padding:30px 0 46px;color:#6a5a44;text-align:center;}
-    .print-btn{display:inline-block;margin-top:18px;text-decoration:none;background:#172033;color:#fff;padding:11px 15px;border-radius:999px;font-weight:900;}
-    @media (max-width: 860px){
-      .hero-inner,.grid-2,.grid-3,.grid-4,.storyboard{grid-template-columns:1fr;}
-      .step{grid-template-columns:1fr;}
-      .hero-inner{padding:28px;}
-      .content,.section-head{padding:22px;}
-      nav{position:relative;}
-    }
-    @media print{
-      body{background:#fff;color:#111;}
-      nav,.print-btn,.skip{display:none!important;}
-      .wrap{width:100%;}
-      header.hero{padding:0 0 12px;}
-      .hero-card,section{box-shadow:none;border-color:#d9c490;break-inside:avoid;}
-      section{page-break-inside:avoid;margin:14px 0;}
-      .hero-inner{grid-template-columns:1fr;padding:22px;}
-      h1{font-size:42px;}
-      h2{font-size:25px;}
-      .content,.section-head{padding:18px;}
-      .storyboard,.grid-3,.grid-4{grid-template-columns:repeat(2,1fr);}
+    @media print {
+      header, .hero-actions, .nav-more, .skip-link { display: none; }
+      body { background: white; }
+      .card, .mechanic-card, .scene { box-shadow: none; break-inside: avoid; }
     }
   </style>
 </head>
 <body>
-  <a class="skip" href="#contenido">Ir al contenido</a>
+  <a class="skip-link" href="#contenido">Ir al contenido</a>
 
-  <header class="hero">
+  <header>
     <div class="wrap">
-      <div class="hero-card">
-        <div class="hero-inner">
-          <div>
-            <span class="eyebrow">Asignatura · Playful Learning</span>
-            <h1>La Maleta del Tiempo</h1>
-            <p class="subtitle">Sprint 3 · Prototipo conceptual de un XR-Based Serious Game. Esta entrega consolida el diseño iniciado en los sprints anteriores y lo transforma en una experiencia jugable documentada: storyboard, mapa de flujo, narrativa, roles, reglas, interacciones, ficha inmersiva, playtest e iteración.</p>
-            <div class="tags">
-              <span class="tag">Game Thinking</span>
-              <span class="tag">Storyboard</span>
-              <span class="tag">Mapa de flujo</span>
-              <span class="tag">Playtest</span>
-              <span class="tag">XR / AR</span>
-              <span class="tag">GALP</span>
-            </div>
-            <a class="print-btn" href="javascript:window.print()">Imprimir / PDF</a>
-          </div>
-          <aside class="hero-panel">
-            <h2>Entrega Sprint 3</h2>
-            <p>Prototipo de serious game educativo centrado en la persona-aprendiz, con integración coherente de mecánicas, narrativa, aprendizaje, accesibilidad e inmersión XR.</p>
-            <div class="metric-grid">
-              <div class="metric"><strong>15</strong><span>págs. máx.</span></div>
-              <div class="metric"><strong>8</strong><span>eras + futuro</span></div>
-              <div class="metric"><strong>60–70</strong><span>minutos</span></div>
-              <div class="metric"><strong>AR</strong><span>XR ligera</span></div>
-            </div>
-          </aside>
+      <nav aria-label="Navegación principal">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"><i class="fa-solid fa-suitcase-rolling"></i></div>
+          <span>Playful Learning · <em>Sprint 3</em></span>
         </div>
-      </div>
+        <details class="nav-more">
+          <summary>Menú</summary>
+          <div class="nav-links">
+            <a href="#marco">Marco</a><a href="#objetivos">Objetivos</a><a href="#thinking">Game Thinking</a><a href="#referentes">Referentes</a>
+            <a href="#concepto">Concepto</a><a href="#narrativa">Narrativa</a><a href="#storyboard">Storyboard</a><a href="#flujo">Flujo</a>
+            <a href="#xr">Ficha XR</a><a href="#playtest">Playtest</a><a href="#coherencia">Coherencia</a><a href="#galp">GALP</a><a href="#entrega">Entrega</a>
+          </div>
+        </details>
+        <div class="nav-links" id="nav-desktop">
+          <a href="#marco">Marco</a><a href="#objetivos">Objetivos</a><a href="#thinking">Game Thinking</a><a href="#referentes">Referentes</a>
+          <a href="#concepto">Concepto</a><a href="#narrativa">Narrativa</a><a href="#storyboard">Storyboard</a><a href="#flujo">Flujo</a>
+          <a href="#xr">Ficha XR</a><a href="#playtest">Playtest</a><a href="#coherencia">Coherencia</a><a href="#galp">GALP</a><a href="#entrega">Entrega</a>
+        </div>
+      </nav>
     </div>
   </header>
 
-  <nav aria-label="Menú del Sprint 3">
-    <div class="wrap">
-      <a href="#marco">Marco</a>
-      <a href="#objetivos">Objetivos</a>
-      <a href="#thinking">Game Thinking</a>
-      <a href="#referentes">Referentes</a>
-      <a href="#concepto">Concepto</a>
-      <a href="#narrativa">Narrativa</a>
-      <a href="#roles">Roles</a>
-      <a href="#reglas">Reglas</a>
-      <a href="#storyboard">Storyboard</a>
-      <a href="#flujo">Mapa de flujo</a>
-      <a href="#xr">Ficha XR</a>
-      <a href="#playtest">Playtest</a>
-      <a href="#iteracion">Iteración</a>
-      <a href="#coherencia">Coherencia</a>
-      <a href="#entrega">Entrega</a>
-    </div>
-  </nav>
-
-  <main id="contenido" class="wrap">
-    <section id="marco">
-      <div class="section-head">
-        <p class="kicker">Enunciado del Sprint 3</p>
-        <h2>Del diseño de mecánicas al prototipo conceptual</h2>
-        <p class="lead">Este sprint cierra el recorrido del módulo mediante un prototipo conceptual de serious game educativo basado en XR. La propuesta mantiene la continuidad de La Maleta del Tiempo, pero ahora se concreta como experiencia jugable, evaluable e iterativa.</p>
-      </div>
-      <div class="content">
-        <p>El trabajo desarrolla un <strong>XR-Based Serious Game</strong> aplicado a contextos educativos inclusivos. A partir del enfoque de <strong>Game Thinking</strong>, se define la experiencia completa: problema de aprendizaje, persona-aprendiz, objetivo pedagógico, narrativa, reglas, roles, interacciones, storyboard, mapa de flujo, ficha inmersiva, evaluación mediante playtest e iteraciones de mejora.</p>
-        <p>La propuesta parte de los sprints anteriores: en el Sprint 1 se definió la competencia, la persona-aprendiz y la experiencia base; en el Sprint 2 se concretaron mecánicas, dinámicas, niveles, inmersión, feedback y mapa de experiencia. En este Sprint 3 se transforma todo ello en un prototipo conceptual más sólido, listo para ser presentado, testeado y rediseñado.</p>
-        <div class="grid-4">
-          <div class="card"><span class="pill">1</span><h4>Idea</h4><p>Serious game educativo sobre historia, STEAM y resolución cooperativa de retos.</p></div>
-          <div class="card"><span class="pill">2</span><h4>Prototipo</h4><p>Storyboard, mapa de flujo, reglas, roles e interacciones.</p></div>
-          <div class="card"><span class="pill">3</span><h4>Playtest</h4><p>Validación conceptual con criterios de claridad, inclusión, reto e inmersión.</p></div>
-          <div class="card"><span class="pill">4</span><h4>Iteración</h4><p>Mejoras aplicadas para cerrar un diseño coherente y centrado en el aprendizaje.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="objetivos">
-      <div class="section-head">
-        <p class="kicker">Objetivo de la actividad</p>
-        <h2>Producir un prototipo sólido, argumentado y centrado en la persona-aprendiz</h2>
-        <p class="lead">La entrega demuestra la comprensión del proceso de diseño de serious games, conectando pedagogía, mecánicas, narrativa, roles, inmersión y evaluación.</p>
-      </div>
-      <div class="content">
-        <table>
-          <thead><tr><th>Objetivo del Sprint 3</th><th>Cómo se resuelve en esta propuesta</th><th>Evidencia incluida</th></tr></thead>
-          <tbody>
-            <tr><td>Comprender el Game Thinking aplicado a serious games.</td><td>Se organiza el diseño en fases: empatizar, definir, idear, prototipar, testear e iterar.</td><td>Proceso de diseño y matriz de decisiones.</td></tr>
-            <tr><td>Diseñar un prototipo conceptual mediante storyboard y mapa de flujo.</td><td>Se representa la experiencia por escenas y se visualiza el recorrido de decisiones del alumnado.</td><td>Storyboard de 9 escenas y flowchart de juego.</td></tr>
-            <tr><td>Aplicar retroalimentación para mejorar el diseño.</td><td>Se plantea un playtest de baja fidelidad y una tabla de feedback aplicado.</td><td>Matriz problema → ajuste → impacto esperado.</td></tr>
-            <tr><td>Integrar iteraciones para lograr un diseño final coherente.</td><td>Se ajustan reglas, ritmo, accesibilidad, pistas, carga cognitiva y capa XR.</td><td>Versión final del prototipo.</td></tr>
-            <tr><td>Relacionar objetivos pedagógicos con mecánicas, narrativa y XR.</td><td>Cada elemento del juego se justifica por su función didáctica.</td><td>Tabla de coherencia pedagógico-lúdica.</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <section id="thinking">
-      <div class="section-head">
-        <p class="kicker">Proceso de diseño</p>
-        <h2>Game Thinking aplicado a La Maleta del Tiempo</h2>
-        <p class="lead">El juego se diseña desde la experiencia del aprendiz y no solo desde una colección de pruebas. Primero se identifica qué necesita vivir, comprender y superar la persona-aprendiz; después se decide qué mecánicas pueden provocar esa experiencia.</p>
-      </div>
-      <div class="content">
-        <div class="timeline">
-          <div class="step"><div><span>Fase 1</span><strong>Empatizar</strong></div><p>Se parte de una persona-aprendiz con discapacidad intelectual leve o moderada, que aprende mejor mediante apoyos visuales, manipulación, estructura clara, feedback inmediato y cooperación.</p></div>
-          <div class="step"><div><span>Fase 2</span><strong>Definir</strong></div><p>El reto de diseño es crear una experiencia STEAM e histórica que permita resolver problemas en equipo, manteniendo accesibilidad cognitiva, motivación y sentido narrativo.</p></div>
-          <div class="step"><div><span>Fase 3</span><strong>Idear</strong></div><p>Se selecciona la metáfora de la maleta temporal, el pasaporte, los fragmentos del Archivo, los compartimentos por eras y la realidad aumentada como capa de apoyo.</p></div>
-          <div class="step"><div><span>Fase 4</span><strong>Prototipar</strong></div><p>Se construye un prototipo conceptual con escenas, flujo de decisiones, roles, reglas, cartas, objetos, retos y ficha de experiencia inmersiva.</p></div>
-          <div class="step"><div><span>Fase 5</span><strong>Testear</strong></div><p>Se revisa el prototipo con criterios de claridad, carga cognitiva, motivación, participación, accesibilidad, coherencia narrativa e integración XR.</p></div>
-          <div class="step"><div><span>Fase 6</span><strong>Iterar</strong></div><p>Se ajustan tiempos, pistas, secuenciación, roles, feedback, elementos visuales y uso de tecnología para mejorar la experiencia final.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="referentes">
-      <div class="section-head">
-        <p class="kicker">Evaluación de juegos existentes</p>
-        <h2>Qué se toma, qué se adapta y qué se evita</h2>
-        <p class="lead">El prototipo no copia un juego existente, sino que analiza referentes para extraer decisiones de diseño útiles y transformarlas en una experiencia educativa inclusiva.</p>
-      </div>
-      <div class="content">
-        <table>
-          <thead><tr><th>Referente</th><th>Elemento aprovechable</th><th>Riesgo detectado</th><th>Adaptación al prototipo</th></tr></thead>
-          <tbody>
-            <tr><td>Escape room / breakout educativo</td><td>Reto, candados, pistas, cooperación y progresión.</td><td>Puede centrarse demasiado en abrir cosas y no en aprender.</td><td>Cada candado se vincula a una habilidad STEAM o histórica concreta.</td></tr>
-            <tr><td>Museo interactivo</td><td>Objetos, salas, exploración guiada y descubrimiento contextual.</td><td>Puede generar observación pasiva.</td><td>La maleta funciona como museo portátil manipulativo: cada pieza exige acción.</td></tr>
-            <tr><td>Serious games narrativos</td><td>Misiones, roles y conflicto ficticio con sentido.</td><td>La narrativa puede tapar el objetivo pedagógico.</td><td>El conflicto temporal justifica ordenar, clasificar, deducir y explicar.</td></tr>
-            <tr><td>AR educativa</td><td>Capas visuales, audios, reconstrucciones y pistas aumentadas.</td><td>Dependencia tecnológica o efecto novedad.</td><td>La AR es opcional, breve y siempre tiene alternativa física o visual.</td></tr>
-            <tr><td>Juegos cooperativos</td><td>Roles, comunicación y objetivo común.</td><td>Algunos participantes pueden quedar fuera.</td><td>Roles rotativos, funcionales y adaptados a diferentes capacidades.</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <section id="concepto">
-      <div class="section-head">
-        <p class="kicker">Concepto final del prototipo</p>
-        <h2>XR-Based Serious Game: El Archivo de la Historia se ha fragmentado</h2>
-        <p class="lead">La Maleta del Tiempo se plantea como un serious game híbrido: físico, narrativo, cooperativo e inmersivo, con una capa XR ligera orientada a comprensión, accesibilidad y feedback.</p>
-      </div>
-      <div class="content">
-        <div class="quote">“La Historia se ha roto. Los fragmentos del Archivo han caído en épocas equivocadas. Solo un equipo de exploradores podrá ordenar las pistas, reconstruir la línea temporal y devolver cada conocimiento a su lugar.”</div>
-        <h3>Descripción breve del juego</h3>
-        <p>El alumnado recibe una maleta cerrada procedente del Archivo del Tiempo. En su interior hay compartimentos, tarjetas, piezas físicas, retos visuales, pistas y fragmentos históricos desordenados. Cada equipo debe explorar, relacionar evidencias, resolver enigmas, abrir compartimentos y sellar el pasaporte de cada era. La capa XR aparece en momentos concretos para activar una reconstrucción, una pista aumentada, un mensaje del Archivo o una visualización breve que ayude a comprender mejor el reto.</p>
-        <div class="grid-3">
-          <div class="card"><h4>Objetivo pedagógico</h4><p>Desarrollar resolución cooperativa de problemas STEAM, secuenciación histórica, atención, memoria, comunicación y pensamiento crítico.</p></div>
-          <div class="card"><h4>Objetivo narrativo</h4><p>Restaurar el Archivo de la Historia recuperando los fragmentos perdidos de cada era.</p></div>
-          <div class="card"><h4>Objetivo lúdico</h4><p>Abrir la maleta, superar retos por niveles, obtener sellos y desbloquear el cierre final del viaje.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="narrativa">
-      <div class="section-head">
-        <p class="kicker">Narrativa y mundo de juego</p>
-        <h2>Una misión temporal con sentido pedagógico</h2>
-        <p class="lead">La narrativa no se añade como decoración. Sirve para conectar los retos, justificar las acciones del alumnado y transformar contenidos históricos y STEAM en una misión comprensible.</p>
-      </div>
-      <div class="content grid-2">
+  <main id="contenido">
+    <div class="hero-wrap">
+      <section class="hero" aria-labelledby="hero-title">
         <div>
-          <h3>Premisa</h3>
-          <p>Una anomalía ha mezclado inventos, símbolos, materiales, descubrimientos y tecnologías de distintas épocas. El Archivo de la Historia ha perdido su orden y la maleta es el único dispositivo capaz de restaurarlo.</p>
-          <h3>Conflicto</h3>
-          <p>Si los fragmentos no vuelven a su época, el alumnado encontrará una línea temporal incoherente: herramientas en lugares imposibles, tecnologías fuera de contexto y conocimientos sin relación con su origen.</p>
+          <span class="eyebrow">Asignatura · Playful Learning</span>
+          <h1 id="hero-title">La Maleta del <em>Tiempo</em></h1>
+          <p class="subtitle"><strong>Sprint 3 · Prototipo XR-Based Serious Game.</strong> Del Game Thinking al prototipo final: storyboard, mapa de flujo, narrativa, roles, interacciones, reglas, ficha inmersiva, validación (playtest) y iteración centrada en aprendizaje.</p>
+          <div class="tag-list"><span class="tag">Game Thinking</span><span class="tag">Storyboard</span><span class="tag">Flujo</span><span class="tag">Feedback real TFM</span><span class="tag">GALP</span></div>
+          <div class="hero-actions"><a class="btn primary" href="#marco">Ir al marco</a><a class="btn secondary" href="#playtest">Ver validación</a><a class="btn secondary" href="javascript:window.print()">Imprimir / PDF</a></div>
         </div>
-        <div>
-          <h3>Progresión</h3>
-          <p>Cada era desbloquea una parte del relato. El pasaporte permite ver el progreso y la línea temporal funciona como mapa narrativo. El cierre final no es solo “ganar”, sino explicar cómo se ha reconstruido el Archivo.</p>
-          <h3>Final</h3>
-          <p>El equipo restaura la línea temporal y recibe el sello final del Archivo. En la reflexión final, cada participante identifica qué estrategia usó, qué aprendió y cómo ayudó al equipo.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="roles">
-      <div class="section-head">
-        <p class="kicker">Roles de juego</p>
-        <h2>Participación cooperativa y accesible</h2>
-        <p class="lead">Los roles equilibran la participación, reducen la ansiedad ante el error y permiten que cada estudiante tenga una función reconocible dentro del equipo.</p>
-      </div>
-      <div class="content">
-        <div class="grid-4">
-          <div class="card"><h4>Explorador/a</h4><p>Busca pistas, abre sobres, observa piezas y propone dónde mirar. Favorece curiosidad y atención.</p></div>
-          <div class="card"><h4>Cronista</h4><p>Anota códigos, ordena evidencias y registra sellos en el pasaporte. Favorece memoria y secuenciación.</p></div>
-          <div class="card"><h4>Guardián/a de pistas</h4><p>Gestiona las ayudas graduadas y decide con el equipo cuándo pedir una pista. Favorece autonomía.</p></div>
-          <div class="card"><h4>Técnico/a del tiempo</h4><p>Valida códigos, activa tarjetas AR o alternativas visuales y comprueba avances. Favorece competencia digital.</p></div>
-        </div>
-        <p class="note">Los roles pueden rotar por era o mantenerse durante toda la sesión según el perfil del grupo. En alumnado con necesidad de mayor anticipación, es preferible mantener el rol estable y ofrecer una tarjeta visual con sus funciones.</p>
-      </div>
-    </section>
-
-    <section id="reglas">
-      <div class="section-head">
-        <p class="kicker">Interacciones y reglas</p>
-        <h2>Cómo se juega, cómo se decide y cómo se recibe feedback</h2>
-        <p class="lead">Las reglas se formulan de forma sencilla y visible. Buscan sostener la experiencia sin convertirla en una actividad rígida.</p>
-      </div>
-      <div class="content grid-2">
-        <div>
-          <h3>Reglas principales</h3>
-          <ul>
-            <li>El equipo debe resolver cada era antes de avanzar a la siguiente.</li>
-            <li>No se prueba un código sin explicar antes de dónde ha salido.</li>
-            <li>Las pistas se solicitan de forma gradual: orientación, ayuda parcial y solución guiada.</li>
-            <li>Todas las decisiones importantes se toman en voz alta y con consenso mínimo del equipo.</li>
-            <li>El pasaporte se sella solo cuando el reto ha sido resuelto y comprendido.</li>
-            <li>La tecnología XR ayuda, pero no sustituye la manipulación, la conversación ni la deducción.</li>
-          </ul>
-        </div>
-        <div>
-          <h3>Interacciones clave</h3>
-          <ul>
-            <li><strong>Objeto físico → pista:</strong> una pieza de madera, tarjeta o símbolo activa una hipótesis.</li>
-            <li><strong>Pista → relación:</strong> el equipo conecta evidencias, épocas, inventos o conceptos STEAM.</li>
-            <li><strong>Relación → código:</strong> la respuesta se transforma en número, palabra, secuencia o patrón.</li>
-            <li><strong>Código → feedback:</strong> apertura, sello, mensaje o capa AR confirma el avance.</li>
-            <li><strong>Feedback → reflexión:</strong> el equipo verbaliza qué ha ocurrido y cómo lo ha resuelto.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section id="storyboard">
-      <div class="section-head">
-        <p class="kicker">Storyboard del prototipo</p>
-        <h2>Secuencia conceptual de la experiencia</h2>
-        <p class="lead">El storyboard muestra cómo vive la sesión el alumnado desde la entrada narrativa hasta el cierre metacognitivo.</p>
-      </div>
-      <div class="content">
-        <div class="storyboard">
-          <div class="scene"><div class="visual">🧳</div><h4>Llega la maleta</h4><p>El docente presenta una maleta cerrada y una carta del Archivo.</p><p><strong>Emoción:</strong> curiosidad.</p></div>
-          <div class="scene"><div class="visual">🪪</div><h4>Asignación de roles</h4><p>Cada participante recibe una tarjeta de rol con pictograma y función.</p><p><strong>Emoción:</strong> seguridad.</p></div>
-          <div class="scene"><div class="visual">🦴</div><h4>Primer fragmento</h4><p>El equipo resuelve una prueba de observación y clasificación.</p><p><strong>Emoción:</strong> reto alcanzable.</p></div>
-          <div class="scene"><div class="visual">🔎</div><h4>Exploración guiada</h4><p>Se abren compartimentos y aparecen pistas de distintas eras.</p><p><strong>Emoción:</strong> intriga.</p></div>
-          <div class="scene"><div class="visual">📱</div><h4>Capa AR opcional</h4><p>Una tarjeta activa una reconstrucción o pista aumentada breve.</p><p><strong>Emoción:</strong> sorpresa.</p></div>
-          <div class="scene"><div class="visual">🧩</div><h4>Decisión cooperativa</h4><p>El equipo contrasta hipótesis antes de probar un código.</p><p><strong>Emoción:</strong> concentración.</p></div>
-          <div class="scene"><div class="visual">🔓</div><h4>Desbloqueo</h4><p>El reto correcto abre un compartimento y permite sellar el pasaporte.</p><p><strong>Emoción:</strong> logro.</p></div>
-          <div class="scene"><div class="visual">🕰️</div><h4>Línea temporal</h4><p>Los fragmentos se ordenan en el mapa del tiempo.</p><p><strong>Emoción:</strong> sentido.</p></div>
-          <div class="scene"><div class="visual">⭐</div><h4>Cierre final</h4><p>El alumnado reconstruye la historia y explica estrategias usadas.</p><p><strong>Emoción:</strong> satisfacción.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="flujo">
-      <div class="section-head">
-        <p class="kicker">Mapa de flujo</p>
-        <h2>Recorrido de decisiones del jugador</h2>
-        <p class="lead">El mapa muestra la lógica principal de la experiencia: entrada, exploración, reto, bloqueo, pista, validación, progreso y cierre.</p>
-      </div>
-      <div class="content">
-        <div class="mermaid-box">
-          <div class="mermaid">
-flowchart TD
-  A([Inicio de sesión]) --> B[Presentación narrativa del Archivo]
-  B --> C[Asignación de roles y normas]
-  C --> D[Exploración de la maleta]
-  D --> E[Selección del reto de era]
-  E --> F[Observación / manipulación / relación]
-  F --> G{¿El equipo formula hipótesis?}
-  G -->|No| H[Pista 1: orientación visual]
-  H --> F
-  G -->|Sí| I[Prueba de código o solución]
-  I --> J{¿Solución correcta?}
-  J -->|No| K[Pista 2: ayuda parcial]
-  K --> F
-  J -->|Sí| L[Feedback: apertura, sello o mensaje]
-  L --> M{¿Requiere capa XR?}
-  M -->|Sí| N[AR/MR breve: reconstrucción o pista]
-  M -->|No| O[Registro en pasaporte]
-  N --> O
-  O --> P{¿Quedan eras?}
-  P -->|Sí| E
-  P -->|No| Q[Cierre narrativo: Archivo restaurado]
-  Q --> R[Reflexión y transferencia]
-  R --> S([Fin])
+        <aside class="hero-visual">
+          <p class="hero-visual__title">Resumen de la entrega</p>
+          <div class="hero-visual__grid">
+            <div class="hero-pill"><i class="fa-solid fa-diagram-project"></i><span>Storyboard + flujo de decisiones</span></div>
+            <div class="hero-pill"><i class="fa-solid fa-people-group"></i><span>Roles, reglas e interacciones</span></div>
+            <div class="hero-pill"><i class="fa-solid fa-vr-cardboard"></i><span>Ficha inmersiva XR justificada</span></div>
+            <div class="hero-pill"><i class="fa-solid fa-arrows-rotate"></i><span>Playtest, feedback e iteración</span></div>
           </div>
-        </div>
-        <p class="note">La estructura permite intervención docente sin romper la autonomía: el apoyo aparece en los momentos de bloqueo, pero la decisión vuelve siempre al equipo.</p>
+        </aside>
+      </section>
+    </div>
+
+    <section class="wrap section" id="marco">
+      <p class="req-badge"><i class="fa-solid fa-clipboard-check"></i> Marco del Sprint 3</p>
+      <div class="section-title"><div><h2>Marco del Sprint 3</h2><p class="section-kicker">Esta clase guía al alumno por el proceso de creación de un Serious Game educativo: idea, prototipo conceptual, evaluación y rediseño final.</p></div></div>
+      <div class="card">
+        <p>Se abordan las fases del <strong>Game Thinking</strong> desde la concepción de la idea hasta el prototipado mediante storyboard y mapas de flujo, pasando por playtests y feedback, y cerrando con iteración y diseño final. El objetivo es integrar ABJ, mecánicas, dinámicas, narrativa e inmersión XR para producir un prototipo sólido y centrado en la persona-aprendiz.</p>
+        <p><strong>Enunciado:</strong> desarrollar un prototipo conceptual de un <strong>XR-Based Serious Game</strong> integrando storyboard, mapa de flujo, narrativa, roles, interacciones, reglas y ficha de experiencia inmersiva; aplicar Game Thinking, evaluar referentes existentes y aplicar feedback.</p>
       </div>
     </section>
 
-    <section id="xr">
-      <div class="section-head">
-        <p class="kicker">Ficha de experiencia inmersiva</p>
-        <h2>XR integrada de forma ligera, accesible y justificada</h2>
-        <p class="lead">La tecnología se usa como apoyo narrativo y cognitivo. No es el centro del juego ni una barrera de participación.</p>
+    <section class="wrap section" id="objetivos">
+      <div class="section-title"><div><h2>Objetivos de la actividad y cómo se cumplen</h2><p class="section-kicker">Rastreo explícito de cada objetivo del enunciado a una evidencia concreta del documento.</p></div></div>
+      <div class="objective-grid">
+        <article class="objective-card"><h3>Comprender el proceso de Game Thinking</h3><p>Fases de empatizar, definir, idear, prototipar, testear e iterar aplicadas al caso.</p><p class="where">→ § Game Thinking</p></article>
+        <article class="objective-card"><h3>Diseñar prototipo con storyboard y flujo</h3><p>Secuencia de escenas + diagrama de decisiones del jugador.</p><p class="where">→ § Storyboard y § Mapa de flujo</p></article>
+        <article class="objective-card"><h3>Aplicar feedback para mejorar</h3><p>Validación conceptual y evidencias reales del TFM (Anexos B/C) traducidas a mejoras.</p><p class="where">→ § Playtest, feedback e iteración</p></article>
+        <article class="objective-card"><h3>Integrar iteraciones</h3><p>Ajustes en reglas, pistas, accesibilidad, narrativa y capa XR.</p><p class="where">→ § Playtest + § Coherencia</p></article>
+        <article class="objective-card"><h3>Relacionar pedagogía, mecánicas e inmersión</h3><p>Matriz objetivo ↔ mecánica/dinámica ↔ narrativa ↔ XR ↔ evidencia.</p><p class="where">→ § Coherencia pedagógico-lúdica</p></article>
       </div>
-      <div class="content">
-        <table>
+    </section>
+
+    <section class="wrap section" id="thinking">
+      <p class="req-badge"><i class="fa-solid fa-clipboard-check"></i> Proceso de Game Thinking</p>
+      <div class="section-title"><div><h2>Proceso de Game Thinking</h2></div></div>
+      <div class="timeline">
+        <div class="step"><div class="step-tag">Fase 1 · Empatizar</div><p>Perfil del alumnado y barreras cognitivas/sensoriales para diseñar apoyos reales.</p></div>
+        <div class="step"><div class="step-tag">Fase 2 · Definir</div><p>Competencia foco: resolución cooperativa de problemas STEAM en contexto histórico.</p></div>
+        <div class="step"><div class="step-tag">Fase 3 · Idear</div><p>Maleta, pasaporte, eras, misión narrativa y XR ligera como soporte didáctico.</p></div>
+        <div class="step"><div class="step-tag">Fase 4 · Prototipar</div><p>Storyboard, flujo, roles, reglas, interacciones, ficha inmersiva.</p></div>
+        <div class="step"><div class="step-tag">Fase 5 · Testear</div><p>Playtest de baja fidelidad y revisión de instrumentos reales del TFM.</p></div>
+        <div class="step"><div class="step-tag">Fase 6 · Iterar</div><p>Mejoras por claridad, carga cognitiva, inclusión, feedback y coherencia narrativa.</p></div>
+      </div>
+    </section>
+
+    <section class="wrap section" id="referentes">
+      <p class="req-badge"><i class="fa-solid fa-clipboard-check"></i> Evaluación de referentes existentes</p>
+      <div class="section-title"><div><h2>Evaluación de juegos y referentes</h2></div></div>
+      <div class="matrix-wrap">
+        <table class="matrix">
+          <thead><tr><th>Referente</th><th>Elemento adaptable</th><th>Riesgo</th><th>Aplicación al prototipo</th></tr></thead>
           <tbody>
-            <tr><th>Nombre de la experiencia</th><td>La Maleta del Tiempo · El Archivo de la Historia</td></tr>
-            <tr><th>Tipo de serious game</th><td>Escape room educativo híbrido, cooperativo, físico-digital y basado en retos.</td></tr>
-            <tr><th>Modalidad XR</th><td>Realidad aumentada y realidad mixta ligera. VR solo como recurso opcional no obligatorio.</td></tr>
-            <tr><th>Persona-aprendiz</th><td>Jóvenes con discapacidad intelectual leve o moderada, extensible a aulas inclusivas con apoyos.</td></tr>
-            <tr><th>Duración</th><td>60–70 minutos en versión prototipo; ampliable por módulos o sesiones.</td></tr>
-            <tr><th>Espacio</th><td>Aula, biblioteca, laboratorio o espacio maker con mesa central y circulación accesible.</td></tr>
-            <tr><th>Dispositivos</th><td>Tablet o móvil del docente/equipo para activar tarjetas AR, audios o pistas visuales. Alternativas impresas para no depender del dispositivo.</td></tr>
-            <tr><th>Objetivo pedagógico</th><td>Resolver problemas STEAM e históricos mediante cooperación, manipulación, comunicación, atención y pensamiento lógico.</td></tr>
-            <tr><th>Core loop</th><td>Explorar → encontrar pista → relacionar → resolver → validar → recibir feedback → registrar avance → pasar a nueva era.</td></tr>
-            <tr><th>Feedback inmersivo</th><td>Apertura de compartimentos, sellos, mensajes del Archivo, línea temporal restaurada y microcapas AR de confirmación.</td></tr>
-            <tr><th>Accesibilidad</th><td>Lectura fácil, pictogramas, contraste, objetos grandes, roles claros, pistas graduadas, alternativa visual a audios y alternativa física a AR.</td></tr>
+            <tr><td>Escape room educativo</td><td>Códigos, pistas, progreso por retos</td><td>Jugar por jugar</td><td>Cada reto se alinea con objetivo STEAM/pedagógico.</td></tr>
+            <tr><td>Museo interactivo</td><td>Objeto + contexto cultural</td><td>Pasividad</td><td>Pieza manipulable + decisión + verbalización.</td></tr>
+            <tr><td>Serious game narrativo</td><td>Misión y conflicto</td><td>Narrativa decorativa</td><td>Narrativa como estructura de aprendizaje.</td></tr>
+            <tr><td>AR educativa</td><td>Capas visuales y pistas</td><td>Dependencia tecnológica</td><td>AR breve y opcional con alternativa física/visual.</td></tr>
           </tbody>
         </table>
       </div>
     </section>
 
-    <section id="playtest">
-      <div class="section-head">
-        <p class="kicker">Playtest y feedback</p>
-        <h2>Evaluación conceptual del prototipo</h2>
-        <p class="lead">El playtest se plantea como validación de baja fidelidad: antes de construir todos los materiales definitivos, se comprueba si la experiencia se entiende, si el reto es adecuado y si la XR aporta valor real.</p>
+    <section class="wrap section" id="concepto">
+      <div class="section-title"><div><h2>Concepto final del prototipo</h2></div></div>
+      <div class="card">
+        <p><strong>La Historia se ha roto.</strong> El Archivo temporal está fragmentado y el equipo debe restaurarlo era por era. La propuesta final es un serious game híbrido (físico + capa XR ligera), cooperativo e inclusivo.</p>
       </div>
-      <div class="content">
-        <div class="grid-3">
-          <div class="card"><h4>Qué se testea</h4><p>Comprensión de misión, claridad de roles, flujo de retos, utilidad de pistas, dificultad, accesibilidad y valor de la capa XR.</p></div>
-          <div class="card"><h4>Cómo se testea</h4><p>Recorrido guiado con prototipo en papel, tarjetas, esquema de maleta, storyboard y simulación de una tarjeta AR.</p></div>
-          <div class="card"><h4>Qué se observa</h4><p>Momentos de bloqueo, participación, comunicación, uso de pistas, motivación, sobrecarga y comprensión del aprendizaje.</p></div>
-        </div>
-        <h3>Matriz de feedback aplicado</h3>
-        <table>
-          <thead><tr><th>Hallazgo de feedback</th><th>Problema detectado</th><th>Iteración aplicada</th><th>Impacto esperado</th></tr></thead>
+    </section>
+
+    <section class="wrap section" id="narrativa">
+      <p class="req-badge"><i class="fa-solid fa-clipboard-check"></i> Narrativa, roles, reglas e interacciones</p>
+      <div class="section-title"><div><h2>Narrativa, roles, reglas e interacciones</h2></div></div>
+      <div class="grid two">
+        <article class="card"><h3>Narrativa</h3><p>Misión temporal con progreso visible en pasaporte y restauración final del Archivo.</p><h3 style="margin-top:14px;">Roles</h3><p>Explorador/a, cronista, guardián/a de pistas y técnico/a del tiempo.</p></article>
+        <article class="card"><h3>Reglas</h3><ul><li>Resolver era antes de avanzar.</li><li>Código siempre argumentado.</li><li>Pistas graduadas.</li><li>Decisiones en voz alta.</li></ul><h3 style="margin-top:14px;">Interacciones</h3><p>Objeto → pista → relación → código → feedback → reflexión.</p></article>
+      </div>
+    </section>
+
+    <section class="wrap section" id="storyboard">
+      <p class="req-badge"><i class="fa-solid fa-clipboard-check"></i> Storyboard de la experiencia</p>
+      <div class="section-title"><div><h2>Storyboard</h2></div></div>
+      <div class="storyboard">
+        <article class="scene"><div class="visual">🧳</div><h3>1. Entrada</h3><p>Presentación de misión y maleta.</p></article>
+        <article class="scene"><div class="visual">🪪</div><h3>2. Roles</h3><p>Asignación de funciones con apoyo visual.</p></article>
+        <article class="scene"><div class="visual">🦴</div><h3>3. Primer reto</h3><p>Clasificación y secuenciación inicial.</p></article>
+        <article class="scene"><div class="visual">🔎</div><h3>4. Exploración</h3><p>Búsqueda de pistas y evidencias.</p></article>
+        <article class="scene"><div class="visual">📱</div><h3>5. Capa XR</h3><p>AR breve de apoyo narrativo/conceptual.</p></article>
+        <article class="scene"><div class="visual">🧩</div><h3>6. Decisión</h3><p>Hipótesis cooperativa y prueba.</p></article>
+        <article class="scene"><div class="visual">🔓</div><h3>7. Validación</h3><p>Apertura, sello y avance de era.</p></article>
+        <article class="scene"><div class="visual">🕰️</div><h3>8. Secuencia</h3><p>Orden temporal y coherencia histórica.</p></article>
+        <article class="scene"><div class="visual">⭐</div><h3>9. Cierre</h3><p>Reflexión y transferencia del aprendizaje.</p></article>
+      </div>
+    </section>
+
+    <section class="wrap section" id="flujo">
+      <p class="req-badge"><i class="fa-solid fa-clipboard-check"></i> Mapa de flujo con decisiones</p>
+      <div class="section-title"><div><h2>Mapa de flujo del jugador</h2></div></div>
+      <div class="mermaid-wrap">
+        <pre class="mermaid">
+flowchart TD
+  A([Inicio]) --> B[Misión y roles]
+  B --> C[Explorar maleta]
+  C --> D[Resolver reto de era]
+  D --> E{¿Correcto?}
+  E -->|No| F[Pista graduada]
+  F --> D
+  E -->|Sí| G[Feedback + sello]
+  G --> H{¿Quedan eras?}
+  H -->|Sí| C
+  H -->|No| I[Cierre narrativo]
+  I --> J([Reflexión final])
+        </pre>
+      </div>
+    </section>
+
+    <section class="wrap section" id="xr">
+      <p class="req-badge"><i class="fa-solid fa-clipboard-check"></i> Ficha de experiencia inmersiva XR</p>
+      <div class="section-title"><div><h2>Ficha de experiencia inmersiva XR</h2></div></div>
+      <div class="matrix-wrap">
+        <table class="matrix">
           <tbody>
-            <tr><td>Algunas instrucciones podían resultar largas.</td><td>Riesgo de sobrecarga cognitiva al inicio.</td><td>Dividir normas en tarjetas visuales: misión, rol, pista y validación.</td><td>Mayor comprensión inicial y menor dependencia del docente.</td></tr>
-            <tr><td>Los roles necesitaban acciones más concretas.</td><td>Posible participación desigual.</td><td>Añadir una función observable a cada rol y rotación opcional por era.</td><td>Más responsabilidad compartida y participación equilibrada.</td></tr>
-            <tr><td>La capa XR podía parecer decorativa.</td><td>Riesgo de efecto novedad sin aprendizaje.</td><td>Usar AR solo cuando aporte reconstrucción, pista visual o feedback narrativo.</td><td>Integración más pedagógica y menos dependencia tecnológica.</td></tr>
-            <tr><td>El mapa de flujo podía ser demasiado lineal.</td><td>Poca sensación de decisión del equipo.</td><td>Permitir dos rutas de resolución en algunas eras: visual/manipulativa o lógica/código.</td><td>Mayor autonomía y adaptación a estilos de aprendizaje.</td></tr>
-            <tr><td>El cierre podía quedarse en celebración.</td><td>Falta de transferencia explícita.</td><td>Añadir reflexión final breve: qué pista fue clave, qué estrategia funcionó y qué aprendimos.</td><td>Mejor metacognición y conexión con objetivos educativos.</td></tr>
+            <tr><th>Tipo</th><td>Serious game educativo híbrido, cooperativo y accesible.</td></tr>
+            <tr><th>XR</th><td>AR y MR ligera; VR opcional, no obligatoria.</td></tr>
+            <tr><th>Objetivo</th><td>Resolución cooperativa de problemas STEAM e históricos.</td></tr>
+            <tr><th>Core loop</th><td>Explorar → relacionar → resolver → validar → progresar.</td></tr>
+            <tr><th>Accesibilidad</th><td>Lectura fácil, pictogramas ARASAAC, alternativas visuales/táctiles y ayudas graduadas.</td></tr>
           </tbody>
         </table>
       </div>
     </section>
 
-    <section id="iteracion">
-      <div class="section-head">
-        <p class="kicker">Diseño final tras iteración</p>
-        <h2>Versión final del prototipo conceptual</h2>
-        <p class="lead">Tras aplicar feedback, el juego queda definido como una experiencia más clara, más accesible, más coherente y más fácil de prototipar físicamente.</p>
+    <section class="wrap section" id="playtest">
+      <p class="req-badge"><i class="fa-solid fa-clipboard-check"></i> Playtest, feedback e iteración</p>
+      <div class="section-title"><div><h2>Playtest, feedback e iteración</h2><p class="section-kicker">Validación conceptual + evidencia real documentada en el TFM (Anexos B y C).</p></div></div>
+      <div class="grid three">
+        <article class="card"><h3>Validación conceptual (Sprint)</h3><p>Se testea claridad de misión, carga cognitiva, participación por roles, uso de pistas y valor de la capa XR.</p></article>
+        <article class="card"><h3>Evidencia real (TFM)</h3><p>Encuestas visuales de satisfacción, termómetros emocionales por era, triangulación encuesta-rúbrica-observación y escala socioemocional.</p></article>
+        <article class="card"><h3>Iteración aplicada</h3><p>Reglas más claras, roles más observables, sistema de pistas por niveles y XR más funcional.</p></article>
       </div>
-      <div class="content grid-2">
-        <div class="card">
-          <h3>Antes de iterar</h3>
-          <ul>
-            <li>Narrativa potente, pero instrucciones demasiado densas.</li>
-            <li>Roles definidos, aunque con funciones poco observables.</li>
-            <li>XR presente, pero no siempre vinculada a una necesidad real.</li>
-            <li>Mapa de flujo correcto, pero con poca ramificación.</li>
-            <li>Cierre narrativo más fuerte que cierre pedagógico.</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>Después de iterar</h3>
-          <ul>
-            <li>Normas fragmentadas en tarjetas visuales y lectura fácil.</li>
-            <li>Roles con acciones claras y posibilidad de rotación.</li>
-            <li>AR breve, opcional y siempre con alternativa impresa.</li>
-            <li>Rutas de resolución flexibles según habilidad del grupo.</li>
-            <li>Cierre con reflexión, transferencia y evidencia de aprendizaje.</li>
-          </ul>
-        </div>
+      <div class="matrix-wrap">
+        <table class="matrix">
+          <thead><tr><th>Evidencia del TFM (Anexos)</th><th>Qué aporta al Sprint 3</th><th>Ajuste de diseño resultante</th></tr></thead>
+          <tbody>
+            <tr><td><strong>B.6</strong> Encuestas visuales y termómetro emocional (muy bien → muy mal)</td><td>Percepción de comprensión, ayuda docente/pares y regulación emocional por era.</td><td>Ajuste de ritmo por fases y refuerzo visual en instrucciones iniciales.</td></tr>
+            <tr><td><strong>B.7</strong> Triangulación (encuesta post-test + rúbrica STEAM + observación narrativa)</td><td>Contraste de resultados para evitar decisiones basadas en una sola fuente.</td><td>Métricas de éxito mixtas: logro, colaboración y verbalización.</td></tr>
+            <tr><td><strong>B.8</strong> Escala socioemocional (equipo, regulación, comunicación)</td><td>Seguimiento de competencias sociales clave del juego.</td><td>Diseño de roles funcionales y momentos explícitos de coordinación.</td></tr>
+            <tr><td><strong>C.4</strong> Sistema de pistas progresivas (4 niveles)</td><td>Marco real de ayuda graduada para evitar frustración o sobreasistencia.</td><td>Integración en reglas: orientación → parcial → guiada → modelado.</td></tr>
+            <tr><td><strong>C.1/C.5</strong> Modalidades narrativas y alternativas accesibles</td><td>Soporte real para inclusión (texto, pictos, picto-texto, táctil, QR con alternativa).</td><td>Ficha XR y accesibilidad con equivalentes no digitales.</td></tr>
+          </tbody>
+        </table>
       </div>
+      <p class="note"><strong>Nota de validez:</strong> se mantiene el playtest del sprint como validación conceptual, y se ancla en instrumentos reales del TFM para no inventar trabajo de campo no realizado en esta entrega.</p>
     </section>
 
-    <section id="coherencia">
-      <div class="section-head">
-        <p class="kicker">Coherencia pedagógico-lúdica</p>
-        <h2>Relación entre objetivos, mecánicas, narrativa y aprendizaje</h2>
-        <p class="lead">Cada decisión de diseño se justifica por su aportación al aprendizaje. El juego no es una capa estética, sino la estructura que organiza la experiencia educativa.</p>
-      </div>
-      <div class="content">
-        <table>
-          <thead><tr><th>Objetivo pedagógico</th><th>Mecánica / dinámica</th><th>Narrativa</th><th>XR / inmersión</th><th>Evidencia de aprendizaje</th></tr></thead>
+    <section class="wrap section" id="coherencia">
+      <p class="req-badge"><i class="fa-solid fa-clipboard-check"></i> Coherencia pedagógico-lúdica</p>
+      <div class="section-title"><div><h2>Coherencia pedagógico-lúdica</h2></div></div>
+      <div class="matrix-wrap">
+        <table class="matrix">
+          <thead><tr><th>Objetivo pedagógico</th><th>Mecánica / dinámica</th><th>Narrativa / XR</th><th>Evidencia</th></tr></thead>
           <tbody>
-            <tr><td>Resolver problemas en equipo.</td><td>Roles, hipótesis compartida, códigos cooperativos.</td><td>Equipo de exploradores del tiempo.</td><td>Feedback visual compartido, no individual.</td><td>Explicación oral de la solución.</td></tr>
-            <tr><td>Comprender secuencia histórica.</td><td>Pasaporte, línea temporal y eras desbloqueables.</td><td>Archivo fragmentado que debe restaurarse.</td><td>Capas AR de reconstrucción o confirmación.</td><td>Ordenación correcta de fragmentos.</td></tr>
-            <tr><td>Desarrollar pensamiento lógico y STEAM.</td><td>Cifrado, clasificación, relación, patrones y causa-efecto.</td><td>Inventos y descubrimientos fuera de lugar.</td><td>Pistas visuales aumentadas cuando hay abstracción.</td><td>Resolución argumentada del reto.</td></tr>
-            <tr><td>Mejorar autonomía con apoyo.</td><td>Pistas graduadas y decisiones del equipo.</td><td>El Archivo responde según el avance.</td><td>Mensajes breves, audios o pictogramas.</td><td>Uso adecuado de pistas sin abandonar el reto.</td></tr>
-            <tr><td>Favorecer inclusión y participación.</td><td>Roles adaptables, materiales manipulativos y rutas alternativas.</td><td>Todos son necesarios para restaurar la historia.</td><td>Alternativas físicas, visuales y auditivas.</td><td>Participación observable de cada rol.</td></tr>
+            <tr><td>Resolver problemas en equipo</td><td>Roles + códigos cooperativos</td><td>Equipo de exploradores</td><td>Verbalización de hipótesis</td></tr>
+            <tr><td>Secuenciación histórica</td><td>Pasaporte y progreso por eras</td><td>Archivo fragmentado</td><td>Orden temporal correcto</td></tr>
+            <tr><td>Pensamiento lógico STEAM</td><td>Cifrado, clasificación, patrones</td><td>Pistas AR de apoyo</td><td>Resolución argumentada</td></tr>
           </tbody>
         </table>
       </div>
     </section>
 
-    <section id="galp">
-      <div class="section-head">
-        <p class="kicker">Integración de principios GALP</p>
-        <h2>Gamificación centrada en la persona y no solo en recompensas</h2>
-        <p class="lead">La propuesta conecta motivación, autonomía, relación social, feedback, inmersión y transferencia con objetivos educativos reales.</p>
-      </div>
-      <div class="content grid-4">
-        <div class="card"><span class="pill">1</span><h4>Propósito</h4><p>Salvar el Archivo da sentido a cada prueba.</p></div>
-        <div class="card"><span class="pill">2</span><h4>Autonomía</h4><p>El equipo explora, decide y pide pistas.</p></div>
-        <div class="card"><span class="pill">3</span><h4>Competencia</h4><p>Retos alcanzables, progresivos y visibles.</p></div>
-        <div class="card"><span class="pill">4</span><h4>Relación</h4><p>Roles y cooperación sostienen el juego.</p></div>
-        <div class="card"><span class="pill">5</span><h4>Inmersión</h4><p>Narrativa, objetos, pasaporte y XR ligera.</p></div>
-        <div class="card"><span class="pill">6</span><h4>Feedback</h4><p>Aperturas, sellos, mensajes y línea temporal.</p></div>
-        <div class="card"><span class="pill">7</span><h4>Inclusión</h4><p>Accesibilidad cognitiva y sensorial desde el diseño.</p></div>
-        <div class="card"><span class="pill">8</span><h4>Transferencia</h4><p>Cierre reflexivo y conexión con estrategias usadas.</p></div>
+    <section class="wrap section" id="galp">
+      <p class="req-badge"><i class="fa-solid fa-clipboard-check"></i> Integración de principios GALP</p>
+      <div class="section-title"><div><h2>Integración de principios GALP</h2></div></div>
+      <div class="grid three">
+        <article class="card"><h3>Propósito + narrativa</h3><p>Restaurar el Archivo da sentido al esfuerzo cognitivo.</p></article>
+        <article class="card"><h3>Autonomía + feedback</h3><p>Decisión del equipo con apoyo graduado y retroalimentación inmediata.</p></article>
+        <article class="card"><h3>Relación + inclusión</h3><p>Roles y comunicación para participación real de todo el grupo.</p></article>
       </div>
     </section>
 
-    <section id="entrega">
-      <div class="section-head">
-        <p class="kicker">Criterios de entrega Sprint 3</p>
-        <h2>Formato, extensión y valoración</h2>
-        <p class="lead">La entrega está pensada para presentarse como enlace web y exportarse en PDF desde el navegador, manteniendo coherencia visual con los sprints anteriores.</p>
+    <section class="wrap section" id="entrega">
+      <div class="section-title"><div><h2>Criterios de entrega y cierre</h2><p class="section-kicker">Formato, extensión y criterios de valoración del Sprint 3.</p></div></div>
+      <div class="criteria-grid">
+        <article class="criteria-card"><h3>Formato</h3><p>PDF, link o presentación digital. Recomendado: HTML + exportación PDF.</p></article>
+        <article class="criteria-card"><h3>Extensión</h3><p>Máximo 15 páginas. Este documento está estructurado por bloques equivalentes.</p></article>
+        <article class="criteria-card"><h3>Criterios relevantes</h3><ul><li>Originalidad del caso</li><li>Argumentación y síntesis</li><li>Estética y coherencia narrativa</li><li>Integración GALP</li><li>Creatividad e interacción XR</li></ul></article>
       </div>
-      <div class="content grid-2">
-        <div>
-          <h3>Formato</h3>
-          <p>Enlace web en HTML, presentación digital o PDF generado desde esta página mediante la opción <strong>Imprimir / Guardar como PDF</strong>. La versión web permite lectura completa y navegación interna; la versión PDF funciona como documento final de entrega.</p>
-          <h3>Extensión</h3>
-          <p>Máximo recomendado: <strong>15 páginas</strong>. La estructura se organiza en bloques equivalentes a páginas: portada, marco, objetivos, Game Thinking, referentes, concepto, narrativa, roles, reglas, storyboard, mapa de flujo, ficha XR, playtest, iteración y cierre.</p>
-        </div>
-        <div>
-          <h3>Otros criterios relevantes</h3>
-          <ul>
-            <li>Originalidad del caso propuesto y continuidad con La Maleta del Tiempo.</li>
-            <li>Nivel de argumentación pedagógica y lúdica.</li>
-            <li>Estética coherente con Sprint 1, Sprint 2 y Archivo del Tiempo.</li>
-            <li>Capacidad de síntesis y organización visual.</li>
-            <li>Integración de principios GALP.</li>
-            <li>Coherencia narrativa, de interacción y de progresión.</li>
-            <li>Creatividad en la integración XR sin perder accesibilidad.</li>
-            <li>Aplicación de feedback e iteración del diseño.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section id="cierre">
-      <div class="section-head">
-        <p class="kicker">Cierre del Sprint 3</p>
-        <h2>Prototipo final conceptual</h2>
-        <p class="lead">La Maleta del Tiempo queda definida como un serious game educativo XR-based, transportable, inclusivo y centrado en la persona-aprendiz. El prototipo demuestra cómo una experiencia de juego puede organizar objetivos pedagógicos, narrativa, mecánicas, cooperación, feedback e inmersión de forma coherente.</p>
-      </div>
-      <div class="content">
-        <p>El resultado final no es únicamente una idea de juego, sino un prototipo argumentado y preparado para una siguiente fase de desarrollo: diseño de materiales finales, construcción de tarjetas, validación con alumnado, medición de evidencias de aprendizaje y mejora continua. El Sprint 3 cierra el proceso iniciado en los sprints anteriores y muestra la evolución desde una propuesta educativa hacia una experiencia jugable, evaluable e inclusiva.</p>
+      <div class="card">
+        <h3 style="margin-bottom:8px;">Objetivo global de la actividad</h3>
+        <p>Aplicar los conocimientos del módulo para producir un prototipo sólido de Serious Game educativo, demostrando dominio del Game Thinking, integración de mecánicas/dinámicas y planificación de experiencias inmersivas centradas en el aprendizaje.</p>
       </div>
     </section>
   </main>
@@ -599,5 +367,26 @@ flowchart TD
   <footer>
     <div class="wrap">Sprint 3 · Playful Learning · La Maleta del Tiempo · XR-Based Serious Game</div>
   </footer>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+  <script>
+    window.addEventListener('load', function () {
+      if (window.mermaid) {
+        window.mermaid.initialize({
+          startOnLoad: true,
+          theme: 'base',
+          themeVariables: {
+            primaryColor: '#fffbeb',
+            primaryTextColor: '#0f172a',
+            primaryBorderColor: '#fde68a',
+            lineColor: '#d97706',
+            secondaryColor: '#f8fafc',
+            tertiaryColor: '#e2e8f0',
+            fontSize: '14px'
+          }
+        });
+      }
+    });
+  </script>
 </body>
 </html>
