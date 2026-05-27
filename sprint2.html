@@ -78,12 +78,24 @@
       border-bottom: 1px solid var(--yellow-line);
     }
 
+    header .wrap {
+      display: block;
+      width: min(var(--max), calc(100% - 2 * var(--wrap-inline)));
+      margin: 0 auto;
+    }
+
     nav {
       display: flex; flex-wrap: wrap; align-items: center;
       gap: 12px 16px; padding: 10px 0; min-height: 56px;
+      width: 100%;
     }
 
-    #nav-desktop { margin-left: auto; min-width: 0; }
+    #nav-desktop {
+      margin-left: auto;
+      min-width: 0;
+      flex: 1 1 auto;
+      justify-content: flex-end;
+    }
 
     .brand {
       display: flex; align-items: center; gap: 10px;
@@ -642,7 +654,15 @@
     .align-table td:first-child {
       font-weight: 700;
       color: var(--ink);
-      white-space: nowrap;
+    }
+
+    .section > .req-badge + .section-title {
+      margin-top: 0;
+    }
+
+    .matrix-wrap {
+      width: 100%;
+      max-width: 100%;
     }
 
     footer {
@@ -654,11 +674,108 @@
     footer a { color: #94a3b8; text-decoration: none; }
     footer a:hover { color: #cbd5e1; }
 
+    @media (min-width: 1040px) {
+      .nav-more { display: none; }
+
+      #nav-desktop {
+        display: flex;
+        flex-wrap: wrap;
+        align-content: center;
+        row-gap: 8px;
+        column-gap: 14px;
+        font-size: 12px;
+        max-width: min(960px, 78vw);
+      }
+
+      .hero {
+        grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+        gap: 48px;
+      }
+
+      .hero-visual {
+        min-height: 440px;
+      }
+
+      .hero-visual__grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+
+      .hero-actions {
+        flex-wrap: wrap;
+      }
+
+      .mechanic-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .dynamic-list {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .objective-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .criteria-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .delivery-grid {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+      }
+
+      .req-checklist {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .matrix {
+        min-width: 0;
+        width: 100%;
+        font-size: 14px;
+      }
+
+      .matrix th,
+      .matrix td {
+        padding: 14px 16px;
+      }
+
+      .journey-recorrido__scroll {
+        overflow: visible;
+      }
+
+      .journey-recorrido__track {
+        min-width: 0;
+        width: 100%;
+      }
+
+      #xr.wrap,
+      #accesibilidad.wrap {
+        width: min(var(--max), calc(100% - 2 * var(--wrap-inline)));
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 22px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+      }
+    }
+
+    @media (min-width: 1280px) {
+      .mechanic-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .delivery-grid {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+      }
+    }
+
     @media (max-width: 1039px) {
       #nav-desktop { display: none; }
-      .nav-more { display: block; }
+      .nav-more { display: block; margin-left: auto; }
       .hero { grid-template-columns: 1fr; }
       .hero-visual { max-width: 520px; margin-inline: auto; min-height: 360px; }
+      .hero-visual__grid { grid-template-columns: 1fr 1fr; }
     }
 
     @media (max-width: 719px) {
@@ -680,14 +797,9 @@
   <a class="skip-link" href="#contenido">Ir al contenido</a>
 
   <header>
-    
-    
-    
     <div class="wrap">
       <nav aria-label="Navegación principal">
-        
         <div class="brand">
-          
           <div class="brand-mark" aria-hidden="true"><i class="fa-solid fa-suitcase-rolling"></i></div>
           <span title="Playful Learning · Sprint 2">Playful Learning · <em>Sprint 2</em></span>
         </div>
@@ -712,8 +824,8 @@
             <a href="#entrega">Entrega</a>
           </div>
         </details>
-        
-                <div class="nav-links" id="nav-desktop">
+
+        <div class="nav-links" id="nav-desktop">
           <a href="#marco">Marco</a>
           <a href="#objetivos">Objetivos</a>
           <a href="#partida">Partida</a>
