@@ -1,696 +1,1629 @@
-<div style="max-width: 980px; margin: 0 auto; font-family: Arial, Helvetica, sans-serif; color: #12213a; background: #fffaf0; border: 1px solid #f0d28a; border-radius: 18px; overflow: hidden;">
+<!DOCTYPE html>
 
-	<div style="background: linear-gradient(135deg, #fff7df, #ffffff); padding: 28px 32px; border-bottom: 1px solid #f0d28a;">
-	  <p style="margin: 0 0 12px 0; display: inline-block; padding: 6px 12px; background: #fff0bd; color: #9b3f00; border-radius: 999px; font-size: 12px; font-weight: bold; letter-spacing: 1px; text-transform: uppercase;">
-		Asignatura · Playful Learning
-	  </p>
-  
-  ```
-  <h1 style="margin: 0; font-size: 34px; line-height: 1.1; color: #101a33;">
-	Parte 2 · Dossier profesional de diseño
-  </h1>
-  
-  <p style="margin: 10px 0 0 0; font-size: 20px; line-height: 1.4; color: #b44a00; font-weight: bold;">
-	Proyecto final · XR-Based Serious Game
-  </p>
-  
-  <p style="margin: 14px 0 0 0; font-size: 22px; line-height: 1.3; color: #101a33; font-weight: bold;">
-	La Maleta del Tiempo XR · Escapify.io
-  </p>
-  
-  <p style="margin: 16px 0 0 0; font-size: 18px; line-height: 1.6; color: #40516b;">
-	Dossier profesional de diseño de una experiencia educativa inmersiva basada en juego serio, realidad aumentada, exploración colaborativa, narrativa histórica, feedback progresivo, accesibilidad y evaluación del valor pedagógico de la capa XR.
-  </p>
-  ```
-  
-	</div>
-  
-	<div style="padding: 28px 32px;">
-  
-  ```
-  <div style="background: #101a33; color: #ffffff; border-radius: 14px; padding: 20px; margin: 0 0 26px 0;">
-	<p style="margin: 0; font-size: 16px; line-height: 1.8;">
-	  Esta segunda parte desarrolla el diseño completo de <strong>La Maleta del Tiempo XR</strong> como Serious Game inmersivo. La propuesta recoge los elementos solicitados en la entrega final: objetivos pedagógicos, público destinatario, fases de Game Thinking, elementos de juego, narrativa, roles, interacciones, storyboard, mapa de flujo, reglas, feedback, ficha inmersiva, playtest, evaluación, accesibilidad y respuesta a los comentarios recibidos durante los sprints.
-	</p>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Entrega final · La Maleta del Tiempo XR</title>
+  <meta name="theme-color" content="#b45309" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    :root{
+      --amber:#b45309;
+      --amber-dark:#92400e;
+      --amber-light:#fffbeb;
+      --amber-mid:#fef3c7;
+      --amber-accent:#d97706;
+      --ink:#0f172a;
+      --body:#374151;
+      --muted:#475569;
+      --soft:#64748b;
+      --accent:var(--amber);
+      --accent-2:var(--amber-accent);
+      --line:#fde68a;
+      --border:#e2e8f0;
+      --surface:#f8fafc;
+      --paper:#ffffff;
+      --paper-2:#fffbeb;
+      --dark:#0a0f1e;
+      --ok:#16a34a;
+      --blue:#2563eb;
+      --blue-light:#eff6ff;
+      --shadow:0 4px 12px rgba(15,23,42,.06);
+      --radius:16px;
+      --max:min(1240px, calc(100vw - 48px));
+      --wrap-inline:clamp(16px, 4vw, 24px);
+      --transition:.22s ease;
+    }
+
+    *{box-sizing:border-box}
+
+    html{
+      scroll-behavior:smooth;
+      -webkit-font-smoothing:antialiased;
+    }
+
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:var(--paper);
+      color:var(--body);
+      line-height:1.6;
+    }
+
+    a{color:inherit}
+
+    main section[id].section{scroll-margin-top:72px}
+
+    .skip{
+      position:absolute;
+      left:-9999px;
+      top:12px;
+      z-index:120;
+      padding:12px 18px;
+      border-radius:10px;
+      background:var(--ink);
+      color:#fff;
+      font-weight:700;
+      text-decoration:none;
+    }
+
+    .skip:focus{left:16px}
+
+    .wrap{
+      width:min(var(--max), calc(100% - 2 * var(--wrap-inline)));
+      margin:0 auto;
+    }
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:100;
+      background:rgba(255,251,235,.92);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--line);
+    }
+
+    header .wrap{display:block}
+
+    nav{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      gap:12px 16px;
+      padding:10px 0;
+      min-height:56px;
+      min-width:0;
+    }
+
+    #nav-desktop{margin-left:auto;min-width:0}
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:800;
+      letter-spacing:-.02em;
+      color:var(--ink);
+      min-width:0;
+      font-size:17px;
+    }
+
+    .brand span{
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .brand span em{font-style:normal;color:var(--amber-accent)}
+
+    .brand-mark{
+      width:40px;height:40px;border-radius:12px;
+      display:grid;place-items:center;
+      background:var(--paper);border:1px solid var(--line);
+      color:var(--amber-accent);font-size:18px;
+      box-shadow:0 2px 8px rgba(0,0,0,.04);
+    }
+
+    .nav-links{
+      display:flex;flex-wrap:wrap;justify-content:flex-end;
+      gap:6px 14px;align-items:center;
+      font-size:13px;font-weight:500;color:var(--muted);
+      margin:0;padding:0;list-style:none;min-width:0;
+    }
+
+    .nav-links a{
+      text-decoration:none;color:var(--muted);
+      white-space:nowrap;transition:color var(--transition);
+    }
+
+    .nav-links a:hover{color:var(--amber)}
+
+    .nav-more{
+      display:none;margin:0;margin-left:auto;position:relative;
+    }
+
+    .nav-more summary{
+      cursor:pointer;font-weight:700;color:var(--ink);
+      list-style:none;padding:10px 14px;border-radius:10px;
+      border:1px solid var(--line);background:var(--paper);
+    }
+
+    .nav-more summary::-webkit-details-marker{display:none}
+
+    .nav-more .nav-links{
+      flex-direction:column;align-items:stretch;
+      margin-top:10px;padding:8px 0;border-radius:12px;
+      background:rgba(255,255,255,.98);border:1px solid var(--border);
+      box-shadow:0 12px 24px rgba(0,0,0,.08);
+      max-height:min(70vh, 480px);overflow-y:auto;
+    }
+
+    .nav-more .nav-links a{
+      padding:12px 16px;border-bottom:1px solid rgba(253,230,138,.45);
+      white-space:normal;
+    }
+
+    .nav-more .nav-links a:last-child{border-bottom:none}
+
+    .nav-more .nav-links a:hover{background:var(--amber-light);color:var(--amber)}
+
+    .hero-wrap{
+      position:relative;overflow:hidden;
+      background:linear-gradient(160deg, #fef3c7 0%, #fffbeb 40%, #ffffff 100%);
+      border-bottom:1px solid var(--line);
+    }
+
+    .hero-wrap::before{
+      content:"";position:absolute;inset:0;
+      background:
+        radial-gradient(ellipse 90% 60% at 15% 20%, rgba(217,119,6,.12), transparent 50%),
+        radial-gradient(ellipse 70% 50% at 90% 80%, rgba(15,23,42,.06), transparent 45%);
+      pointer-events:none;
+    }
+
+    .hero{
+      position:relative;z-index:1;
+      padding:clamp(48px, 8vw, 72px) 0 clamp(40px, 6vw, 64px);
+      display:grid;
+      grid-template-columns:minmax(0, 1.12fr) minmax(0, .88fr);
+      gap:clamp(16px, 4vw, 40px);
+      align-items:center;
+      max-width:var(--max);
+      margin:0 auto;
+      width:min(var(--max), calc(100% - 2 * var(--wrap-inline)));
+    }
+
+    .eyebrow{
+      display:inline-block;
+      background:var(--amber-mid);
+      color:var(--amber-dark);
+      border-radius:999px;
+      padding:5px 12px;
+      font-size:11px;
+      font-weight:700;
+      letter-spacing:1.2px;
+      text-transform:uppercase;
+      margin:0 0 16px 0;
+    }
+
+    h1,h2,h3{
+      font-family:Inter, system-ui, sans-serif;
+      line-height:1.15;
+      color:var(--ink);
+      margin:0;
+    }
+
+    h1{
+      font-size:clamp(34px, 5.5vw, 52px);
+      font-weight:900;
+      letter-spacing:-.04em;
+      line-height:1.08;
+    }
+
+    h1 em{font-style:normal;color:var(--amber-accent)}
+
+    .subtitle{
+      margin:10px 0 0;
+      font-size:clamp(15px, 2vw, 18px);
+      line-height:1.5;
+      color:var(--amber-accent);
+      font-weight:700;
+    }
+
+    .lead{
+      margin:18px 0 0;
+      font-size:clamp(16px, 2vw, 18px);
+      line-height:1.72;
+      color:var(--muted);
+      max-width:min(72ch, 100%);
+    }
+
+    .hero-actions{
+      margin-top:24px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      text-decoration:none;
+      border-radius:10px;
+      padding:13px 20px;
+      font-weight:700;
+      font-size:15px;
+      border:1.5px solid var(--amber);
+      background:transparent;
+      color:var(--amber);
+      transition:box-shadow var(--transition), background var(--transition), transform var(--transition);
+    }
+
+    .btn.primary{
+      background:var(--amber);
+      color:#fff;
+      border:none;
+      box-shadow:0 4px 14px rgba(180,83,9,.3);
+    }
+
+    .btn.secondary{border:1.5px solid var(--amber);color:var(--amber)}
+
+    .btn:hover{transform:translateY(-1px)}
+
+    .btn.primary:hover{box-shadow:0 6px 20px rgba(180,83,9,.4)}
+
+    .pill-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin:18px 0 0;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      background:var(--amber-light);
+      border:1px solid #fcd34d;
+      border-radius:999px;
+      padding:8px 14px;
+      font-size:12px;
+      color:#78350f;
+      font-weight:600;
+    }
+
+    .hero-visual{
+      min-height:360px;
+      border-radius:18px;
+      background:var(--paper);
+      border:1px solid var(--line);
+      box-shadow:0 8px 32px rgba(180,83,9,.08);
+      padding:24px;
+    }
+
+    .hero-visual__title{
+      font-size:12px;font-weight:800;text-transform:uppercase;
+      letter-spacing:.08em;color:var(--amber-dark);margin:0 0 14px;
+    }
+
+    .hero-visual__grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .hero-stat{
+      display:flex;align-items:flex-start;gap:10px;
+      padding:14px;border-radius:14px;
+      background:var(--amber-light);border:1px solid var(--line);
+      font-size:13px;font-weight:600;color:var(--ink);line-height:1.4;
+    }
+
+    .hero-stat i{color:var(--amber-accent);font-size:18px;margin-top:2px}
+
+    .hero-stat b{display:block;font-size:22px;font-weight:900;color:var(--amber);line-height:1.1}
+
+    .band-intro{
+      padding:48px 0;
+      background:linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color:#e2e8f0;
+      border-bottom:1px solid #334155;
+    }
+
+    .band-intro h2{color:#fff;margin-bottom:12px}
+
+    .band-intro p{color:rgba(226,232,240,.88);margin:0;max-width:72ch;line-height:1.7}
+
+    .panel{
+      background:var(--paper);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:24px;
+      margin:20px 0;
+    }
+
+    .panel.dark{
+      background:var(--dark);
+      color:#e2e8f0;
+      border-color:#1e293b;
+    }
+
+    .panel.highlight{
+      background:var(--amber-light);
+      border-left:4px solid var(--amber-accent);
+    }
+
+    .section{padding:clamp(44px, 6vw, 64px) 0}
+
+    .section-head,
+    .section-title{margin-bottom:24px}
+
+    .section-head h2,
+    .section-title h2{
+      position:relative;
+      padding-bottom:14px;
+      font-size:clamp(24px, 4vw, 34px);
+      font-weight:800;
+      letter-spacing:-.03em;
+    }
+
+    .section-head h2::after,
+    .section-title h2::after{
+      content:"";
+      position:absolute;left:0;bottom:0;
+      width:min(120px, 32vw);height:4px;border-radius:999px;
+      background:linear-gradient(90deg, var(--amber-accent), var(--ink));
+      opacity:.45;
+    }
+
+    .section-kicker{
+      display:block;
+      color:var(--amber-accent);
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+      font-size:12px;
+      margin:0 0 8px;
+    }
+
+    h2{
+      font-size:clamp(24px, 4vw, 34px);
+      font-weight:800;
+      letter-spacing:-.03em;
+    }
+
+    h3{
+      margin:0 0 8px 0;
+      color:var(--ink);
+      font-size:20px;
+      line-height:1.25;
+    }
+
+    h4{
+      margin:0 0 8px 0;
+      color:var(--ink);
+      font-size:17px;
+      line-height:1.3;
+    }
+
+    p{
+      color:var(--muted);
+      line-height:1.75;
+      font-size:16px;
+      margin:0 0 16px 0;
+    }
+
+    .dark p,
+    .dark h2,
+    .dark h3,
+    .dark h4{
+      color:#fff;
+    }
+
+    .dark .soft{
+      color:rgba(255,255,255,.75);
+    }
+
+    .soft{
+      color:var(--soft);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:16px;
+    }
+
+    .grid-3{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:16px;
+    }
+
+    .grid-4{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:14px;
+    }
+
+    .card{
+      background:var(--paper);
+      border:1.5px solid var(--border);
+      border-radius:var(--radius);
+      padding:22px;
+      min-height:100%;
+      box-shadow:var(--shadow);
+    }
+
+    .card.soft-card{
+      background:#fffaf0;
+    }
+
+    .number{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:34px;
+      height:34px;
+      border-radius:12px;
+      background:#fff0bd;
+      color:#9b3f00;
+      font-weight:900;
+      margin-bottom:12px;
+    }
+
+    ul{
+      margin:0;
+      padding-left:22px;
+      color:var(--muted);
+      line-height:1.8;
+      font-size:16px;
+    }
+
+    li{
+      margin:4px 0;
+    }
+
+    .tag{
+      display:inline-block;
+      background:#fff0bd;
+      border:1px solid #edd18b;
+      color:#824000;
+      border-radius:999px;
+      padding:5px 9px;
+      margin:4px 5px 4px 0;
+      font-size:12px;
+      font-weight:800;
+    }
+
+    .timeline{
+      display:grid;
+      grid-template-columns:repeat(5, minmax(0,1fr));
+      gap:12px;
+      margin-top:16px;
+    }
+
+    .timebox{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:16px;
+    }
+
+    .timebox strong{
+      display:block;
+      color:var(--ink);
+      margin-bottom:6px;
+    }
+
+    .timebox span{
+      display:block;
+      color:var(--muted);
+      line-height:1.5;
+      font-size:14px;
+    }
+
+    .flow{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:20px;
+    }
+
+    .flow-step{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      padding:13px 0;
+      border-bottom:1px dashed #e8cc8d;
+    }
+
+    .flow-step:last-child{
+      border-bottom:0;
+    }
+
+    .dot{
+      width:28px;
+      height:28px;
+      min-width:28px;
+      border-radius:50%;
+      background:var(--accent);
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:13px;
+      font-weight:900;
+    }
+
+    .quote{
+      background:var(--amber-light);
+      border-left:4px solid var(--accent);
+      border-radius:16px;
+      padding:20px;
+    }
+
+    .quote p{
+      color:#5a2c00;
+      margin:0;
+    }
+
+    .table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:#fff;
+    }
+
+    .table th,
+    .table td{
+      text-align:left;
+      vertical-align:top;
+      padding:14px 16px;
+      border-bottom:1px solid var(--line);
+      color:var(--muted);
+      line-height:1.55;
+      font-size:15px;
+    }
+
+    .table th{
+      background:var(--amber-light);
+      color:var(--ink);
+      font-weight:900;
+    }
+
+    .table tr:last-child td{
+      border-bottom:0;
+    }
+
+    .stats-row{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:14px;
+      margin:20px 0;
+    }
+
+    .stat-card{
+      border-radius:14px;padding:18px;
+      background:linear-gradient(180deg, var(--amber-light) 0%, var(--paper) 100%);
+      border:1px solid var(--line);
+      text-align:center;
+    }
+
+    .stat-card b{
+      display:block;font-size:clamp(22px, 3vw, 32px);
+      font-weight:900;color:var(--amber);line-height:1.1;
+    }
+
+    .stat-card span{font-size:12px;font-weight:600;color:var(--muted);line-height:1.35}
+
+    .session-chart{
+      display:flex;align-items:flex-end;gap:10px;
+      height:200px;margin:24px 0 8px;padding:0 4px;
+    }
+
+    .session-bar{
+      flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;min-width:0;
+    }
+
+    .session-bar__fill{
+      width:100%;max-width:56px;border-radius:10px 10px 4px 4px;
+      background:linear-gradient(180deg, var(--amber-accent), var(--amber));
+      min-height:8px;
+    }
+
+    .session-bar__label{
+      font-size:11px;font-weight:700;color:var(--muted);text-align:center;line-height:1.3;
+    }
+
+    .session-bar__time{font-size:10px;color:var(--soft);font-weight:600}
+
+    .mermaid-wrap{
+      border-radius:16px;
+      background:linear-gradient(180deg, rgba(255,251,235,.55) 0%, var(--surface) 100%);
+      border:1px dashed rgba(180,83,9,.22);
+      padding:16px;
+      overflow-x:auto;
+      margin:18px 0;
+    }
+
+    .mermaid-wrap .mermaid{margin:0}
+
+    .viz-grid{
+      display:grid;
+      gap:16px;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      margin-top:18px;
+    }
+
+    .viz-lede{
+      margin:0 0 12px;
+      font-size:14px;
+      color:var(--muted);
+      line-height:1.6;
+    }
+
+    footer.site-footer{
+      padding:28px 0 36px;
+      background:var(--dark);
+      border-top:1px solid #1e293b;
+      color:#64748b;
+      text-align:center;
+      font-size:13px;
+    }
+
+    footer.site-footer a{color:var(--amber-accent);font-weight:600;text-decoration:none}
+
+    .footer{
+      margin:0;
+      padding:0;
+      text-align:center;
+      color:inherit;
+      font-size:inherit;
+    }
+
+    @media (min-width: 1040px){
+      .nav-more{display:none}
+      #nav-desktop{
+        display:flex;flex-wrap:wrap;align-content:center;
+        row-gap:8px;column-gap:12px;font-size:12px;
+        max-width:min(920px, 72vw);
+      }
+    }
+
+    @media (max-width: 1039px){
+      #nav-desktop{display:none}
+      .nav-more{display:block}
+      .hero{grid-template-columns:1fr}
+      .hero-visual{max-width:520px;margin-inline:auto;min-height:300px}
+    }
+
+    @media (max-width: 880px){
+      .grid,
+      .grid-3,
+      .grid-4,
+      .timeline,
+      .stats-row,
+      .viz-grid,
+      .hero-visual__grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media print{
+      header, .hero-actions, .nav-more, .skip{display:none}
+      body{background:#fff}
+      .card, .panel{box-shadow:none;break-inside:avoid}
+    }
+  </style>
+
+</head>
+
+<body>
+  <a href="#contenido" class="skip">Ir al contenido</a>
+
+  <header>
+    <div class="wrap">
+      <nav aria-label="Navegación principal">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"><i class="fa-solid fa-suitcase-rolling"></i></div>
+          <span>Playful Learning · <em>Entrega final</em></span>
+        </div>
+        <details class="nav-more">
+          <summary>Menú</summary>
+          <div class="nav-links">
+            <a href="#marco">Marco</a>
+            <a href="#objetivos">Objetivos</a>
+            <a href="#diagramas">Gráficos</a>
+            <a href="#thinking">Game Thinking</a>
+            <a href="#tiempos">Tiempos</a>
+            <a href="#elementos">Elementos</a>
+            <a href="#storyboard">Storyboard</a>
+            <a href="#flujo">Flujo</a>
+            <a href="#xr">XR</a>
+            <a href="#playtest">Playtest</a>
+            <a href="#rubrica">Rúbrica</a>
+            <a href="#cierre">Cierre</a>
+          </div>
+        </details>
+        <div class="nav-links" id="nav-desktop">
+          <a href="#marco">Marco</a>
+          <a href="#objetivos">Objetivos</a>
+          <a href="#diagramas">Gráficos</a>
+          <a href="#thinking">Game Thinking</a>
+          <a href="#tiempos">Tiempos</a>
+          <a href="#elementos">Elementos</a>
+          <a href="#storyboard">Storyboard</a>
+          <a href="#flujo">Flujo</a>
+          <a href="#xr">XR</a>
+          <a href="#playtest">Playtest</a>
+          <a href="#rubrica">Rúbrica</a>
+          <a href="#cierre">Cierre</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <div class="hero-wrap">
+      <section class="hero" aria-labelledby="hero-title">
+        <div>
+          <p class="eyebrow">Asignatura · Playful Learning</p>
+          <h1 id="hero-title">La Maleta del <em>Tiempo XR</em></h1>
+          <p class="subtitle">Dossier profesional de diseño</p>
+          <p class="lead">
+            Proyecto final de <strong>XR-Based Serious Game</strong>: experiencia educativa inmersiva para reconstruir la historia mediante retos, realidad aumentada, exploración colaborativa, narrativa, feedback progresivo, accesibilidad y evaluación del valor pedagógico de la capa XR.
+          </p>
+          <div class="pill-row">
+            <span class="pill"><i class="fa-solid fa-gamepad"></i> Serious Game</span>
+            <span class="pill"><i class="fa-solid fa-vr-cardboard"></i> XR / AR</span>
+            <span class="pill"><i class="fa-solid fa-unlock-keyhole"></i> Escape room</span>
+            <span class="pill"><i class="fa-solid fa-lightbulb"></i> Game Thinking</span>
+            <span class="pill"><i class="fa-solid fa-universal-access"></i> Accesibilidad</span>
+          </div>
+          <div class="hero-actions">
+            <a class="btn primary" href="#marco">Ver dossier</a>
+            <a class="btn secondary" href="#diagramas">Gráficos</a>
+            <a class="btn secondary" href="index.html">Sprint 1</a>
+            <a class="btn secondary" href="sprint2.html">Sprint 2</a>
+            <a class="btn secondary" href="sprint3.html">Sprint 3</a>
+          </div>
+        </div>
+        <aside class="hero-visual" aria-label="Resumen visual del dossier">
+          <p class="hero-visual__title">Indicadores del diseño</p>
+          <div class="hero-visual__grid">
+            <div class="hero-stat"><i class="fa-solid fa-clock"></i><div><b>60</b> minutos de sesión base</div></div>
+            <div class="hero-stat"><i class="fa-solid fa-layer-group"></i><div><b>8</b> eras en el recorrido narrativo</div></div>
+            <div class="hero-stat"><i class="fa-solid fa-puzzle-piece"></i><div><b>3</b> niveles de pistas graduadas</div></div>
+            <div class="hero-stat"><i class="fa-solid fa-people-group"></i><div><b>6</b> roles cooperativos</div></div>
+          </div>
+        </aside>
+      </section>
+    </div>
+
+    <section class="band-intro" id="intro">
+      <div class="wrap">
+        <h2>Dossier profesional de diseño</h2>
+        <p>
+          Esta entrega desarrolla la versión final de <strong>La Maleta del Tiempo XR</strong>, integrando los aprendizajes de los sprints anteriores y respondiendo a los comentarios recibidos: concreción de la duración de la experiencia, análisis del valor real de la capa XR y evaluación cualitativa de interacción y usabilidad.
+        </p>
+      </div>
+    </section>
+
+<section class="wrap section" id="marco">
+  <div class="section-head">
+    <div class="section-kicker">01 · Marco general</div>
+    <h2>Título, descripción y sentido del juego</h2>
   </div>
-  
-  <h2 style="margin: 0 0 12px 0; font-size: 24px; color: #b44a00;">
-	1. Título del proyecto
-  </h2>
-  
-  <div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 20px; margin: 0 0 24px 0;">
-	<h3 style="margin: 0 0 8px 0; color: #101a33; font-size: 22px;">
-	  La Maleta del Tiempo XR
-	</h3>
-	<p style="margin: 0; color: #40516b; line-height: 1.7; font-size: 16px;">
-	  Un Serious Game inmersivo para reconstruir la historia mediante retos, realidad aumentada y exploración colaborativa.
-	</p>
+
+  <div class="grid">
+    <div class="card">
+      <span class="number">1</span>
+      <h3>Título del proyecto</h3>
+      <p>
+        <strong>La Maleta del Tiempo XR</strong> es un Serious Game inmersivo para reconstruir la historia mediante retos, realidad aumentada y exploración colaborativa.
+      </p>
+      <span class="tag">Historia</span>
+      <span class="tag">STEAM</span>
+      <span class="tag">XR</span>
+      <span class="tag">Cooperación</span>
+    </div>
+
+    <div class="card">
+      <span class="number">2</span>
+      <h3>Descripción general</h3>
+      <p>
+        El alumnado recibe una maleta física procedente del Archivo del Tiempo. Diferentes objetos, inventos, personajes y acontecimientos han quedado desordenados, y la misión consiste en restaurar la línea temporal resolviendo retos físicos, digitales e inmersivos.
+      </p>
+    </div>
   </div>
-  
-  <h2 style="margin: 28px 0 12px 0; font-size: 24px; color: #b44a00;">
-	2. Descripción general del juego
-  </h2>
-  
-  <p style="margin: 0 0 18px 0; font-size: 16px; line-height: 1.7; color: #40516b;">
-	<strong>La Maleta del Tiempo XR</strong> es un juego serio educativo basado en tecnologías XR, diseñado para trabajar contenidos históricos, competencias STEAM, pensamiento crítico y habilidades colaborativas a través de una experiencia inmersiva, física y digital.
-  </p>
-  
-  <p style="margin: 0 0 18px 0; font-size: 16px; line-height: 1.7; color: #40516b;">
-	La narrativa plantea que el <strong>Archivo del Tiempo</strong> ha sufrido una alteración: diferentes objetos, inventos, personajes y acontecimientos históricos han quedado desordenados. La misión del alumnado será viajar por distintas épocas, analizar evidencias, resolver retos y restaurar la línea temporal.
-  </p>
-  
-  <p style="margin: 0 0 18px 0; font-size: 16px; line-height: 1.7; color: #40516b;">
-	La experiencia combina una <strong>maleta física</strong> con elementos digitales e inmersivos. La maleta contiene tarjetas, códigos, objetos manipulativos, marcadores de realidad aumentada, pistas graduadas, pasaportes temporales y candados digitales generados desde <strong>Escapify.io</strong>. Al escanear determinados elementos, el alumnado accede a escenas XR, pistas visuales, reconstrucciones 360º, mensajes holográficos o fragmentos narrativos vinculados a distintas épocas históricas.
-  </p>
-  
-  <p style="margin: 0 0 22px 0; font-size: 16px; line-height: 1.7; color: #40516b;">
-	El juego puede desarrollarse en aula ordinaria, aula de tecnología, biblioteca, espacio maker o entorno de formación docente. La versión base funciona con tablet o móvil. La versión avanzada puede incorporar gafas VR, proyección inmersiva o estaciones con diferentes dispositivos.
-  </p>
-  
-  <div style="background: #fff4d1; border-left: 5px solid #c45600; border-radius: 12px; padding: 18px 20px; margin: 24px 0;">
-	<p style="margin: 0; font-size: 16px; line-height: 1.7; color: #5a2c00;">
-	  La experiencia está pensada para una duración aproximada de <strong>60 minutos</strong>, aunque puede adaptarse a sesiones de <strong>45, 75 o 90 minutos</strong> en función del número de retos, del nivel educativo y de la profundidad con la que se quiera realizar la reflexión final.
-	</p>
+
+  <div class="panel">
+    <p>
+      La experiencia combina tarjetas, códigos, objetos manipulativos, marcadores de realidad aumentada, pistas graduadas, pasaportes temporales y candados digitales generados desde <strong>Escapify.io</strong>. Al escanear determinados elementos, el alumnado accede a escenas XR, reconstrucciones 360º, mensajes holográficos o fragmentos narrativos vinculados a distintas épocas históricas.
+    </p>
+    <p>
+      El juego puede desarrollarse en aula ordinaria, aula de tecnología, biblioteca, espacio maker o contexto de formación docente. La versión base funciona con tablet o móvil, mientras que la versión avanzada puede incorporar gafas VR, proyección inmersiva o estaciones con diferentes dispositivos.
+    </p>
   </div>
-  
-  <h2 style="margin: 30px 0 12px 0; font-size: 24px; color: #b44a00;">
-	3. Objetivos pedagógicos
-  </h2>
-  
-  <p style="margin: 0 0 18px 0; font-size: 16px; line-height: 1.7; color: #40516b;">
-	El objetivo principal es que el alumnado comprenda la evolución histórica de los avances humanos, científicos, tecnológicos y sociales mediante una experiencia de aprendizaje activo, colaborativo e inmersivo.
-  </p>
-  
-  <div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px; margin: 18px 0;">
-	<ul style="margin: 0; padding-left: 22px; color: #40516b; line-height: 1.8; font-size: 16px;">
-	  <li>Comprender la relación entre diferentes épocas históricas, inventos, descubrimientos y cambios sociales.</li>
-	  <li>Desarrollar habilidades de observación, deducción, clasificación, secuenciación y pensamiento crítico.</li>
-	  <li>Aplicar estrategias de resolución de problemas mediante retos progresivos.</li>
-	  <li>Fomentar la colaboración, la comunicación y la toma de decisiones compartida.</li>
-	  <li>Utilizar tecnologías XR de forma significativa, evitando que funcionen como un elemento meramente decorativo.</li>
-	  <li>Favorecer la inclusión mediante apoyos visuales, pistas graduadas, lectura fácil y múltiples formas de participación.</li>
-	  <li>Desarrollar una experiencia de aprendizaje basada en juego alineada con el enfoque GALP.</li>
-	  <li>Analizar el valor pedagógico de la capa XR dentro de la experiencia, valorando si mejora la comprensión, la motivación, la orientación y la toma de decisiones del alumnado.</li>
-	</ul>
+
+  <div class="quote">
+    <p>
+      La experiencia está pensada para una duración aproximada de <strong>60 minutos</strong>, aunque puede adaptarse a sesiones de <strong>45, 75 o 90 minutos</strong> en función del número de retos, del nivel educativo y de la profundidad de la reflexión final.
+    </p>
   </div>
-  
-  <h2 style="margin: 30px 0 12px 0; font-size: 24px; color: #b44a00;">
-	4. Público destinatario y contexto de uso
-  </h2>
-  
-  <p style="margin: 0 0 18px 0; font-size: 16px; line-height: 1.7; color: #40516b;">
-	El juego está pensado para alumnado de <strong>Educación Secundaria, Bachillerato o formación docente</strong>, aunque puede adaptarse a otros niveles mediante la simplificación de contenidos, retos y mecánicas.
-  </p>
-  
-  <p style="margin: 0 0 18px 0; font-size: 16px; line-height: 1.7; color: #40516b;">
-	También puede adaptarse a alumnado con necesidades específicas de apoyo educativo, especialmente si se utilizan pictogramas, instrucciones en lectura fácil, apoyos visuales, tiempos flexibles, roles cooperativos y alternativas no inmersivas.
-  </p>
-  
-  <p style="margin: 0 0 24px 0; font-size: 16px; line-height: 1.7; color: #40516b;">
-	El contexto principal de uso es el aula, aunque también puede utilizarse en jornadas de innovación, talleres de gamificación, semanas culturales, proyectos interdisciplinares o formaciones docentes. La propuesta está especialmente alineada con metodologías activas, aprendizaje basado en juego, aprendizaje cooperativo, diseño universal para el aprendizaje y experiencias educativas maker.
-  </p>
-  
-  <h2 style="margin: 30px 0 12px 0; font-size: 24px; color: #b44a00;">
-	5. Justificación pedagógica
-  </h2>
-  
-  <p style="margin: 0 0 18px 0; font-size: 16px; line-height: 1.7; color: #40516b;">
-	<strong>La Maleta del Tiempo XR</strong> se fundamenta en el aprendizaje basado en juego, los Serious Games y el Game Thinking. La experiencia no se limita a añadir una narrativa lúdica, sino que organiza el aprendizaje a través de retos, decisiones, feedback, progresión, colaboración y reflexión.
-  </p>
-  
-  <p style="margin: 0 0 18px 0; font-size: 16px; line-height: 1.7; color: #40516b;">
-	Desde el enfoque GALP, el juego busca conectar gamificación, aprendizaje activo, ludificación con propósito y participación significativa. Cada mecánica del juego está vinculada a un objetivo formativo. Cada recompensa tiene una función pedagógica. Cada interacción XR debe ayudar a observar, comprender, decidir o reflexionar mejor.
-  </p>
-  
-  <p style="margin: 0 0 24px 0; font-size: 16px; line-height: 1.7; color: #40516b;">
-	La capa XR no se plantea como un elemento espectacular añadido al final, sino como una herramienta para ampliar la experiencia física. Su función es ofrecer contexto, activar la curiosidad, enriquecer la observación, mostrar información situada y ayudar a que el alumnado relacione evidencias históricas con decisiones concretas dentro del juego.
-  </p>
-  
-  <h2 style="margin: 30px 0 14px 0; font-size: 24px; color: #b44a00;">
-	6. Fases de Game Thinking aplicadas al proyecto
-  </h2>
-  
-  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 18px 0 26px 0;">
-  
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px;">
-	  <h3 style="margin: 0 0 8px 0; color: #101a33; font-size: 18px;">Fase 1 · Objetivos y persona-aprendiz</h3>
-	  <p style="margin: 0; color: #40516b; line-height: 1.6;">
-		Se define qué se quiere aprender y quién vivirá la experiencia. La competencia principal es comprender procesos históricos y resolver retos de forma colaborativa utilizando pensamiento crítico.
-	  </p>
-	</div>
-  
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px;">
-	  <h3 style="margin: 0 0 8px 0; color: #101a33; font-size: 18px;">Fase 2 · Mecánicas e inmersión</h3>
-	  <p style="margin: 0; color: #40516b; line-height: 1.6;">
-		Se diseñan retos, acciones, dinámicas, niveles, feedback, inmersión sensorial, narrativa, cognitiva, social y emocional.
-	  </p>
-	</div>
-  
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px;">
-	  <h3 style="margin: 0 0 8px 0; color: #101a33; font-size: 18px;">Fase 3 · Prototipo no técnico</h3>
-	  <p style="margin: 0; color: #40516b; line-height: 1.6;">
-		Se plantea una versión inicial con maleta física, tarjetas, QR, escenas 360º, candados digitales, formularios y marcadores AR sencillos.
-	  </p>
-	</div>
-  
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px;">
-	  <h3 style="margin: 0 0 8px 0; color: #101a33; font-size: 18px;">Fase 4 · Versión final GALP</h3>
-	  <p style="margin: 0; color: #40516b; line-height: 1.6;">
-		Se justifica la propuesta desde el aprendizaje activo, la accesibilidad, la agencia del alumnado, el feedback y el valor pedagógico real de la XR.
-	  </p>
-	</div>
-  
+</section>
+
+<section class="wrap section" id="objetivos">
+  <div class="section-head">
+    <div class="section-kicker">02 · Objetivos y destinatarios</div>
+    <h2>Aprender historia desde la acción, la emoción y la colaboración</h2>
   </div>
-  
-  <div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px; margin: 18px 0;">
-	<h3 style="margin: 0 0 10px 0; color: #101a33; font-size: 19px;">Necesidades detectadas</h3>
-	<ul style="margin: 0; padding-left: 22px; color: #40516b; line-height: 1.8; font-size: 16px;">
-	  <li>Aprender historia de forma más activa, visual y experiencial.</li>
-	  <li>Conectar contenidos aparentemente aislados.</li>
-	  <li>Participar en equipo sin que todo dependa de la rapidez individual.</li>
-	  <li>Recibir feedback claro y no solo una calificación final.</li>
-	  <li>Contar con materiales accesibles y comprensibles.</li>
-	  <li>Usar la tecnología de manera guiada, sencilla y con sentido pedagógico.</li>
-	</ul>
+
+  <div class="panel">
+    <h3>Objetivo pedagógico general</h3>
+    <p>
+      Que el alumnado comprenda la evolución histórica de los avances humanos, científicos, tecnológicos y sociales mediante una experiencia de aprendizaje activo, colaborativo e inmersivo.
+    </p>
+
+    <h3>Objetivos específicos</h3>
+    <ul>
+      <li>Comprender la relación entre diferentes épocas históricas, inventos, descubrimientos y cambios sociales.</li>
+      <li>Desarrollar habilidades de observación, deducción, clasificación, secuenciación y pensamiento crítico.</li>
+      <li>Aplicar estrategias de resolución de problemas mediante retos progresivos.</li>
+      <li>Fomentar la colaboración, la comunicación y la toma de decisiones compartida.</li>
+      <li>Utilizar tecnologías XR de forma significativa, evitando que funcionen como un elemento decorativo.</li>
+      <li>Favorecer la inclusión mediante apoyos visuales, pistas graduadas, lectura fácil y múltiples formas de participación.</li>
+      <li>Desarrollar una experiencia de aprendizaje basada en juego alineada con el enfoque GALP.</li>
+      <li>Analizar el valor pedagógico de la capa XR dentro de la experiencia.</li>
+    </ul>
   </div>
-  
-  <div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px; margin: 18px 0 26px 0;">
-	<h3 style="margin: 0 0 10px 0; color: #101a33; font-size: 19px;">Barreras previstas</h3>
-	<ul style="margin: 0; padding-left: 22px; color: #40516b; line-height: 1.8; font-size: 16px;">
-	  <li>Dificultad para organizar cronológicamente acontecimientos.</li>
-	  <li>Sobrecarga cognitiva ante mucha información.</li>
-	  <li>Diferencias en competencia lectora y digital.</li>
-	  <li>Posible frustración ante retos complejos.</li>
-	  <li>Acceso desigual a dispositivos XR.</li>
-	  <li>Riesgo de que la capa XR distraiga si no está bien integrada.</li>
-	  <li>Dificultades de usabilidad al escanear marcadores, interpretar escenas o alternar entre lo físico y lo digital.</li>
-	</ul>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Público destinatario</h3>
+      <p>
+        El juego está pensado para alumnado de Educación Secundaria, Bachillerato o formación docente, aunque puede adaptarse a otros niveles simplificando contenidos, retos y mecánicas.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Contexto de uso</h3>
+      <p>
+        Puede aplicarse en aula ordinaria, aula de tecnología, biblioteca, espacio maker, jornadas de innovación, semanas culturales, proyectos interdisciplinares o formaciones docentes.
+      </p>
+    </div>
   </div>
-  
-  <h2 style="margin: 30px 0 14px 0; font-size: 24px; color: #b44a00;">
-	7. Duración y estructura temporal de la experiencia
-  </h2>
-  
-  <div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px; margin: 18px 0;">
-	<p style="margin: 0 0 14px 0; color: #40516b; line-height: 1.7; font-size: 16px;">
-	  La experiencia completa está diseñada para una sesión aproximada de <strong>60 minutos</strong>.
-	</p>
-  
-	<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 12px 0 0 0;">
-	  <div style="background: #fffaf0; border: 1px solid #f0d28a; border-radius: 12px; padding: 14px;">
-		<strong style="color: #101a33;">5 minutos · Introducción narrativa</strong>
-		<p style="margin: 6px 0 0 0; color: #40516b; line-height: 1.5;">Presentación de la maleta, explicación de la misión y activación del Archivo del Tiempo.</p>
-	  </div>
-  
-	  <div style="background: #fffaf0; border: 1px solid #f0d28a; border-radius: 12px; padding: 14px;">
-		<strong style="color: #101a33;">5 minutos · Roles y reglas</strong>
-		<p style="margin: 6px 0 0 0; color: #40516b; line-height: 1.5;">Asignación de roles cooperativos, normas básicas y presentación del pasaporte temporal.</p>
-	  </div>
-  
-	  <div style="background: #fffaf0; border: 1px solid #f0d28a; border-radius: 12px; padding: 14px;">
-		<strong style="color: #101a33;">35 minutos · Desarrollo de la misión</strong>
-		<p style="margin: 6px 0 0 0; color: #40516b; line-height: 1.5;">Exploración XR, resolución de retos, análisis de evidencias, pistas y candados digitales.</p>
-	  </div>
-  
-	  <div style="background: #fffaf0; border: 1px solid #f0d28a; border-radius: 12px; padding: 14px;">
-		<strong style="color: #101a33;">10 minutos · Cierre narrativo</strong>
-		<p style="margin: 6px 0 0 0; color: #40516b; line-height: 1.5;">Validación final, feedback de logro y revisión del recorrido realizado.</p>
-	  </div>
-	</div>
-  
-	<div style="background: #fff4d1; border-left: 5px solid #c45600; border-radius: 12px; padding: 16px 18px; margin: 18px 0 0 0;">
-	  <p style="margin: 0; font-size: 16px; line-height: 1.7; color: #5a2c00;">
-		La sesión puede ampliarse a 75 o 90 minutos si se incluyen más épocas, mayor número de retos, una reflexión metacognitiva más profunda o una evaluación cualitativa completa del uso de XR.
-	  </p>
-	</div>
+
+  <div class="panel highlight">
+    <p>
+      El diseño contempla alumnado diverso y necesidades específicas de apoyo educativo mediante pictogramas, lectura fácil, apoyos visuales, tiempos flexibles, roles cooperativos y alternativas no inmersivas.
+    </p>
   </div>
-  
-  <h2 style="margin: 30px 0 14px 0; font-size: 24px; color: #b44a00;">
-	8. Elementos del juego
-  </h2>
-  
-  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 18px 0 26px 0;">
-  
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px;">
-	  <h3 style="margin: 0 0 8px 0; color: #101a33; font-size: 18px;">Maleta física</h3>
-	  <p style="margin: 0; color: #40516b; line-height: 1.6;">Objeto central de la experiencia. Contiene materiales, marcadores, cartas de misión, objetos y retos.</p>
-	</div>
-  
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px;">
-	  <h3 style="margin: 0 0 8px 0; color: #101a33; font-size: 18px;">Pasaporte temporal</h3>
-	  <p style="margin: 0; color: #40516b; line-height: 1.6;">Documento individual o grupal donde se registran avances, sellos, insignias y códigos.</p>
-	</div>
-  
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px;">
-	  <h3 style="margin: 0 0 8px 0; color: #101a33; font-size: 18px;">Archivo del Tiempo</h3>
-	  <p style="margin: 0; color: #40516b; line-height: 1.6;">Sistema narrativo que organiza la misión, las épocas alteradas y el progreso de la aventura.</p>
-	</div>
-  
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px;">
-	  <h3 style="margin: 0 0 8px 0; color: #101a33; font-size: 18px;">Escenas XR</h3>
-	  <p style="margin: 0; color: #40516b; line-height: 1.6;">Espacios digitales o inmersivos para explorar épocas, objetos, lugares o situaciones.</p>
-	</div>
-  
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px;">
-	  <h3 style="margin: 0 0 8px 0; color: #101a33; font-size: 18px;">Marcadores AR</h3>
-	  <p style="margin: 0; color: #40516b; line-height: 1.6;">Elementos físicos que activan pistas, modelos 3D, mensajes, audios o imágenes aumentadas.</p>
-	</div>
-  
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px;">
-	  <h3 style="margin: 0 0 8px 0; color: #101a33; font-size: 18px;">Candados digitales</h3>
-	  <p style="margin: 0; color: #40516b; line-height: 1.6;">Validan respuestas, códigos, secuencias o decisiones y pueden generarse desde Escapify.io.</p>
-	</div>
-  
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px;">
-	  <h3 style="margin: 0 0 8px 0; color: #101a33; font-size: 18px;">Cartas de reto</h3>
-	  <p style="margin: 0; color: #40516b; line-height: 1.6;">Presentan misiones breves, instrucciones, pistas y objetivos con diseño claro y accesible.</p>
-	</div>
-  
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px;">
-	  <h3 style="margin: 0 0 8px 0; color: #101a33; font-size: 18px;">Reliquias temporales</h3>
-	  <p style="margin: 0; color: #40516b; line-height: 1.6;">Objetos físicos o tarjetas que representan inventos, personajes, acontecimientos o símbolos históricos.</p>
-	</div>
-  
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px;">
-	  <h3 style="margin: 0 0 8px 0; color: #101a33; font-size: 18px;">Sistema de pistas</h3>
-	  <p style="margin: 0; color: #40516b; line-height: 1.6;">Ayudas graduadas en tres niveles: orientación, pista parcial y pista directa.</p>
-	</div>
-  
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px;">
-	  <h3 style="margin: 0 0 8px 0; color: #101a33; font-size: 18px;">Panel de progreso</h3>
-	  <p style="margin: 0; color: #40516b; line-height: 1.6;">Muestra qué épocas han sido restauradas y cuáles siguen bloqueadas.</p>
-	</div>
-  
+</section>
+
+<section class="wrap section" id="diagramas">
+  <div class="section-head">
+    <div class="section-kicker">Visualización del dossier</div>
+    <h2>Gráficos y mapas de la experiencia</h2>
   </div>
-  
-  <h2 style="margin: 30px 0 14px 0; font-size: 24px; color: #b44a00;">
-	9. Narrativa, roles y ambientación
-  </h2>
-  
-  <p style="margin: 0 0 18px 0; font-size: 16px; line-height: 1.7; color: #40516b;">
-	La historia comienza cuando el alumnado recibe una maleta antigua procedente del Archivo del Tiempo. En su interior aparece un mensaje de emergencia: la línea temporal ha sido alterada y varios fragmentos históricos han quedado mezclados.
-  </p>
-  
-  <p style="margin: 0 0 18px 0; font-size: 16px; line-height: 1.7; color: #40516b;">
-	La misión consiste en viajar por diferentes épocas, recuperar evidencias, resolver enigmas y devolver cada elemento a su lugar correcto. Cada época restaurada desbloquea un nuevo fragmento del mapa temporal.
-  </p>
-  
-  <div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px; margin: 18px 0;">
-	<h3 style="margin: 0 0 10px 0; color: #101a33; font-size: 19px;">Ambientación</h3>
-	<p style="margin: 0; color: #40516b; line-height: 1.7; font-size: 16px;">
-	  La estética mezcla archivo histórico, laboratorio temporal, cuaderno de exploración y tecnología holográfica. La parte física tiene apariencia de maleta antigua, mapas, sellos, documentos y objetos. La parte XR añade capas digitales, portales, reconstrucciones y mensajes interactivos.
-	</p>
+  <p class="viz-lede">Resumen visual alineado con el Sprint 1: proporciones de sesión, recorrido narrativo y flujo de decisiones del jugador.</p>
+
+  <div class="stats-row" aria-label="Indicadores clave del diseño">
+    <div class="stat-card"><b>60′</b><span>Sesión base (45–90 adaptable)</span></div>
+    <div class="stat-card"><b>35′</b><span>Bloque principal de juego</span></div>
+    <div class="stat-card"><b>4</b><span>Tipos de interacción (física, cognitiva, social, emocional)</span></div>
+    <div class="stat-card"><b>3</b><span>Niveles de pistas graduadas</span></div>
   </div>
-  
-  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 18px 0 26px 0;">
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 16px;"><strong style="color: #101a33;">Exploradora XR:</strong> <span style="color: #40516b;">interactúa con la escena inmersiva.</span></div>
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 16px;"><strong style="color: #101a33;">Cronista:</strong> <span style="color: #40516b;">registra descubrimientos y decisiones.</span></div>
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 16px;"><strong style="color: #101a33;">Cartógrafa temporal:</strong> <span style="color: #40516b;">organiza la línea del tiempo y los mapas.</span></div>
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 16px;"><strong style="color: #101a33;">Analista de símbolos:</strong> <span style="color: #40516b;">descifra códigos y patrones.</span></div>
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 16px;"><strong style="color: #101a33;">Guardiana de pistas:</strong> <span style="color: #40516b;">gestiona las ayudas disponibles.</span></div>
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 16px;"><strong style="color: #101a33;">Portavoz del equipo:</strong> <span style="color: #40516b;">comunica la decisión final.</span></div>
+
+  <div class="viz-grid">
+    <article class="card">
+      <h3><i class="fa-solid fa-chart-column" style="color:var(--amber-accent);margin-right:8px;"></i> Reparto temporal de la sesión</h3>
+      <p class="viz-lede">Proporción orientativa de cada fase en una sesión de 60 minutos.</p>
+      <div class="session-chart" role="img" aria-label="Gráfico de barras: entrada 5 min, roles 5 min, juego 35 min, cierre 10 min, reflexión 5 min">
+        <div class="session-bar">
+          <div class="session-bar__fill" style="height:17%;" title="5 minutos"></div>
+          <span class="session-bar__label">Entrada<span class="session-bar__time">5′</span></span>
+        </div>
+        <div class="session-bar">
+          <div class="session-bar__fill" style="height:17%;" title="5 minutos"></div>
+          <span class="session-bar__label">Roles<span class="session-bar__time">5′</span></span>
+        </div>
+        <div class="session-bar">
+          <div class="session-bar__fill" style="height:100%;" title="35 minutos"></div>
+          <span class="session-bar__label">Juego<span class="session-bar__time">35′</span></span>
+        </div>
+        <div class="session-bar">
+          <div class="session-bar__fill" style="height:29%;" title="10 minutos"></div>
+          <span class="session-bar__label">Cierre<span class="session-bar__time">10′</span></span>
+        </div>
+        <div class="session-bar">
+          <div class="session-bar__fill" style="height:17%;" title="5 minutos"></div>
+          <span class="session-bar__label">Reflexión<span class="session-bar__time">5′</span></span>
+        </div>
+      </div>
+    </article>
+    <article class="card">
+      <h3><i class="fa-solid fa-route" style="color:var(--blue);margin-right:8px;"></i> Flujo narrativo simplificado</h3>
+      <p class="viz-lede">Del problema del Archivo al cierre de sesión, con bucles de pista y reintento.</p>
+      <div class="mermaid-wrap">
+        <pre class="mermaid">
+flowchart TD
+  A([Inicio]) --> B[Archivo alterado]
+  B --> C[Abrir maleta y roles]
+  C --> D[Reto + escena XR]
+  D --> E{¿Correcto?}
+  E -->|No| F[Pista graduada]
+  F --> D
+  E -->|Sí| G[Sello en pasaporte]
+  G --> H{¿Más eras?}
+  H -->|Sí| D
+  H -->|No| I([Cierre y reflexión])
+        </pre>
+      </div>
+    </article>
   </div>
-  
-  <h2 style="margin: 30px 0 14px 0; font-size: 24px; color: #b44a00;">
-	10. Mapa de interacciones de la experiencia XR
-  </h2>
-  
-  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 18px 0 26px 0;">
-  
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px;">
-	  <h3 style="margin: 0 0 10px 0; color: #101a33; font-size: 18px;">Interacciones físicas</h3>
-	  <ul style="margin: 0; padding-left: 20px; color: #40516b; line-height: 1.7;">
-		<li>Abrir la maleta.</li>
-		<li>Manipular cartas, objetos y reliquias.</li>
-		<li>Escanear marcadores AR.</li>
-		<li>Ordenar piezas en una línea temporal.</li>
-		<li>Introducir códigos en candados digitales.</li>
-		<li>Sellar el pasaporte temporal.</li>
-	  </ul>
-	</div>
-  
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px;">
-	  <h3 style="margin: 0 0 10px 0; color: #101a33; font-size: 18px;">Interacciones cognitivas</h3>
-	  <ul style="margin: 0; padding-left: 20px; color: #40516b; line-height: 1.7;">
-		<li>Observar detalles de las escenas.</li>
-		<li>Comparar información.</li>
-		<li>Relacionar objetos con épocas.</li>
-		<li>Deducir causas y consecuencias.</li>
-		<li>Resolver códigos y patrones.</li>
-		<li>Revisar errores y reformular hipótesis.</li>
-	  </ul>
-	</div>
-  
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px;">
-	  <h3 style="margin: 0 0 10px 0; color: #101a33; font-size: 18px;">Interacciones emocionales</h3>
-	  <ul style="margin: 0; padding-left: 20px; color: #40516b; line-height: 1.7;">
-		<li>Curiosidad al descubrir la maleta.</li>
-		<li>Asombro al entrar en las escenas XR.</li>
-		<li>Tensión positiva ante los retos.</li>
-		<li>Satisfacción al desbloquear épocas.</li>
-		<li>Empatía al comprender contextos históricos.</li>
-		<li>Orgullo de equipo al restaurar el Archivo del Tiempo.</li>
-	  </ul>
-	</div>
-  
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px;">
-	  <h3 style="margin: 0 0 10px 0; color: #101a33; font-size: 18px;">Interacciones sociales</h3>
-	  <ul style="margin: 0; padding-left: 20px; color: #40516b; line-height: 1.7;">
-		<li>Reparto de roles.</li>
-		<li>Debate de hipótesis.</li>
-		<li>Escucha activa.</li>
-		<li>Toma de decisiones conjunta.</li>
-		<li>Comunicación entre exploradora XR y equipo.</li>
-		<li>Reflexión final compartida.</li>
-	  </ul>
-	</div>
-  
+</section>
+
+<section class="wrap section" id="justificacion">
+  <div class="section-head">
+    <div class="section-kicker">03 · Justificación pedagógica</div>
+    <h2>La tecnología XR al servicio del aprendizaje</h2>
   </div>
-  
-  <h2 style="margin: 30px 0 14px 0; font-size: 24px; color: #b44a00;">
-	11. Storyboard de la experiencia
-  </h2>
-  
-  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 18px 0 26px 0;">
-  
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px;">
-	  <h3 style="margin: 0 0 8px 0; color: #101a33; font-size: 18px;">Viñeta 1 · La llegada de la maleta</h3>
-	  <p style="margin: 0; color: #40516b; line-height: 1.6;">El equipo recibe una maleta cerrada con el símbolo del Archivo del Tiempo. En la pantalla aparece el mensaje: “La historia ha sido alterada. Necesitamos vuestra ayuda”.</p>
-	</div>
-  
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px;">
-	  <h3 style="margin: 0 0 8px 0; color: #101a33; font-size: 18px;">Viñeta 2 · Activación del pasaporte temporal</h3>
-	  <p style="margin: 0; color: #40516b; line-height: 1.6;">El alumnado abre la primera sección de la maleta y encuentra pasaportes, roles y una carta de misión.</p>
-	</div>
-  
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px;">
-	  <h3 style="margin: 0 0 8px 0; color: #101a33; font-size: 18px;">Viñeta 3 · Primer portal XR</h3>
-	  <p style="margin: 0; color: #40516b; line-height: 1.6;">El equipo escanea un marcador AR y aparece un portal temporal. La escena muestra una época histórica incompleta.</p>
-	</div>
-  
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px;">
-	  <h3 style="margin: 0 0 8px 0; color: #101a33; font-size: 18px;">Viñeta 4 · Exploración de evidencias</h3>
-	  <p style="margin: 0; color: #40516b; line-height: 1.6;">La exploradora XR observa la escena y describe lo que ve. El resto del equipo analiza cartas, símbolos y reliquias físicas.</p>
-	</div>
-  
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px;">
-	  <h3 style="margin: 0 0 8px 0; color: #101a33; font-size: 18px;">Viñeta 5 · Resolución del reto</h3>
-	  <p style="margin: 0; color: #40516b; line-height: 1.6;">El equipo ordena evidencias, descifra un código y obtiene una combinación que introduce en un candado digital de Escapify.io.</p>
-	</div>
-  
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px;">
-	  <h3 style="margin: 0 0 8px 0; color: #101a33; font-size: 18px;">Viñeta 6 · Feedback de restauración</h3>
-	  <p style="margin: 0; color: #40516b; line-height: 1.6;">Si la respuesta es correcta, la escena XR se transforma, los objetos vuelven a su lugar y se desbloquea un sello para el pasaporte.</p>
-	</div>
-  
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px;">
-	  <h3 style="margin: 0 0 8px 0; color: #101a33; font-size: 18px;">Viñeta 7 · Decisión de ruta</h3>
-	  <p style="margin: 0; color: #40516b; line-height: 1.6;">El mapa temporal muestra dos posibles épocas siguientes. El equipo decide qué camino tomar en función de las pistas obtenidas.</p>
-	</div>
-  
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px;">
-	  <h3 style="margin: 0 0 8px 0; color: #101a33; font-size: 18px;">Viñeta 8 · Cierre y reflexión</h3>
-	  <p style="margin: 0; color: #40516b; line-height: 1.6;">Al completar la misión, el Archivo del Tiempo queda restaurado. El alumnado revisa estrategias, aprendizajes y colaboración.</p>
-	</div>
-  
+
+  <div class="panel">
+    <p>
+      <strong>La Maleta del Tiempo XR</strong> se fundamenta en el aprendizaje basado en juego, los Serious Games y el Game Thinking. La experiencia no se limita a añadir una narrativa lúdica, sino que organiza el aprendizaje a través de retos, decisiones, feedback, progresión, colaboración y reflexión.
+    </p>
+    <p>
+      Desde el enfoque GALP, el juego conecta gamificación, aprendizaje activo, ludificación con propósito y participación significativa. Cada mecánica del juego está vinculada a un objetivo formativo. Cada recompensa tiene una función pedagógica. Cada interacción XR debe ayudar a observar, comprender, decidir o reflexionar mejor.
+    </p>
+    <p>
+      La capa XR no se plantea como un elemento espectacular añadido al final, sino como una herramienta para ampliar la experiencia física. Su función es ofrecer contexto, activar la curiosidad, enriquecer la observación, mostrar información situada y ayudar a que el alumnado relacione evidencias históricas con decisiones concretas dentro del juego.
+    </p>
   </div>
-  
-  <h2 style="margin: 30px 0 14px 0; font-size: 24px; color: #b44a00;">
-	12. Mapa de flujo de la experiencia
-  </h2>
-  
-  <div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 20px; margin: 18px 0 26px 0;">
-	<p style="margin: 0 0 14px 0; color: #40516b; line-height: 1.8; font-size: 16px;">
-	  <strong>Inicio:</strong> Presentación narrativa → Reparto de roles → Apertura de la maleta → Activación del primer marcador XR → Exploración de escena → Análisis de evidencias → Resolución del reto → Introducción de respuesta en candado digital.
-	</p>
-  
-	<p style="margin: 0 0 14px 0; color: #40516b; line-height: 1.8; font-size: 16px;">
-	  <strong>Si la respuesta es correcta:</strong> Feedback positivo → Restauración de la época → Sello en el pasaporte → Desbloqueo de nueva época → Continuación de la misión.
-	</p>
-  
-	<p style="margin: 0 0 14px 0; color: #40516b; line-height: 1.8; font-size: 16px;">
-	  <strong>Si la respuesta es incorrecta:</strong> Feedback orientativo → Revisión de evidencias → Posibilidad de pedir pista → Nuevo intento.
-	</p>
-  
-	<p style="margin: 0 0 14px 0; color: #40516b; line-height: 1.8; font-size: 16px;">
-	  <strong>Si el equipo solicita pista:</strong> Pista nivel 1 → Pista nivel 2 si persiste la dificultad → Pista nivel 3 si continúa el bloqueo → Registro del uso de pistas para la reflexión final.
-	</p>
-  
-	<p style="margin: 0; color: #40516b; line-height: 1.8; font-size: 16px;">
-	  <strong>Final:</strong> Restauración completa del Archivo del Tiempo → Cierre narrativo → Reflexión grupal → Evaluación mediante rúbrica y plantilla de playtest.
-	</p>
+</section>
+
+<section class="wrap section" id="thinking">
+  <div class="section-head">
+    <div class="section-kicker">04 · Game Thinking</div>
+    <h2>Fases aplicadas al proyecto</h2>
   </div>
-  
-  <h2 style="margin: 30px 0 14px 0; font-size: 24px; color: #b44a00;">
-	13. Reglas del juego
-  </h2>
-  
-  <div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px; margin: 18px 0 26px 0;">
-	<ul style="margin: 0; padding-left: 22px; color: #40516b; line-height: 1.8; font-size: 16px;">
-	  <li>El equipo debe restaurar el Archivo del Tiempo resolviendo los retos de cada época.</li>
-	  <li>Cada reto superado desbloquea una nueva sección de la maleta o del mapa temporal.</li>
-	  <li>Todas las decisiones deben tomarse en equipo.</li>
-	  <li>Los roles son obligatorios y pueden rotar entre retos.</li>
-	  <li>Solo se puede introducir una respuesta cuando el equipo haya llegado a un acuerdo.</li>
-	  <li>Cada reto permite varios intentos, pero los errores activan feedback orientativo.</li>
-	  <li>El equipo puede solicitar pistas, pero cada pista debe quedar registrada.</li>
-	  <li>No se penaliza el error, siempre que se use para revisar la estrategia.</li>
-	  <li>El objetivo no es terminar rápido, sino comprender, justificar y colaborar.</li>
-	  <li>La misión finaliza cuando se restauran todas las épocas seleccionadas o cuando termina el tiempo establecido.</li>
-	</ul>
+
+  <div class="grid-4">
+    <div class="card">
+      <span class="number">1</span>
+      <h3>Objetivos y persona-aprendiz</h3>
+      <p>
+        Se define qué se quiere aprender y quién va a vivir la experiencia. La competencia principal es comprender procesos históricos y resolver retos de forma colaborativa.
+      </p>
+    </div>
+
+    <div class="card">
+      <span class="number">2</span>
+      <h3>Mecánicas e inmersión</h3>
+      <p>
+        Se diseñan acciones, retos, niveles, dinámicas, feedbacks e inmersión narrativa, sensorial, social, cognitiva y emocional.
+      </p>
+    </div>
+
+    <div class="card">
+      <span class="number">3</span>
+      <h3>Prototipo no técnico</h3>
+      <p>
+        Se plantea una versión con maleta física, tarjetas impresas, códigos QR, escenas 360º, candados digitales y marcadores AR sencillos.
+      </p>
+    </div>
+
+    <div class="card">
+      <span class="number">4</span>
+      <h3>Versión final GALP</h3>
+      <p>
+        Se ajusta el diseño tras el playtest y se justifica la experiencia desde la accesibilidad, la agencia, el feedback y el valor real de XR.
+      </p>
+    </div>
   </div>
-  
-  <h2 style="margin: 30px 0 14px 0; font-size: 24px; color: #b44a00;">
-	14. Sistema de feedback
-  </h2>
-  
-  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 18px 0 26px 0;">
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px;"><strong style="color: #101a33;">Feedback inmediato:</strong><p style="margin: 6px 0 0 0; color: #40516b; line-height: 1.6;">Se activa tras introducir una respuesta en el candado digital.</p></div>
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px;"><strong style="color: #101a33;">Feedback orientativo:</strong><p style="margin: 6px 0 0 0; color: #40516b; line-height: 1.6;">Cuando hay error, ofrece una pregunta guía, una pista visual o una recomendación de observación.</p></div>
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px;"><strong style="color: #101a33;">Feedback narrativo:</strong><p style="margin: 6px 0 0 0; color: #40516b; line-height: 1.6;">Al superar una época, la escena XR cambia y muestra que el Archivo se está restaurando.</p></div>
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px;"><strong style="color: #101a33;">Feedback de progreso:</strong><p style="margin: 6px 0 0 0; color: #40516b; line-height: 1.6;">El pasaporte temporal, los sellos y el mapa muestran el avance del equipo.</p></div>
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px;"><strong style="color: #101a33;">Feedback metacognitivo:</strong><p style="margin: 6px 0 0 0; color: #40516b; line-height: 1.6;">Al finalizar, el alumnado reflexiona sobre estrategias, aprendizajes, dificultades y colaboración.</p></div>
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px;"><strong style="color: #101a33;">Feedback sobre la capa XR:</strong><p style="margin: 6px 0 0 0; color: #40516b; line-height: 1.6;">Valora si la XR ayuda a comprender, localizar pistas, interpretar evidencias y mantener la motivación.</p></div>
+
+  <div class="grid" style="margin-top:16px;">
+    <div class="card">
+      <h3>Necesidades detectadas</h3>
+      <ul>
+        <li>Aprender historia de forma más activa, visual y experiencial.</li>
+        <li>Conectar contenidos aparentemente aislados.</li>
+        <li>Participar en equipo sin depender de la rapidez individual.</li>
+        <li>Recibir feedback claro durante el proceso.</li>
+        <li>Contar con materiales accesibles y comprensibles.</li>
+        <li>Usar la tecnología de manera guiada, sencilla y con sentido pedagógico.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Barreras previstas</h3>
+      <ul>
+        <li>Dificultad para organizar cronológicamente acontecimientos.</li>
+        <li>Sobrecarga cognitiva ante mucha información.</li>
+        <li>Diferencias en competencia lectora y digital.</li>
+        <li>Posible frustración ante retos complejos.</li>
+        <li>Acceso desigual a dispositivos XR.</li>
+        <li>Riesgo de que la capa XR distraiga si no está bien integrada.</li>
+        <li>Dificultades de usabilidad al escanear marcadores o alternar entre lo físico y lo digital.</li>
+      </ul>
+    </div>
   </div>
-  
-  <h2 style="margin: 30px 0 14px 0; font-size: 24px; color: #b44a00;">
-	15. Ficha de experiencia inmersiva
-  </h2>
-  
-  <div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 20px; margin: 18px 0 26px 0;">
-	<p style="margin: 0 0 10px 0; color: #40516b; line-height: 1.7;"><strong>Nombre:</strong> La Maleta del Tiempo XR.</p>
-	<p style="margin: 0 0 10px 0; color: #40516b; line-height: 1.7;"><strong>Tipo de experiencia:</strong> Serious Game educativo XR con realidad aumentada, escenas 360º y elementos físicos.</p>
-	<p style="margin: 0 0 10px 0; color: #40516b; line-height: 1.7;"><strong>Objetivo pedagógico:</strong> comprender relaciones históricas y desarrollar habilidades de pensamiento crítico, colaboración y resolución de problemas.</p>
-	<p style="margin: 0 0 10px 0; color: #40516b; line-height: 1.7;"><strong>Rol de la persona-aprendiz:</strong> exploradora temporal y restauradora del Archivo del Tiempo.</p>
-	<p style="margin: 0 0 10px 0; color: #40516b; line-height: 1.7;"><strong>Acciones principales:</strong> explorar, observar, escanear, clasificar, relacionar, decidir, resolver, justificar y reflexionar.</p>
-	<p style="margin: 0 0 10px 0; color: #40516b; line-height: 1.7;"><strong>Emociones buscadas:</strong> curiosidad, asombro, agencia, reto, colaboración, satisfacción, empatía y logro.</p>
-	<p style="margin: 0 0 10px 0; color: #40516b; line-height: 1.7;"><strong>Recompensas:</strong> sellos en el pasaporte, desbloqueo de épocas, restauración visual de escenas, insignias de equipo y cierre narrativo.</p>
-	<p style="margin: 0 0 10px 0; color: #40516b; line-height: 1.7;"><strong>Feedback:</strong> inmediato, orientativo, narrativo, de progreso, metacognitivo y específico sobre el valor de la capa XR.</p>
-	<p style="margin: 0 0 10px 0; color: #40516b; line-height: 1.7;"><strong>Elementos XR:</strong> marcadores AR, escenas 360º, objetos aumentados, mensajes holográficos y posibles entornos VR.</p>
-	<p style="margin: 0; color: #40516b; line-height: 1.7;"><strong>Accesibilidad:</strong> instrucciones breves, apoyos visuales, lectura fácil, alternativas no inmersivas, pistas graduadas, roles cooperativos y no dependencia exclusiva del color o del sonido.</p>
+</section>
+
+<section class="wrap section" id="tiempos">
+  <div class="section-head">
+    <div class="section-kicker">05 · Ritmo de sesión</div>
+    <h2>Duración y estructura temporal</h2>
   </div>
-  
-  <h2 style="margin: 30px 0 14px 0; font-size: 24px; color: #b44a00;">
-	16. Evaluación del valor de la capa XR
-  </h2>
-  
-  <p style="margin: 0 0 18px 0; font-size: 16px; line-height: 1.7; color: #40516b;">
-	Para responder a la evolución del proyecto y complementar el análisis del juego, se incorpora una evaluación específica de la capa XR. Esta evaluación busca comprobar si la tecnología inmersiva mejora realmente la experiencia de aprendizaje o si, por el contrario, genera distracción, dificultad técnica o sobrecarga cognitiva.
-  </p>
-  
-  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 18px 0 26px 0;">
-  
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px;">
-	  <h3 style="margin: 0 0 10px 0; color: #101a33; font-size: 18px;">Aspectos a evaluar</h3>
-	  <ul style="margin: 0; padding-left: 20px; color: #40516b; line-height: 1.7;">
-		<li>Comprensión del contexto histórico.</li>
-		<li>Observación de detalles no presentes en materiales físicos.</li>
-		<li>Motivación y curiosidad.</li>
-		<li>Sensación de inmersión y presencia.</li>
-		<li>Toma de decisiones.</li>
-		<li>Usabilidad de marcadores, escenas y recursos XR.</li>
-		<li>Barreras técnicas o cognitivas.</li>
-	  </ul>
-	</div>
-  
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px;">
-	  <h3 style="margin: 0 0 10px 0; color: #101a33; font-size: 18px;">Instrumentos de recogida</h3>
-	  <ul style="margin: 0; padding-left: 20px; color: #40516b; line-height: 1.7;">
-		<li>Observación directa durante el juego.</li>
-		<li>Registro de incidencias técnicas.</li>
-		<li>Preguntas cualitativas al alumnado.</li>
-		<li>Preguntas cualitativas al docente o facilitador.</li>
-		<li>Escala breve de valoración XR.</li>
-		<li>Comparación entre retos con y sin capa XR.</li>
-	  </ul>
-	</div>
-  
+
+  <div class="panel">
+    <p>
+      La experiencia completa está diseñada para una sesión aproximada de <strong>60 minutos</strong>. Esta decisión responde al comentario recibido en el Sprint 1 y permite equilibrar inmersión, juego, reflexión y viabilidad en aula.
+    </p>
+
+    <div class="timeline">
+      <div class="timebox">
+        <strong>5 min · Entrada</strong>
+        <span>Introducción narrativa, presentación de la maleta y activación del Archivo del Tiempo.</span>
+      </div>
+
+      <div class="timebox">
+        <strong>5 min · Roles</strong>
+        <span>Reparto de funciones cooperativas, normas básicas y pasaporte temporal.</span>
+      </div>
+
+      <div class="timebox">
+        <strong>35 min · Juego</strong>
+        <span>Exploración XR, retos, evidencias, pistas y candados digitales.</span>
+      </div>
+
+      <div class="timebox">
+        <strong>10 min · Cierre</strong>
+        <span>Restauración del Archivo del Tiempo, validación final y feedback de logro.</span>
+      </div>
+
+      <div class="timebox">
+        <strong>5 min · Reflexión</strong>
+        <span>Registro de aprendizajes y valoración rápida de la experiencia.</span>
+      </div>
+    </div>
+
+    <div class="mermaid-wrap mermaid-wrap--gantt">
+      <pre class="mermaid">
+%%{init: {'gantt': {'titleTopMargin': 26, 'barHeight': 26, 'barGap': 12, 'topPadding': 72, 'leftPadding': 148, 'fontSize': 12}}}%%
+gantt
+    title Sesión de 60 minutos (proporciones)
+    dateFormat YYYY-MM-DD
+    axisFormat %M min
+    section Entrada
+    Misión y maleta     :a1, 2026-06-01, 5d
+    section Preparación
+    Roles y normas      :a2, after a1, 5d
+    section Juego
+    Eras y retos XR     :a3, after a2, 35d
+    section Cierre
+    Restaurar Archivo   :a4, after a3, 10d
+    section Reflexión
+    Metacognición       :a5, after a4, 5d
+      </pre>
+    </div>
   </div>
-  
-  <div style="background: #fff4d1; border-left: 5px solid #c45600; border-radius: 12px; padding: 18px 20px; margin: 24px 0;">
-	<p style="margin: 0; font-size: 16px; line-height: 1.7; color: #5a2c00;">
-	  Esta sección responde directamente al comentario recibido en el Sprint 3, incorporando una mirada cualitativa sobre la interacción, la usabilidad y el valor pedagógico real de la capa XR dentro del diseño.
-	</p>
+</section>
+
+<section class="wrap section" id="elementos">
+  <div class="section-head">
+    <div class="section-kicker">06 · Elementos del juego</div>
+    <h2>Componentes físicos, digitales y narrativos</h2>
   </div>
-  
-  <h2 style="margin: 30px 0 14px 0; font-size: 24px; color: #b44a00;">
-	17. Plantilla de playtest
-  </h2>
-  
-  <div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 20px; margin: 18px 0 26px 0;">
-	<h3 style="margin: 0 0 10px 0; color: #101a33; font-size: 19px;">Datos generales</h3>
-	<p style="margin: 0 0 14px 0; color: #40516b; line-height: 1.7;">
-	  Nombre del prototipo, fecha del testeo, número de participantes, edad o nivel educativo, duración de la sesión y dispositivo utilizado: móvil, tablet, proyector, gafas VR u otro.
-	</p>
-  
-	<h3 style="margin: 16px 0 10px 0; color: #101a33; font-size: 19px;">Aspectos a observar</h3>
-	<ul style="margin: 0; padding-left: 22px; color: #40516b; line-height: 1.8; font-size: 16px;">
-	  <li>Comprensión de la narrativa inicial.</li>
-	  <li>Claridad de las instrucciones.</li>
-	  <li>Nivel de dificultad de los retos.</li>
-	  <li>Participación de todos los miembros del equipo.</li>
-	  <li>Uso de roles cooperativos.</li>
-	  <li>Comprensión de las escenas XR.</li>
-	  <li>Posibles momentos de bloqueo.</li>
-	  <li>Uso de pistas.</li>
-	  <li>Calidad del feedback.</li>
-	  <li>Nivel de motivación.</li>
-	  <li>Barreras técnicas o cognitivas detectadas.</li>
-	  <li>Valor pedagógico de la capa XR.</li>
-	  <li>Usabilidad de los recursos XR.</li>
-	  <li>Relación entre los elementos físicos y digitales.</li>
-	</ul>
+
+  <div class="grid-3">
+    <div class="card"><h3>Maleta física</h3><p>Objeto central de la experiencia. Contiene materiales, marcadores, cartas de misión, objetos y retos.</p></div>
+    <div class="card"><h3>Pasaporte temporal</h3><p>Documento individual o grupal donde se registran avances, sellos, insignias y códigos.</p></div>
+    <div class="card"><h3>Archivo del Tiempo</h3><p>Sistema narrativo que organiza la misión, las épocas alteradas y el progreso de la aventura.</p></div>
+    <div class="card"><h3>Escenas XR</h3><p>Espacios digitales o inmersivos para explorar épocas, objetos, lugares o situaciones.</p></div>
+    <div class="card"><h3>Marcadores AR</h3><p>Elementos físicos que activan pistas, modelos 3D, mensajes, audios o imágenes aumentadas.</p></div>
+    <div class="card"><h3>Candados digitales</h3><p>Validan respuestas, códigos, secuencias o decisiones generadas desde Escapify.io.</p></div>
+    <div class="card"><h3>Cartas de reto</h3><p>Presentan misiones breves, instrucciones, pistas y objetivos con diseño claro y lectura accesible.</p></div>
+    <div class="card"><h3>Reliquias temporales</h3><p>Objetos físicos o tarjetas que representan inventos, personajes, acontecimientos o símbolos históricos.</p></div>
+    <div class="card"><h3>Sistema de pistas</h3><p>Ayudas graduadas en tres niveles: orientación, pista parcial y pista directa.</p></div>
   </div>
-  
-  <h2 style="margin: 30px 0 14px 0; font-size: 24px; color: #b44a00;">
-	18. Evaluación del aprendizaje
-  </h2>
-  
-  <p style="margin: 0 0 18px 0; font-size: 16px; line-height: 1.7; color: #40516b;">
-	La evaluación combina observación, producto final, reflexión y desempeño durante el juego.
-  </p>
-  
-  <div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px; margin: 18px 0 26px 0;">
-	<ul style="margin: 0; padding-left: 22px; color: #40516b; line-height: 1.8; font-size: 16px;">
-	  <li>Relaciona objetos, inventos o acontecimientos con su época correspondiente.</li>
-	  <li>Justifica decisiones utilizando evidencias.</li>
-	  <li>Participa en la resolución de retos.</li>
-	  <li>Escucha y aporta ideas al equipo.</li>
-	  <li>Utiliza estrategias de pensamiento crítico.</li>
-	  <li>Interpreta correctamente pistas visuales y narrativas.</li>
-	  <li>Gestiona el error como parte del proceso.</li>
-	  <li>Comprende la conexión entre las épocas trabajadas.</li>
-	  <li>Utiliza la capa XR como fuente de información y no solo como elemento visual.</li>
-	  <li>Reflexiona sobre cómo ha aprendido y cómo ha colaborado.</li>
-	</ul>
+</section>
+
+<section class="wrap section" id="narrativa">
+  <div class="section-head">
+    <div class="section-kicker">07 · Narrativa, roles y ambientación</div>
+    <h2>El aula como Archivo del Tiempo</h2>
   </div>
-  
-  <h2 style="margin: 30px 0 14px 0; font-size: 24px; color: #b44a00;">
-	19. Propuesta de rúbrica
-  </h2>
-  
-  <div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 20px; margin: 18px 0 26px 0;">
-	<p style="margin: 0 0 14px 0; color: #40516b; line-height: 1.7;"><strong>Criterio 1. Comprensión histórica:</strong> relaciona épocas, objetos y acontecimientos, justificando sus decisiones.</p>
-	<p style="margin: 0 0 14px 0; color: #40516b; line-height: 1.7;"><strong>Criterio 2. Resolución de problemas:</strong> analiza evidencias, formula hipótesis y revisa estrategias.</p>
-	<p style="margin: 0 0 14px 0; color: #40516b; line-height: 1.7;"><strong>Criterio 3. Colaboración:</strong> participa, escucha, respeta roles y ayuda al equipo.</p>
-	<p style="margin: 0 0 14px 0; color: #40516b; line-height: 1.7;"><strong>Criterio 4. Uso de la experiencia XR:</strong> utiliza la escena inmersiva para observar, analizar y tomar decisiones.</p>
-	<p style="margin: 0 0 14px 0; color: #40516b; line-height: 1.7;"><strong>Criterio 5. Usabilidad e interacción XR:</strong> comprende cómo interactuar con los recursos XR y los utiliza de manera autónoma o con apoyo.</p>
-	<p style="margin: 0; color: #40516b; line-height: 1.7;"><strong>Criterio 6. Reflexión final:</strong> identifica qué ha aprendido, qué estrategias ha usado, cómo ha colaborado y qué valor ha tenido la capa XR.</p>
+
+  <div class="panel">
+    <p>
+      La historia comienza cuando el alumnado recibe una maleta antigua procedente del Archivo del Tiempo. En su interior aparece un mensaje de emergencia: la línea temporal ha sido alterada y varios fragmentos históricos han quedado mezclados.
+    </p>
+    <p>
+      La misión consiste en viajar por diferentes épocas, recuperar evidencias, resolver enigmas y devolver cada elemento a su lugar correcto. Cada época restaurada desbloquea un nuevo fragmento del mapa temporal.
+    </p>
+    <p>
+      La estética mezcla archivo histórico, laboratorio temporal, cuaderno de exploración y tecnología holográfica. La parte física tiene apariencia de maleta antigua, mapas, sellos, documentos y objetos. La parte XR añade capas digitales, portales, reconstrucciones y mensajes interactivos.
+    </p>
   </div>
-  
-  <h2 style="margin: 30px 0 14px 0; font-size: 24px; color: #b44a00;">
-	20. Accesibilidad e inclusión
-  </h2>
-  
-  <div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px; margin: 18px 0 26px 0;">
-	<ul style="margin: 0; padding-left: 22px; color: #40516b; line-height: 1.8; font-size: 16px;">
-	  <li>Instrucciones breves y visuales.</li>
-	  <li>Lectura fácil en las cartas de reto.</li>
-	  <li>Pictogramas y códigos visuales.</li>
-	  <li>Información redundante por texto, imagen y audio.</li>
-	  <li>Alternativa no inmersiva para quienes no puedan usar VR.</li>
-	  <li>Escenas cortas para evitar fatiga.</li>
-	  <li>Ausencia de movimientos bruscos.</li>
-	  <li>No depender solo del color para resolver retos.</li>
-	  <li>Pistas graduadas.</li>
-	  <li>Roles cooperativos para facilitar diferentes formas de participación.</li>
-	  <li>Tiempo flexible según necesidades del grupo.</li>
-	  <li>Apoyo docente durante la experiencia.</li>
-	  <li>Posibilidad de realizar la experiencia en modo bajo estímulo.</li>
-	  <li>Opción de sustituir gafas VR por tablet, móvil o proyección compartida.</li>
-	</ul>
+
+  <div class="grid-3">
+    <div class="card"><h3>Exploradora XR</h3><p>Interactúa con la escena inmersiva y comunica al equipo lo que observa.</p></div>
+    <div class="card"><h3>Cronista</h3><p>Registra descubrimientos, hipótesis y decisiones del equipo.</p></div>
+    <div class="card"><h3>Cartógrafa temporal</h3><p>Organiza la línea del tiempo, mapas y rutas de avance.</p></div>
+    <div class="card"><h3>Analista de símbolos</h3><p>Descifra códigos, patrones y mensajes ocultos.</p></div>
+    <div class="card"><h3>Guardiana de pistas</h3><p>Gestiona las ayudas disponibles y decide cuándo utilizarlas.</p></div>
+    <div class="card"><h3>Portavoz</h3><p>Comunica la decisión final del equipo y justifica la respuesta.</p></div>
   </div>
-  
-  <h2 style="margin: 30px 0 14px 0; font-size: 24px; color: #b44a00;">
-	21. Adecuación a los comentarios recibidos en los sprints
-  </h2>
-  
-  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 18px 0 26px 0;">
-  
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px;">
-	  <h3 style="margin: 0 0 8px 0; color: #101a33; font-size: 18px;">Sprint 1</h3>
-	  <p style="margin: 0; color: #40516b; line-height: 1.6;">
-		Se concreta la duración de la experiencia en 60 minutos, adaptable a 45, 75 o 90 minutos.
-	  </p>
-	</div>
-  
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px;">
-	  <h3 style="margin: 0 0 8px 0; color: #101a33; font-size: 18px;">Sprint 2</h3>
-	  <p style="margin: 0; color: #40516b; line-height: 1.6;">
-		Se refuerza la justificación tecnológica, la adaptabilidad y el carácter inclusivo de la propuesta.
-	  </p>
-	</div>
-  
-	<div style="background: #ffffff; border: 1px solid #f0d28a; border-radius: 14px; padding: 18px;">
-	  <h3 style="margin: 0 0 8px 0; color: #101a33; font-size: 18px;">Sprint 3</h3>
-	  <p style="margin: 0; color: #40516b; line-height: 1.6;">
-		Se incorpora la evaluación del valor de la capa XR y el análisis cualitativo de interacción y usabilidad.
-	  </p>
-	</div>
-  
+</section>
+
+<section class="wrap section" id="interacciones">
+  <div class="section-head">
+    <div class="section-kicker">08 · Mapa de interacciones</div>
+    <h2>Cómo se vive la experiencia XR</h2>
   </div>
-  
-  <h2 style="margin: 30px 0 14px 0; font-size: 24px; color: #b44a00;">
-	22. Conclusión
-  </h2>
-  
-  <p style="margin: 0 0 18px 0; font-size: 16px; line-height: 1.7; color: #40516b;">
-	<strong>La Maleta del Tiempo XR</strong> es una propuesta de Serious Game inmersivo que integra los contenidos trabajados en la asignatura: aprendizaje basado en juego, gamificación, Game Thinking, Serious Games, XR, accesibilidad, feedback, playtest y diseño centrado en la persona-aprendiz.
-  </p>
-  
-  <p style="margin: 0 0 18px 0; font-size: 16px; line-height: 1.7; color: #40516b;">
-	El proyecto mantiene continuidad con <strong>Escapify.io</strong> y <strong>La Maleta del Tiempo</strong>, pero evoluciona hacia una experiencia más inmersiva, emocional y pedagógicamente estructurada. La tecnología XR no se utiliza como un añadido superficial, sino como una herramienta para favorecer la exploración, la presencia, la memoria, la empatía histórica y la resolución colaborativa de problemas.
-  </p>
-  
-  <p style="margin: 0 0 24px 0; font-size: 16px; line-height: 1.7; color: #40516b;">
-	En definitiva, La Maleta del Tiempo XR busca que aprender historia no sea solo recordar datos, sino vivir una misión, tomar decisiones, resolver retos y comprender cómo cada época forma parte de una misma construcción colectiva del conocimiento.
-  </p>
-  
-  <div style="background: #101a33; color: #ffffff; border-radius: 14px; padding: 20px; margin: 28px 0;">
-	<p style="margin: 0; font-size: 16px; line-height: 1.8;">
-	  La versión final del proyecto responde a los comentarios recibidos durante los sprints y refuerza tres aspectos clave: la concreción de la duración de juego, la evaluación del valor pedagógico de la capa XR y el análisis cualitativo de la interacción y usabilidad de la tecnología inmersiva.
-	</p>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Interacciones físicas</h3>
+      <ul>
+        <li>Abrir la maleta.</li>
+        <li>Manipular cartas, objetos y reliquias.</li>
+        <li>Escanear marcadores AR.</li>
+        <li>Ordenar piezas en una línea temporal.</li>
+        <li>Introducir códigos en candados digitales.</li>
+        <li>Sellar el pasaporte temporal.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Interacciones cognitivas</h3>
+      <ul>
+        <li>Observar detalles de las escenas.</li>
+        <li>Comparar información.</li>
+        <li>Relacionar objetos con épocas.</li>
+        <li>Deducir causas y consecuencias.</li>
+        <li>Resolver códigos y patrones.</li>
+        <li>Revisar errores y reformular hipótesis.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Interacciones emocionales</h3>
+      <ul>
+        <li>Curiosidad al descubrir la maleta.</li>
+        <li>Asombro al entrar en las escenas XR.</li>
+        <li>Tensión positiva ante los retos.</li>
+        <li>Satisfacción al desbloquear épocas.</li>
+        <li>Empatía al comprender contextos históricos.</li>
+        <li>Orgullo de equipo al restaurar el Archivo.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Interacciones sociales</h3>
+      <ul>
+        <li>Reparto de roles.</li>
+        <li>Debate de hipótesis.</li>
+        <li>Escucha activa.</li>
+        <li>Toma de decisiones conjunta.</li>
+        <li>Comunicación entre quien explora y quienes analizan.</li>
+        <li>Reflexión final compartida.</li>
+      </ul>
+    </div>
   </div>
-  
-  <p style="text-align: center; margin: 28px 0 8px 0;">
-	<a href="https://archivotiempo.github.io/playful/index.html" target="_blank" style="display: inline-block; background: #b84e00; color: #ffffff; text-decoration: none; padding: 14px 20px; border-radius: 12px; font-weight: bold; font-size: 15px; margin: 4px;">
-	  Ver Sprint 1
-	</a>
-  
-	<a href="https://archivotiempo.github.io/playful/sprint2.html" target="_blank" style="display: inline-block; background: #b84e00; color: #ffffff; text-decoration: none; padding: 14px 20px; border-radius: 12px; font-weight: bold; font-size: 15px; margin: 4px;">
-	  Ver Sprint 2
-	</a>
-  
-	<a href="https://archivotiempo.github.io/playful/sprint3.html" target="_blank" style="display: inline-block; background: #b84e00; color: #ffffff; text-decoration: none; padding: 14px 20px; border-radius: 12px; font-weight: bold; font-size: 15px; margin: 4px;">
-	  Ver Sprint 3
-	</a>
-  </p>
-  
-  <p style="text-align: center; margin: 8px 0 0 0; font-size: 14px; color: #6b7280;">
-	También se adjunta una captura de pantalla representativa de la entrega final.
-  </p>
-  ```
-  
-	</div>
+</section>
+
+<section class="wrap section" id="storyboard">
+  <div class="section-head">
+    <div class="section-kicker">09 · Storyboard</div>
+    <h2>Ocho viñetas para visualizar la experiencia</h2>
   </div>
-  
+
+  <div class="grid">
+    <div class="card"><span class="number">1</span><h3>La llegada de la maleta</h3><p>El equipo recibe una maleta cerrada con el símbolo del Archivo del Tiempo. En pantalla aparece: “La historia ha sido alterada. Necesitamos vuestra ayuda”.</p></div>
+    <div class="card"><span class="number">2</span><h3>Activación del pasaporte</h3><p>El alumnado abre la primera sección y encuentra pasaportes, roles y una carta de misión.</p></div>
+    <div class="card"><span class="number">3</span><h3>Primer portal XR</h3><p>El equipo escanea un marcador AR y aparece un portal temporal con una época histórica incompleta.</p></div>
+    <div class="card"><span class="number">4</span><h3>Exploración de evidencias</h3><p>La exploradora XR observa la escena y el resto del equipo analiza cartas, símbolos y reliquias.</p></div>
+    <div class="card"><span class="number">5</span><h3>Resolución del reto</h3><p>El equipo ordena evidencias, descifra un código y obtiene una combinación para Escapify.io.</p></div>
+    <div class="card"><span class="number">6</span><h3>Feedback de restauración</h3><p>Si la respuesta es correcta, la escena XR se transforma y se desbloquea un sello para el pasaporte.</p></div>
+    <div class="card"><span class="number">7</span><h3>Decisión de ruta</h3><p>El mapa temporal muestra dos posibles épocas siguientes y el equipo decide el camino.</p></div>
+    <div class="card"><span class="number">8</span><h3>Cierre y reflexión</h3><p>El Archivo queda restaurado y el alumnado revisa estrategias, aprendizajes y colaboración.</p></div>
+  </div>
+</section>
+
+<section class="wrap section" id="flujo">
+  <div class="section-head">
+    <div class="section-kicker">10 · Mapa de flujo</div>
+    <h2>Progresión, decisiones y estados del sistema</h2>
+  </div>
+
+  <div class="flow">
+    <div class="flow-step"><div class="dot">1</div><p><strong>Inicio:</strong> presentación narrativa → reparto de roles → apertura de la maleta → activación del primer marcador XR.</p></div>
+    <div class="flow-step"><div class="dot">2</div><p><strong>Exploración:</strong> observación de la escena → análisis de evidencias → resolución del reto → respuesta en candado digital.</p></div>
+    <div class="flow-step"><div class="dot">3</div><p><strong>Si la respuesta es correcta:</strong> feedback positivo → restauración de la época → sello en el pasaporte → desbloqueo de nueva época.</p></div>
+    <div class="flow-step"><div class="dot">4</div><p><strong>Si la respuesta es incorrecta:</strong> feedback orientativo → revisión de evidencias → posibilidad de pedir pista → nuevo intento.</p></div>
+    <div class="flow-step"><div class="dot">5</div><p><strong>Si el equipo solicita pista:</strong> pista nivel 1 → pista nivel 2 → pista nivel 3 → registro para la reflexión final.</p></div>
+    <div class="flow-step"><div class="dot">6</div><p><strong>Final:</strong> restauración completa del Archivo del Tiempo → cierre narrativo → reflexión grupal → evaluación.</p></div>
+  </div>
+
+  <div class="mermaid-wrap">
+    <pre class="mermaid">
+flowchart LR
+  subgraph Físico
+    M[Maleta] --> AR[Marcador AR]
+    AR --> XR[Escena XR]
+  end
+  subgraph Digital
+    XR --> R[Reto]
+    R --> C{Candado Escapify}
+    C -->|OK| P[Pasaporte]
+    C -->|Error| PI[Pista]
+    PI --> R
+  end
+    </pre>
+  </div>
+</section>
+
+<section class="wrap section" id="reglas">
+  <div class="section-head">
+    <div class="section-kicker">11 · Reglas del juego</div>
+    <h2>Normas claras para sostener la experiencia</h2>
+  </div>
+
+  <div class="panel">
+    <ul>
+      <li>El equipo debe restaurar el Archivo del Tiempo resolviendo los retos de cada época.</li>
+      <li>Cada reto superado desbloquea una nueva sección de la maleta o del mapa temporal.</li>
+      <li>Todas las decisiones deben tomarse en equipo.</li>
+      <li>Los roles son obligatorios y pueden rotar entre retos.</li>
+      <li>Solo se puede introducir una respuesta cuando el equipo haya llegado a un acuerdo.</li>
+      <li>Cada reto permite varios intentos, pero los errores activan feedback orientativo.</li>
+      <li>El equipo puede solicitar pistas, pero cada pista debe quedar registrada.</li>
+      <li>No se penaliza el error, siempre que se use para revisar la estrategia.</li>
+      <li>El objetivo no es terminar rápido, sino comprender, justificar y colaborar.</li>
+      <li>La misión finaliza cuando se restauran todas las épocas seleccionadas o cuando termina el tiempo establecido.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="wrap section" id="feedback">
+  <div class="section-head">
+    <div class="section-kicker">12 · Feedback</div>
+    <h2>Información útil para avanzar y aprender</h2>
+  </div>
+
+  <div class="grid-3">
+    <div class="card"><h3>Inmediato</h3><p>Se activa tras introducir una respuesta en el candado digital e indica si debe revisarse.</p></div>
+    <div class="card"><h3>Orientativo</h3><p>Cuando hay error, ofrece una pregunta guía, una pista visual o una recomendación de observación.</p></div>
+    <div class="card"><h3>Narrativo</h3><p>Al superar una época, la escena XR cambia y muestra que el Archivo se está restaurando.</p></div>
+    <div class="card"><h3>De progreso</h3><p>El pasaporte temporal, los sellos y el mapa muestran el avance del equipo.</p></div>
+    <div class="card"><h3>Metacognitivo</h3><p>Al finalizar, el alumnado reflexiona sobre estrategias, aprendizajes, dificultades y colaboración.</p></div>
+    <div class="card"><h3>Sobre la capa XR</h3><p>Valora si la XR ayuda a comprender, localizar pistas, interpretar evidencias y mantener la motivación.</p></div>
+  </div>
+</section>
+
+<section class="wrap section" id="ficha">
+  <div class="section-head">
+    <div class="section-kicker">13 · Ficha inmersiva</div>
+    <h2>Emociones, acciones y recompensas</h2>
+  </div>
+
+  <table class="table">
+    <tr><th>Elemento</th><th>Descripción</th></tr>
+    <tr><td>Nombre</td><td>La Maleta del Tiempo XR.</td></tr>
+    <tr><td>Tipo de experiencia</td><td>Serious Game educativo XR con realidad aumentada, escenas 360º y elementos físicos.</td></tr>
+    <tr><td>Objetivo pedagógico</td><td>Comprender relaciones históricas y desarrollar pensamiento crítico, colaboración y resolución de problemas.</td></tr>
+    <tr><td>Rol de la persona-aprendiz</td><td>Exploradora temporal y restauradora del Archivo del Tiempo.</td></tr>
+    <tr><td>Acciones principales</td><td>Explorar, observar, escanear, clasificar, relacionar, decidir, resolver, justificar y reflexionar.</td></tr>
+    <tr><td>Emociones buscadas</td><td>Curiosidad, asombro, agencia, reto, colaboración, satisfacción, empatía y logro.</td></tr>
+    <tr><td>Recompensas</td><td>Sellos en el pasaporte, desbloqueo de épocas, restauración visual de escenas, insignias de equipo y cierre narrativo.</td></tr>
+    <tr><td>Elementos XR</td><td>Marcadores AR, escenas 360º, objetos aumentados, mensajes holográficos y posibles entornos VR.</td></tr>
+    <tr><td>Accesibilidad</td><td>Instrucciones breves, apoyos visuales, lectura fácil, alternativas no inmersivas, pistas graduadas y roles cooperativos.</td></tr>
+  </table>
+</section>
+
+<section class="wrap section" id="xr">
+  <div class="section-head">
+    <div class="section-kicker">14 · Evaluación de la capa XR</div>
+    <h2>Valor pedagógico, interacción y usabilidad</h2>
+  </div>
+
+  <div class="panel">
+    <p>
+      Para responder a la evolución del proyecto y complementar el análisis del juego, se incorpora una evaluación específica de la capa XR. Esta evaluación busca comprobar si la tecnología inmersiva mejora realmente la experiencia de aprendizaje o si genera distracción, dificultad técnica o sobrecarga cognitiva.
+    </p>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Aspectos a evaluar</h3>
+      <ul>
+        <li>Si la capa XR ayuda a comprender mejor el contexto histórico.</li>
+        <li>Si facilita la observación de detalles no presentes en los materiales físicos.</li>
+        <li>Si aumenta la motivación y la curiosidad.</li>
+        <li>Si mejora la sensación de inmersión y presencia.</li>
+        <li>Si favorece la toma de decisiones.</li>
+        <li>Si la interacción con marcadores, escenas o recursos XR es clara y usable.</li>
+        <li>Si la tecnología genera barreras técnicas o cognitivas.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Instrumentos de recogida</h3>
+      <ul>
+        <li>Observación directa durante el juego.</li>
+        <li>Registro de incidencias técnicas.</li>
+        <li>Preguntas cualitativas al alumnado.</li>
+        <li>Preguntas cualitativas al docente o facilitador.</li>
+        <li>Escala breve de valoración de la experiencia XR.</li>
+        <li>Comparación entre retos con capa XR y retos sin capa XR.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="quote" style="margin-top:18px;">
+    <p>
+      Esta sección responde al comentario recibido en el Sprint 3, incorporando una mirada cualitativa sobre la interacción, la usabilidad y el valor pedagógico real de la tecnología inmersiva.
+    </p>
+  </div>
+</section>
+
+<section class="wrap section" id="playtest">
+  <div class="section-head">
+    <div class="section-kicker">15 · Playtest</div>
+    <h2>Plantilla para observar, ajustar e iterar</h2>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Datos generales</h3>
+      <ul>
+        <li>Nombre del prototipo.</li>
+        <li>Fecha del testeo.</li>
+        <li>Número de participantes.</li>
+        <li>Edad o nivel educativo.</li>
+        <li>Duración de la sesión.</li>
+        <li>Dispositivo utilizado: móvil, tablet, proyector, gafas VR u otro.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Aspectos a observar</h3>
+      <ul>
+        <li>Comprensión de la narrativa inicial.</li>
+        <li>Claridad de las instrucciones.</li>
+        <li>Nivel de dificultad de los retos.</li>
+        <li>Participación de todos los miembros del equipo.</li>
+        <li>Uso de roles cooperativos.</li>
+        <li>Comprensión de las escenas XR.</li>
+        <li>Calidad del feedback.</li>
+        <li>Valor pedagógico de la capa XR.</li>
+        <li>Usabilidad de los recursos XR.</li>
+        <li>Relación entre elementos físicos y digitales.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3>Preguntas para la persona-aprendiz</h3>
+    <ul>
+      <li>¿Qué parte te ha resultado más interesante?</li>
+      <li>¿Qué parte te ha costado más entender?</li>
+      <li>¿Has sentido que podías tomar decisiones?</li>
+      <li>¿Las pistas te han ayudado?</li>
+      <li>¿El entorno XR te ha ayudado a comprender mejor la época?</li>
+      <li>¿La parte XR te ha parecido fácil de usar?</li>
+      <li>¿La tecnología te ha ayudado a resolver el reto o te ha distraído?</li>
+      <li>¿Qué cambiarías para que el juego fuera más claro?</li>
+      <li>¿Qué has aprendido durante la misión?</li>
+    </ul>
+  </div>
+</section>
+
+<section class="wrap section" id="evaluacion">
+  <div class="section-head">
+    <div class="section-kicker">16 · Evaluación del aprendizaje</div>
+    <h2>Evidencias de desempeño durante el juego</h2>
+  </div>
+
+  <div class="panel">
+    <ul>
+      <li>Relaciona objetos, inventos o acontecimientos con su época correspondiente.</li>
+      <li>Justifica decisiones utilizando evidencias.</li>
+      <li>Participa en la resolución de retos.</li>
+      <li>Escucha y aporta ideas al equipo.</li>
+      <li>Utiliza estrategias de pensamiento crítico.</li>
+      <li>Interpreta correctamente pistas visuales y narrativas.</li>
+      <li>Gestiona el error como parte del proceso.</li>
+      <li>Comprende la conexión entre las épocas trabajadas.</li>
+      <li>Utiliza la capa XR como fuente de información y no solo como elemento visual.</li>
+      <li>Reflexiona sobre cómo ha aprendido y cómo ha colaborado.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="wrap section" id="rubrica">
+  <div class="section-head">
+    <div class="section-kicker">17 · Rúbrica</div>
+    <h2>Criterios de evaluación de la experiencia</h2>
+  </div>
+
+  <table class="table">
+    <tr>
+      <th>Criterio</th>
+      <th>Nivel alto</th>
+      <th>Nivel medio</th>
+      <th>Nivel bajo</th>
+    </tr>
+    <tr>
+      <td>Comprensión histórica</td>
+      <td>Relaciona correctamente épocas, objetos y acontecimientos, justificando sus decisiones.</td>
+      <td>Establece relaciones básicas, aunque necesita alguna pista.</td>
+      <td>Presenta dificultades para relacionar los elementos con su contexto.</td>
+    </tr>
+    <tr>
+      <td>Resolución de problemas</td>
+      <td>Analiza evidencias, formula hipótesis y revisa estrategias.</td>
+      <td>Resuelve los retos con apoyo parcial.</td>
+      <td>Necesita ayuda constante para avanzar.</td>
+    </tr>
+    <tr>
+      <td>Colaboración</td>
+      <td>Participa, escucha, respeta roles y ayuda al equipo.</td>
+      <td>Participa de forma irregular.</td>
+      <td>Apenas colabora o interrumpe la dinámica grupal.</td>
+    </tr>
+    <tr>
+      <td>Uso de la experiencia XR</td>
+      <td>Utiliza la escena inmersiva para observar, analizar y tomar decisiones.</td>
+      <td>Explora la escena, pero necesita guía para interpretar la información.</td>
+      <td>Se centra en lo visual sin conectar la experiencia con el reto.</td>
+    </tr>
+    <tr>
+      <td>Usabilidad e interacción XR</td>
+      <td>Comprende cómo interactuar con los recursos XR y los utiliza de manera autónoma.</td>
+      <td>Necesita alguna orientación para escanear, navegar o interpretar la información.</td>
+      <td>Presenta dificultades frecuentes para usar la capa XR o entender su función.</td>
+    </tr>
+    <tr>
+      <td>Reflexión final</td>
+      <td>Identifica qué ha aprendido, qué estrategias ha usado, cómo ha colaborado y qué valor ha tenido la capa XR.</td>
+      <td>Responde de forma general, aunque reconoce algunos aprendizajes.</td>
+      <td>Tiene dificultad para explicar el proceso vivido.</td>
+    </tr>
+  </table>
+</section>
+
+<section class="wrap section" id="accesibilidad">
+  <div class="section-head">
+    <div class="section-kicker">18 · Accesibilidad e inclusión</div>
+    <h2>Diseño inclusivo desde el inicio</h2>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Apoyos cognitivos y comunicativos</h3>
+      <ul>
+        <li>Instrucciones breves y visuales.</li>
+        <li>Lectura fácil en las cartas de reto.</li>
+        <li>Pictogramas y códigos visuales.</li>
+        <li>Información redundante por texto, imagen y audio.</li>
+        <li>Pistas graduadas.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Adaptaciones técnicas y sensoriales</h3>
+      <ul>
+        <li>Alternativa no inmersiva para quienes no puedan usar VR.</li>
+        <li>Escenas cortas para evitar fatiga.</li>
+        <li>Ausencia de movimientos bruscos.</li>
+        <li>No depender solo del color para resolver retos.</li>
+        <li>Modo bajo estímulo.</li>
+        <li>Opción de sustituir gafas VR por tablet, móvil o proyección compartida.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="wrap section" id="comentarios">
+  <div class="section-head">
+    <div class="section-kicker">19 · Evolución del proyecto</div>
+    <h2>Adecuación a los comentarios recibidos</h2>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <h3>Sprint 1</h3>
+      <p>
+        Se valoró el uso del escape room para motivar perfiles socializadores y fomentar el trabajo en equipo. En esta versión final se concreta la duración de la experiencia en 60 minutos, adaptable a 45, 75 o 90 minutos.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Sprint 2</h3>
+      <p>
+        Se destacó la justificación tecnológica, la adaptabilidad y el carácter inclusivo del proyecto. Estos aspectos se mantienen y se refuerzan mediante una propuesta escalable y accesible.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Sprint 3</h3>
+      <p>
+        Se propuso complementar el proyecto evaluando el valor de la capa XR y analizando interacción y usabilidad. Por ello, se incorporan preguntas cualitativas, indicadores de usabilidad y rúbrica ampliada.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap section" id="cierre">
+  <div class="section-head">
+    <div class="section-kicker">20 · Conclusión</div>
+    <h2>Una experiencia inmersiva, accesible y pedagógicamente justificada</h2>
+  </div>
+
+  <div class="panel">
+    <p>
+      <strong>La Maleta del Tiempo XR</strong> es una propuesta de Serious Game inmersivo que integra los contenidos trabajados en la asignatura: aprendizaje basado en juego, gamificación, Game Thinking, Serious Games, XR, accesibilidad, feedback, playtest y diseño centrado en la persona-aprendiz.
+    </p>
+    <p>
+      El proyecto mantiene continuidad con <strong>Escapify.io</strong> y <strong>La Maleta del Tiempo</strong>, pero evoluciona hacia una experiencia más inmersiva, emocional y pedagógicamente estructurada. La tecnología XR no se utiliza como un añadido superficial, sino como una herramienta para favorecer la exploración, la presencia, la memoria, la empatía histórica y la resolución colaborativa de problemas.
+    </p>
+    <p>
+      En definitiva, <strong>La Maleta del Tiempo XR</strong> busca que aprender historia no sea solo recordar datos, sino vivir una misión, tomar decisiones, resolver retos y comprender cómo cada época forma parte de una misma construcción colectiva del conocimiento.
+    </p>
+  </div>
+
+  <div class="panel dark">
+    <p>
+      La versión final del proyecto responde a los comentarios recibidos durante los sprints y refuerza tres aspectos clave: la concreción de la duración de juego, la evaluación del valor pedagógico de la capa XR y el análisis cualitativo de la interacción y usabilidad de la tecnología inmersiva.
+    </p>
+  </div>
+</section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="footer">
+        Entrega final · Playful Learning · <a href="https://archivotiempo.github.io/" target="_blank" rel="noopener noreferrer">La Maleta del Tiempo XR</a> · <a href="https://escapify.io" target="_blank" rel="noopener noreferrer">Escapify.io</a>
+      </p>
+    </div>
+  </footer>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+  <script>
+    window.addEventListener('load', function () {
+      if (window.mermaid) {
+        window.mermaid.initialize({
+          startOnLoad: true,
+          theme: 'base',
+          themeVariables: {
+            primaryColor: '#fffbeb',
+            primaryTextColor: '#0f172a',
+            primaryBorderColor: '#fde68a',
+            lineColor: '#d97706',
+            secondaryColor: '#f8fafc',
+            tertiaryColor: '#e2e8f0',
+            fontSize: '14px'
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
