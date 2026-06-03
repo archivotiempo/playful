@@ -510,6 +510,87 @@
       margin-bottom:12px;
     }
 
+    .gt-phases{
+      display:grid;
+      gap:16px;
+      margin-bottom:22px;
+    }
+
+    .gt-phase{
+      background:var(--paper);
+      border:1.5px solid var(--border);
+      border-left:4px solid var(--amber-accent);
+      border-radius:16px;
+      padding:22px 24px;
+      box-shadow:var(--shadow);
+    }
+
+    .gt-phase:nth-child(2){border-left-color:var(--amber)}
+    .gt-phase:nth-child(3){border-left-color:var(--blue)}
+    .gt-phase:nth-child(4){border-left-color:var(--ok)}
+
+    .gt-phase__title{
+      margin:0 0 14px;
+      font-size:15px;
+      font-weight:800;
+      color:var(--amber-dark);
+      letter-spacing:.02em;
+    }
+
+    .gt-phase__title span{
+      display:block;
+      font-size:11px;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:var(--amber-accent);
+      margin-bottom:4px;
+    }
+
+    .gt-phase dl{
+      margin:0;
+      display:grid;
+      gap:12px;
+    }
+
+    .gt-phase dt{
+      font-size:12px;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+      color:var(--ink);
+      margin:0;
+    }
+
+    .gt-phase dd{
+      margin:4px 0 0;
+      font-size:15px;
+      color:var(--muted);
+      line-height:1.65;
+    }
+
+    .gt-phase p{
+      margin:0;
+      font-size:15px;
+      color:var(--muted);
+      line-height:1.65;
+    }
+
+    .gt-phase__links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:14px;
+    }
+
+    .gt-phase__links a{
+      font-size:12px;
+      font-weight:700;
+      color:var(--amber);
+      text-decoration:underline;
+      text-underline-offset:2px;
+    }
+
     ul{
       margin:0;
       padding-left:22px;
@@ -1542,39 +1623,77 @@ flowchart TD
     <div class="section-kicker">04 · Game Thinking</div>
     <h2>Fases aplicadas al proyecto</h2>
   </div>
+  <p class="viz-lede">Síntesis del proceso de diseño: de la competencia y el enfoque GALP al dossier profesional y la capa XR.</p>
 
-  <div class="grid-4">
-    <div class="card">
-      <span class="number">1</span>
-      <h3>Objetivos y persona-aprendiz</h3>
-      <p>
-        Se define qué se quiere aprender y quién va a vivir la experiencia. La competencia principal es comprender procesos históricos y resolver retos de forma colaborativa.
-      </p>
-    </div>
+  <div class="gt-phases" aria-label="Cuatro fases del Game Thinking">
+    <article class="gt-phase" id="thinking-fase-1">
+      <h3 class="gt-phase__title"><span>Fase 1</span> Competencia, perfil y enfoque GALP</h3>
+      <dl>
+        <div>
+          <dt>Competencia</dt>
+          <dd>Comprensión de procesos históricos, pensamiento crítico, colaboración y toma de decisiones a partir de evidencias.</dd>
+        </div>
+        <div>
+          <dt>Perfil</dt>
+          <dd>Alumnado de Secundaria, Bachillerato o formación docente, con distintos niveles de competencia digital, comprensión lectora, autonomía y necesidades de apoyo.</dd>
+        </div>
+        <div>
+          <dt>GALP</dt>
+          <dd>Motivación intrínseca mediante narrativa de misión; seguridad emocional mediante pistas graduadas y error no penalizado; feedback inmediato mediante candados digitales, pasaporte temporal y restauración progresiva del Archivo del Tiempo.</dd>
+        </div>
+      </dl>
+    </article>
 
-    <div class="card">
-      <span class="number">2</span>
-      <h3>Mecánicas e inmersión</h3>
-      <p>
-        Se diseñan acciones, retos, niveles, dinámicas, feedbacks e inmersión narrativa, sensorial, social, cognitiva y emocional.
-      </p>
-    </div>
+    <article class="gt-phase" id="thinking-fase-2">
+      <h3 class="gt-phase__title"><span>Fase 2</span> Mecánicas, narrativa e inmersión</h3>
+      <dl>
+        <div>
+          <dt>Mecánicas</dt>
+          <dd>Exploración XR, análisis de evidencias, elección de rutas, resolución de enigmas, priorización de pistas, desbloqueo de candados y toma de decisiones en equipo.</dd>
+        </div>
+        <div>
+          <dt>Narrativa</dt>
+          <dd>El Archivo del Tiempo ha sido alterado y el alumnado debe restaurar la línea temporal viajando por distintas épocas históricas.</dd>
+        </div>
+        <div>
+          <dt>Inmersión</dt>
+          <dd>Sensorial, narrativa, cognitiva, social y emocional.</dd>
+        </div>
+      </dl>
+      <div class="gt-phase__links">
+        <a href="#interacciones">Mapa de interacciones</a>
+        <a href="#narrativa">Narrativa y roles</a>
+        <a href="#elementos">Elementos del juego</a>
+      </div>
+    </article>
 
-    <div class="card">
-      <span class="number">3</span>
-      <h3>Prototipo no técnico</h3>
+    <article class="gt-phase" id="thinking-fase-3">
+      <h3 class="gt-phase__title"><span>Fase 3</span> Storyboard</h3>
       <p>
-        Se plantea una versión con maleta física, tarjetas impresas, códigos QR, escenas 360º, candados digitales y marcadores AR sencillos.
+        La experiencia se representa mediante <strong>ocho viñetas</strong> que muestran la progresión completa: llegada de la maleta, activación del pasaporte, entrada al portal XR, exploración, resolución del reto, feedback, decisión de ruta y cierre reflexivo.
       </p>
-    </div>
+      <div class="gt-phase__links">
+        <a href="#storyboard">Ver storyboard</a>
+      </div>
+    </article>
 
-    <div class="card">
-      <span class="number">4</span>
-      <h3>Versión final GALP</h3>
+    <article class="gt-phase" id="thinking-fase-4">
+      <h3 class="gt-phase__title"><span>Fase 4</span> Prototipo y documentación</h3>
       <p>
-        Se ajusta el diseño tras el playtest y se justifica la experiencia desde la accesibilidad, la agencia, el feedback y el valor real de XR.
+        El proyecto se documenta como <strong>dossier profesional</strong> e incluye prototipo no técnico, mapa de flujo, reglas, sistema de feedback, ficha inmersiva, plantilla de playtest, evaluación del aprendizaje, rúbrica, accesibilidad y análisis del valor pedagógico de la capa XR.
       </p>
-    </div>
+      <div class="gt-phase__links">
+        <a href="#flujo">Mapa de flujo</a>
+        <a href="#reglas">Reglas</a>
+        <a href="#feedback">Feedback</a>
+        <a href="#ficha">Ficha inmersiva</a>
+        <a href="#playtest">Playtest</a>
+        <a href="#evaluacion">Evaluación</a>
+        <a href="#rubrica">Rúbrica</a>
+        <a href="#accesibilidad">Accesibilidad</a>
+        <a href="#xr">Valor pedagógico XR</a>
+      </div>
+    </article>
   </div>
 
   <div class="grid" style="margin-top:16px;">
